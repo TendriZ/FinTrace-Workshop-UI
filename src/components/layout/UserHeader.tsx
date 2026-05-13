@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { WalletIcon, DollarSign, ClipboardList, Target, BarChart2, BookOpen, Store } from 'lucide-react';
+import { LucideIcon, WalletIcon, DollarSign, ClipboardList, Target, BarChart2, BookOpen, Store } from 'lucide-react';
 
-const NavIcon = ({ icon: Icon, to, title }: { icon: any; to: string; title: string }) => (
-  <Link to={to} className="flex flex-col items-center group">
+const NavIcon = ({ icon: Icon, to, title }: { icon: LucideIcon; to: string; title: string }) => (
+  <Link to={to} className="flex flex-col items-center group" title={title} aria-label={title}>
     <Icon className="w-5 h-5 text-slate-500 group-hover:text-purple-600 transition-colors" />
   </Link>
 );

@@ -7,6 +7,9 @@ import { ArticleDetailPage } from './pages/public/ArticleDetailPage';
 import { ProductsPage } from './pages/public/ProductsPage';
 import { ProductDetailPage } from './pages/public/ProductDetailPage';
 
+import { LoginPage } from './pages/auth/LoginPage';
+import { RegisterPage } from './pages/auth/RegisterPage';
+
 import { CartPage } from './pages/payment/CartPage';
 import { CheckoutPage } from './pages/payment/CheckoutPage';
 
@@ -30,6 +33,8 @@ export const router = createBrowserRouter([
       { path: '/courses', element: <ProductsPage /> },
       { path: '/courses/:slug', element: <ProductDetailPage /> },
       { path: '/cart', element: <CartPage /> },
+      { path: '/login', element: <LoginPage /> },
+      { path: '/register', element: <RegisterPage /> },
       
       // Payment
       { path: '/checkout', element: <CheckoutPage /> },
