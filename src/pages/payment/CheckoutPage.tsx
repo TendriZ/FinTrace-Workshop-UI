@@ -1,0 +1,236 @@
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '../../components/ui/Button';
+import { Card } from '../../components/ui/Card';
+import { Input } from '../../components/ui/Input';
+import {
+  CreditCardIcon,
+  WalletIcon,
+  BuildingIcon,
+  CheckCircleIcon } from
+'lucide-react';
+export function CheckoutPage() {
+  const navigate = useNavigate();
+  const [paymentMethod, setPaymentMethod] = useState('credit-card');
+  const [processing, setProcessing] = useState(false);
+  const orderSummary = {
+    items: [
+    {
+      title: 'Personal Finance Mastery',
+      price: 299000
+    },
+    {
+      title: 'Investasi Saham untuk Pemula',
+      price: 399000
+    }],
+
+    subtotal: 698000,
+    tax: 76780,
+    total: 774780
+  };
+  const handlePayment = () => {
+    setProcessing(true);
+    setTimeout(() => {
+      navigate('/transaction-history');
+    }, 2000);
+  };
+  return (
+    <div className="min-h-screen">
+      <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
+        <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8">
+          <span className="gradient-text">Payment</span> Checkout
+        </h1>
+
+        <div className="grid lg:grid-cols-3 gap-8">
+          {/* Payment Form */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Payment Method Selection */}
+            <Card className="p-6">
+              <h2 className="text-xl font-bold text-slate-900 mb-6">
+                Metode Pembayaran
+              </h2>
+
+              <div className="space-y-3">
+                <button
+                  onClick={() => setPaymentMethod('credit-card')}
+                  className={`w-full p-4 rounded-2xl border-2 transition-all flex items-center gap-4 ${paymentMethod === 'credit-card' ? 'border-purple-500 bg-purple-50' : 'border-slate-200 hover:border-slate-300'}`}>
+                  
+                  <CreditCardIcon className="w-6 h-6 text-slate-600" />
+                  <div className="text-left">
+                    <div className="font-semibold text-slate-900">
+                      Kartu Kredit/Debit
+                    </div>
+                    <div className="text-sm text-slate-600">
+                      Visa, Mastercard, JCB
+                    </div>
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => setPaymentMethod('e-wallet')}
+                  className={`w-full p-4 rounded-2xl border-2 transition-all flex items-center gap-4 ${paymentMethod === 'e-wallet' ? 'border-purple-500 bg-purple-50' : 'border-slate-200 hover:border-slate-300'}`}>
+                  
+                  <WalletIcon className="w-6 h-6 text-slate-600" />
+                  <div className="text-left">
+                    <div className="font-semibold text-slate-900">E-Wallet</div>
+                    <div className="text-sm text-slate-600">
+                      GoPay, OVO, DANA, ShopeePay
+                    </div>
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => setPaymentMethod('bank-transfer')}
+                  className={`w-full p-4 rounded-2xl border-2 transition-all flex items-center gap-4 ${paymentMethod === 'bank-transfer' ? 'border-purple-500 bg-purple-50' : 'border-slate-200 hover:border-slate-300'}`}>
+                  
+                  <BuildingIcon className="w-6 h-6 text-slate-600" />
+                  <div className="text-left">
+                    <div className="font-semibold text-slate-900">
+                      Transfer Bank
+                    </div>
+                    <div className="text-sm text-slate-600">
+                      BCA, Mandiri, BNI, BRI
+                    </div>
+                  </div>
+                </button>
+              </div>
+            </Card>
+
+            {/* Payment Details */}
+            {paymentMethod === 'credit-card' &&
+            <Card className="p-6">
+                <h2 className="text-xl font-bold text-slate-900 mb-6">
+                  Detail Kartu
+                </h2>
+                <div className="space-y-4">
+                  <Input
+                  label="Nomor Kartu"
+                  placeholder="1234 5678 9012 3456"
+                  required />
+                
+                  <Input
+                  label="Nama Pemegang Kartu"
+                  placeholder="JOHN DOE"
+                  required />
+                
+                  <div className="grid grid-cols-2 gap-4">
+                    <Input
+                    label="Tanggal Kadaluarsa"
+                    placeholder="MM/YY"
+                    required />
+                  
+                    <Input label="CVV" placeholder="123" required />
+                  </div>
+                </div>
+              </Card>
+            }
+
+            {paymentMethod === 'e-wallet' &&
+            <Card className="p-6">
+                <h2 className="text-xl font-bold text-slate-900 mb-6">
+                  Pilih E-Wallet
+                </h2>
+                <div className="grid grid-cols-2 gap-4">
+                  {['GoPay', 'OVO', 'DANA', 'ShopeePay'].map((wallet) =>
+                <button
+                  key={wallet}
+                  className="p-4 border-2 border-slate-200 rounded-2xl hover:border-purple-500 hover:bg-purple-50 transition-all">
+                  
+                      <div className="font-semibold text-slate-900">
+                        {wallet}
+                      </div>
+                    </button>
+                )}
+                </div>
+              </Card>
+            }
+
+            {paymentMethod === 'bank-transfer' &&
+            <Card className="p-6">
+                <h2 className="text-xl font-bold text-slate-900 mb-6">
+                  Pilih Bank
+                </h2>
+                <div className="grid grid-cols-2 gap-4">
+                  {['BCA', 'Mandiri', 'BNI', 'BRI'].map((bank) =>
+                <button
+                  key={bank}
+                  className="p-4 border-2 border-slate-200 rounded-2xl hover:border-purple-500 hover:bg-purple-50 transition-all">
+                  
+                      <div className="font-semibold text-slate-900">{bank}</div>
+                    </button>
+                )}
+                </div>
+              </Card>
+            }
+          </div>
+
+          {/* Order Summary */}
+          <div className="lg:col-span-1">
+            <Card className="p-6 sticky top-24">
+              <h2 className="text-xl font-bold text-slate-900 mb-6">
+                Ringkasan Pesanan
+              </h2>
+
+              <div className="space-y-3 mb-6">
+                {orderSummary.items.map((item, index) =>
+                <div
+                  key={index}
+                  className="flex items-start justify-between text-sm">
+                  
+                    <span className="text-slate-600 flex-1">{item.title}</span>
+                    <span className="font-medium text-slate-900 ml-2">
+                      Rp {item.price.toLocaleString('id-ID')}
+                    </span>
+                  </div>
+                )}
+
+                <div className="border-t border-slate-200 pt-3 space-y-2">
+                  <div className="flex items-center justify-between text-slate-600">
+                    <span>Subtotal</span>
+                    <span>
+                      Rp {orderSummary.subtotal.toLocaleString('id-ID')}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between text-slate-600">
+                    <span>PPN (11%)</span>
+                    <span>Rp {orderSummary.tax.toLocaleString('id-ID')}</span>
+                  </div>
+                </div>
+
+                <div className="border-t border-slate-200 pt-3 flex items-center justify-between">
+                  <span className="text-lg font-bold text-slate-900">
+                    Total
+                  </span>
+                  <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
+                    Rp {orderSummary.total.toLocaleString('id-ID')}
+                  </span>
+                </div>
+              </div>
+
+              <Button
+                className="w-full"
+                size="lg"
+                onClick={handlePayment}
+                disabled={processing}>
+                
+                {processing ?
+                <span className="flex items-center gap-2">
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Memproses...
+                  </span> :
+
+                'Bayar Sekarang'
+                }
+              </Button>
+
+              <div className="mt-4 flex items-center gap-2 text-sm text-slate-600">
+                <CheckCircleIcon className="w-4 h-4 text-emerald-500" />
+                <span>Pembayaran aman dan terenkripsi</span>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </div>);
+
+}

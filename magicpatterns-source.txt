@@ -1,0 +1,3382 @@
+```index.tsx
+import './index.css'
+import React from "react";
+import { render } from "react-dom";
+import { App } from "./App";
+
+render(<App />, document.getElementById("root"));
+
+```
+```App.tsx
+import React from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Header } from './components/Header'
+import { LandingPage } from './pages/LandingPage'
+import { ArticleArchive } from './pages/ArticleArchive'
+import { ArticleDetail } from './pages/ArticleDetail'
+import { ProductCatalog } from './pages/ProductCatalog'
+import { ProductDetail } from './pages/ProductDetail'
+import { Cart } from './pages/Cart'
+import { Payment } from './pages/Payment'
+import { TransactionHistory } from './pages/TransactionHistory'
+import { Dashboard } from './pages/Dashboard'
+import { ManageArticles } from './pages/admin/ManageArticles'
+import { ManageProducts } from './pages/admin/ManageProducts'
+import { ManageUsers } from './pages/admin/ManageUsers'
+import { ManageTransactions } from './pages/admin/ManageTransactions'
+export function App() {
+  return (
+    <BrowserRouter>
+      <div className="min-h-screen bg-white">
+        <Header />
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/articles" element={<ArticleArchive />} />
+          <Route path="/articles/:id" element={<ArticleDetail />} />
+          <Route path="/products" element={<ProductCatalog />} />
+          <Route path="/products/:id" element={<ProductDetail />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/payment" element={<Payment />} />
+          <Route path="/transaction-history" element={<TransactionHistory />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/admin/articles" element={<ManageArticles />} />
+          <Route path="/admin/products" element={<ManageProducts />} />
+          <Route path="/admin/users" element={<ManageUsers />} />
+          <Route path="/admin/transactions" element={<ManageTransactions />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
+  )
+}
+
+```
+```tailwind.config.js
+export default {}
+```
+```index.css
+/* URL IMPORTS (SUCH AS FONT IMPORTS) SHOULD BE KEPT ABOVE TAILWIND IMPORTS - DO NOT DELETE THIS COMMENT */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* PLEASE NOTE: THESE TAILWIND IMPORTS SHOULD NEVER BE DELETED - DO NOT DELETE THIS COMMENT */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+/* DO NOT DELETE THESE TAILWIND IMPORTS, OTHERWISE THE STYLING WILL NOT RENDER AT ALL - DO NOT DELETE THIS COMMENT */
+
+:root {
+  --color-primary: #6366f1;
+  --color-primary-dark: #4f46e5;
+  --color-secondary: #8b5cf6;
+  --color-accent: #06b6d4;
+  --max-width: 1280px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #e0f2fe 0%, #fae8ff 50%, #fce7f3 100%);
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Gradient text utility */
+.gradient-text {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Max width container for 1280px Figma export */
+.container-1280 {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+/* Smooth transitions */
+* {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+```
+```components/Button.tsx
+import React from 'react'
+interface ButtonProps {
+  children: React.ReactNode
+  variant?: 'primary' | 'secondary' | 'outline' | 'white'
+  size?: 'sm' | 'md' | 'lg'
+  onClick?: () => void
+  type?: 'button' | 'submit' | 'reset'
+  disabled?: boolean
+  className?: string
+}
+export function Button({
+  children,
+  variant = 'primary',
+  size = 'md',
+  onClick,
+  type = 'button',
+  disabled = false,
+  className = '',
+}: ButtonProps) {
+  const baseStyles =
+    'font-medium rounded-full transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105 active:scale-95'
+  const variants = {
+    primary:
+      'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40',
+    secondary:
+      'bg-cyan-500 text-white shadow-lg shadow-cyan-500/30 hover:bg-cyan-600 hover:shadow-xl hover:shadow-cyan-500/40',
+    outline: 'border-2 border-indigo-500 text-indigo-600 hover:bg-indigo-50',
+    white: 'bg-white text-purple-600 shadow-lg hover:shadow-xl',
+  }
+  const sizes = {
+    sm: 'px-4 py-2 text-sm',
+    md: 'px-6 py-2.5 text-base',
+    lg: 'px-8 py-3.5 text-lg',
+  }
+  return (
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`}
+    >
+      {children}
+    </button>
+  )
+}
+
+```
+```components/Card.tsx
+import React from 'react'
+interface CardProps {
+  children: React.ReactNode
+  className?: string
+  hover?: boolean
+  onClick?: () => void
+}
+export function Card({
+  children,
+  className = '',
+  hover = false,
+  onClick,
+}: CardProps) {
+  return (
+    <div
+      onClick={onClick}
+      className={`bg-white/90 backdrop-blur-sm rounded-2xl border border-slate-200/50 shadow-sm ${hover ? 'hover:shadow-xl hover:shadow-purple-500/10 hover:-translate-y-1 transition-all duration-300 cursor-pointer' : ''} ${className}`}
+    >
+      {children}
+    </div>
+  )
+}
+
+```
+```components/Input.tsx
+import React from 'react'
+interface InputProps {
+  label?: string
+  type?: string
+  placeholder?: string
+  value?: string
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+  required?: boolean
+  className?: string
+}
+export function Input({
+  label,
+  type = 'text',
+  placeholder,
+  value,
+  onChange,
+  required = false,
+  className = '',
+}: InputProps) {
+  return (
+    <div className={`flex flex-col gap-2 ${className}`}>
+      {label && (
+        <label className="text-sm font-medium text-slate-700">
+          {label} {required && <span className="text-red-500">*</span>}
+        </label>
+      )}
+      <input
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        required={required}
+        className="px-4 py-2.5 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
+      />
+    </div>
+  )
+}
+
+```
+```components/Header.tsx
+import React from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { WalletIcon } from 'lucide-react'
+export function Header() {
+  const location = useLocation()
+  const isActive = (path: string) => location.pathname === path
+  return (
+    <header className="bg-white/80 backdrop-blur-md border-b border-slate-200/50 sticky top-0 z-50">
+      <div className="container-1280 px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-2 group">
+            <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-xl flex items-center justify-center transform group-hover:scale-105 transition-transform">
+              <WalletIcon className="w-6 h-6 text-white" />
+            </div>
+            <span className="text-xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+              FinTrace
+            </span>
+          </Link>
+
+          {/* Navigation */}
+          <nav className="hidden md:flex items-center gap-8">
+            <Link
+              to="/"
+              className={`text-sm font-medium transition-colors ${isActive('/') ? 'text-indigo-600' : 'text-slate-600 hover:text-slate-900'}`}
+            >
+              Home
+            </Link>
+            <Link
+              to="/articles"
+              className={`text-sm font-medium transition-colors ${isActive('/articles') ? 'text-indigo-600' : 'text-slate-600 hover:text-slate-900'}`}
+            >
+              Articles
+            </Link>
+            <Link
+              to="/products"
+              className={`text-sm font-medium transition-colors ${isActive('/products') ? 'text-indigo-600' : 'text-slate-600 hover:text-slate-900'}`}
+            >
+              Courses
+            </Link>
+            <Link
+              to="/dashboard"
+              className={`text-sm font-medium transition-colors ${isActive('/dashboard') ? 'text-indigo-600' : 'text-slate-600 hover:text-slate-900'}`}
+            >
+              Dashboard
+            </Link>
+          </nav>
+
+          {/* CTA Button */}
+          <Link to="/dashboard">
+            <button className="bg-cyan-500 hover:bg-cyan-600 text-white px-6 py-2 rounded-full text-sm font-medium flex items-center gap-2 shadow-lg shadow-cyan-500/30 transform hover:scale-105 transition-all">
+              Get Started
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M6 12L10 8L6 4"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          </Link>
+        </div>
+      </div>
+    </header>
+  )
+}
+
+```
+```pages/LandingPage.tsx
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { Button } from '../components/Button'
+import { Card } from '../components/Card'
+import {
+  WalletIcon,
+  TrendingUpIcon,
+  BellIcon,
+  TargetIcon,
+  LinkIcon,
+  BarChart3Icon,
+  UsersIcon,
+  StarIcon,
+} from 'lucide-react'
+export function LandingPage() {
+  const stats = [
+    {
+      icon: '👥',
+      value: '100K+',
+      label: 'Active Users',
+    },
+    {
+      icon: '💰',
+      value: '1M+',
+      label: 'Transaction Tracked',
+    },
+    {
+      icon: '🏦',
+      value: '15+',
+      label: 'Supported Platforms',
+    },
+    {
+      icon: '⭐',
+      value: '5.0',
+      label: 'Users Rating',
+    },
+  ]
+  const features = [
+    {
+      icon: LinkIcon,
+      title: 'Multi Platform Integration',
+      description:
+        'Connect all your e-wallet and banking accounts automatically. No more manual input for digital transactions.',
+      color: 'from-cyan-500 to-blue-500',
+    },
+    {
+      icon: BarChart3Icon,
+      title: 'Smart Analytics',
+      description:
+        'Track your income and spending patterns with beautiful charts and comprehensive reports.',
+      color: 'from-purple-500 to-pink-500',
+    },
+    {
+      icon: TargetIcon,
+      title: 'Budget Planning',
+      description:
+        "Set spending limits for different expense categories and get notifications when you're close to your limit.",
+      color: 'from-rose-500 to-orange-500',
+    },
+    {
+      icon: WalletIcon,
+      title: 'Manual Cash Entry',
+      description:
+        'Easily log your cash transactions manually to get a complete picture of your finances.',
+      color: 'from-amber-500 to-yellow-500',
+    },
+    {
+      icon: BellIcon,
+      title: 'Smart Notifications',
+      description:
+        'Get real-time alerts for every transaction, unusual spending, and budget reminders.',
+      color: 'from-green-500 to-emerald-500',
+    },
+    {
+      icon: TrendingUpIcon,
+      title: 'Financial Goals',
+      description:
+        'Set and track your savings goals with intelligent notifications and achievement tracking.',
+      color: 'from-indigo-500 to-purple-500',
+    },
+  ]
+  const articles = [
+    {
+      image:
+        'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=400&h=300&fit=crop',
+      title: '5 Simple Way to Save Money Every Month',
+      description:
+        'Discover practical strategies to cut expenses and increase your savings without sacrificing your lifestyle.',
+      link: '/articles/1',
+    },
+    {
+      image:
+        'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=300&fit=crop',
+      title: 'Understanding E-Wallet Security',
+      description:
+        'Essential tips to keep your digital money safe from fraud and unauthorized access.',
+      link: '/articles/2',
+    },
+    {
+      image:
+        'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&h=300&fit=crop',
+      title: 'Investment Basics for Young Professionals',
+      description:
+        'Start your investment journey with these beginner-friendly tips and strategies.',
+      link: '/articles/3',
+    },
+  ]
+  return (
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden">
+        <div className="container-1280 px-4 sm:px-6 lg:px-8 pt-20 pb-24">
+          <div className="text-center max-w-4xl mx-auto">
+            <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6 leading-tight">
+              Track Every Transaction
+              <br />
+              <span className="gradient-text">Master Your Finance</span>
+            </h1>
+            <p className="text-lg md:text-xl text-slate-600 mb-8 leading-relaxed max-w-2xl mx-auto">
+              Automatically track all your e-wallet and banking transactions in
+              one place. Get insights, learn financial literacy, and take
+              control of your money.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+              <Link to="/dashboard">
+                <Button size="lg">Start Tracking Free</Button>
+              </Link>
+              <Button variant="outline" size="lg">
+                Watch Demo
+              </Button>
+            </div>
+            <p className="text-sm text-slate-500">
+              Integrated with leading financial platforms
+            </p>
+          </div>
+
+          {/* Platform Logos */}
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-6 max-w-4xl mx-auto">
+            <div className="w-20 h-20 bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg flex items-center justify-center">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg"
+                alt="GoPay"
+                className="w-12 h-12 object-contain"
+              />
+            </div>
+            <div className="w-20 h-20 bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg flex items-center justify-center">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/e/eb/Logo_ovo_purple.svg"
+                alt="OVO"
+                className="w-12 h-12 object-contain"
+              />
+            </div>
+            <div className="w-20 h-20 bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg flex items-center justify-center">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg"
+                alt="DANA"
+                className="w-12 h-12 object-contain"
+              />
+            </div>
+            <div className="w-20 h-20 bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg flex items-center justify-center">
+              <span className="text-2xl font-bold text-orange-500">S Pay</span>
+            </div>
+            <div className="w-20 h-20 bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg flex items-center justify-center">
+              <span className="text-xl font-bold text-red-600">LinkAja</span>
+            </div>
+            <div className="w-20 h-20 bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg flex items-center justify-center">
+              <span className="text-xl font-bold text-blue-700">BRI</span>
+            </div>
+            <div className="w-20 h-20 bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg flex items-center justify-center">
+              <span className="text-xl font-bold text-yellow-600">Livin'</span>
+            </div>
+            <div className="w-20 h-20 bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg flex items-center justify-center">
+              <span className="text-xl font-bold text-blue-600">BCA</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          {stats.map((stat, index) => (
+            <Card key={index} className="p-6 text-center">
+              <div className="text-4xl mb-2">{stat.icon}</div>
+              <div className="text-3xl font-bold text-slate-900 mb-1">
+                {stat.value}
+              </div>
+              <div className="text-sm text-slate-600">{stat.label}</div>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      {/* Articles Section */}
+      <section className="container-1280 px-4 sm:px-6 lg:px-8 py-20">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+            Financial Tips & Insights
+          </h2>
+          <p className="text-lg text-slate-600">
+            Learn from expert advice and improve your financial literacy
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          {articles.map((article, index) => (
+            <Link key={index} to={article.link}>
+              <Card hover className="overflow-hidden h-full">
+                <img
+                  src={article.image}
+                  alt={article.title}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold text-slate-900 mb-3">
+                    {article.title}
+                  </h3>
+                  <p className="text-slate-600 mb-4">{article.description}</p>
+                  <span className="text-indigo-600 font-medium text-sm flex items-center gap-1">
+                    Read More
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path
+                        d="M6 12L10 8L6 4"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </Card>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="container-1280 px-4 sm:px-6 lg:px-8 py-20">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+            Powerful Features to Manage Your Money
+          </h2>
+          <p className="text-lg text-slate-600">
+            Everything you need to take control of your finances
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {features.map((feature, index) => {
+            const Icon = feature.icon
+            return (
+              <Card key={index} className="p-8 group">
+                <div
+                  className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}
+                >
+                  <Icon className="w-7 h-7 text-white" />
+                </div>
+                <h3 className="text-xl font-semibold text-slate-900 mb-3">
+                  {feature.title}
+                </h3>
+                <p className="text-slate-600 leading-relaxed">
+                  {feature.description}
+                </p>
+              </Card>
+            )
+          })}
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 opacity-90"></div>
+        <div className="relative container-1280 px-4 sm:px-6 lg:px-8 py-20 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            Ready to Take Control of Your Finances?
+          </h2>
+          <p className="text-xl text-indigo-100 mb-8">
+            Everything you need to take control of your finances
+          </p>
+          <Link to="/dashboard">
+            <Button variant="white" size="lg">
+              Start Your Free Trial Today
+            </Button>
+          </Link>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-white/50 backdrop-blur-sm border-t border-slate-200/50 py-12">
+        <div className="container-1280 px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-5 gap-8 mb-8">
+            <div className="md:col-span-2">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+                  <WalletIcon className="w-5 h-5 text-white" />
+                </div>
+                <span className="text-lg font-bold gradient-text">
+                  FinTrace
+                </span>
+              </div>
+              <p className="text-sm text-slate-600">
+                Platform manajemen keuangan digital untuk masa depan finansial
+                yang lebih cerah.
+              </p>
+            </div>
+            <div>
+              <h4 className="font-semibold text-slate-900 mb-4">Product</h4>
+              <ul className="space-y-2 text-sm text-slate-600">
+                <li>
+                  <Link to="/dashboard" className="hover:text-indigo-600">
+                    Dashboard
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/articles" className="hover:text-indigo-600">
+                    Articles
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/products" className="hover:text-indigo-600">
+                    Courses
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold text-slate-900 mb-4">Company</h4>
+              <ul className="space-y-2 text-sm text-slate-600">
+                <li>
+                  <a href="#" className="hover:text-indigo-600">
+                    About Us
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-indigo-600">
+                    Features
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-indigo-600">
+                    Pricing
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold text-slate-900 mb-4">Legal</h4>
+              <ul className="space-y-2 text-sm text-slate-600">
+                <li>
+                  <a href="#" className="hover:text-indigo-600">
+                    Privacy Policy
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-indigo-600">
+                    Terms of Service
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="border-t border-slate-200 pt-8 text-center text-sm text-slate-600">
+            © 2025 FinTrace. All rights reserved.
+          </div>
+        </div>
+      </footer>
+    </div>
+  )
+}
+
+```
+```pages/ArticleArchive.tsx
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { Card } from '../components/Card'
+import { SearchIcon, ClockIcon, UserIcon } from 'lucide-react'
+const articles = [
+  {
+    id: 1,
+    title: 'Cara Mengelola Keuangan untuk Mahasiswa',
+    excerpt:
+      'Tips praktis mengelola uang saku dan membangun kebiasaan finansial yang sehat sejak dini.',
+    author: 'Sarah Wijaya',
+    date: '15 Januari 2024',
+    readTime: '5 menit',
+    category: 'Personal Finance',
+    image:
+      'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=400&fit=crop',
+  },
+  {
+    id: 2,
+    title: 'Investasi untuk Pemula: Panduan Lengkap',
+    excerpt:
+      'Memulai perjalanan investasi Anda dengan strategi yang tepat dan risiko yang terukur.',
+    author: 'Budi Santoso',
+    date: '12 Januari 2024',
+    readTime: '8 menit',
+    category: 'Investasi',
+    image:
+      'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=400&fit=crop',
+  },
+  {
+    id: 3,
+    title: 'Mengenal E-Wallet dan Keamanannya',
+    excerpt:
+      'Panduan lengkap menggunakan e-wallet dengan aman dan maksimal untuk transaksi sehari-hari.',
+    author: 'Rina Kusuma',
+    date: '10 Januari 2024',
+    readTime: '6 menit',
+    category: 'Digital Finance',
+    image:
+      'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=400&fit=crop',
+  },
+  {
+    id: 4,
+    title: 'Strategi Menabung untuk Dana Darurat',
+    excerpt:
+      'Membangun dana darurat yang kuat untuk menghadapi situasi finansial yang tidak terduga.',
+    author: 'Ahmad Fauzi',
+    date: '8 Januari 2024',
+    readTime: '7 menit',
+    category: 'Saving',
+    image:
+      'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=800&h=400&fit=crop',
+  },
+  {
+    id: 5,
+    title: 'Cara Keluar dari Jerat Hutang',
+    excerpt:
+      'Strategi efektif untuk melunasi hutang dan membangun kembali kesehatan finansial Anda.',
+    author: 'Linda Pratiwi',
+    date: '5 Januari 2024',
+    readTime: '10 menit',
+    category: 'Debt Management',
+    image:
+      'https://images.unsplash.com/photo-1554224154-26032ffc0d07?w=800&h=400&fit=crop',
+  },
+  {
+    id: 6,
+    title: 'Perencanaan Keuangan untuk UMKM',
+    excerpt:
+      'Tips mengelola keuangan bisnis kecil dan memisahkan keuangan pribadi dengan bisnis.',
+    author: 'Dedi Kurniawan',
+    date: '3 Januari 2024',
+    readTime: '9 menit',
+    category: 'Business',
+    image:
+      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop',
+  },
+]
+export function ArticleArchive() {
+  const [searchQuery, setSearchQuery] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState('Semua')
+  const categories = [
+    'Semua',
+    'Personal Finance',
+    'Investasi',
+    'Digital Finance',
+    'Saving',
+    'Debt Management',
+    'Business',
+  ]
+  const filteredArticles = articles.filter((article) => {
+    const matchesSearch =
+      article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      article.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
+    const matchesCategory =
+      selectedCategory === 'Semua' || article.category === selectedCategory
+    return matchesSearch && matchesCategory
+  })
+  return (
+    <div className="min-h-screen">
+      <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
+        {/* Header */}
+        <div className="mb-12 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+            Financial <span className="gradient-text">Tips & Insights</span>
+          </h1>
+          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+            Tingkatkan literasi keuangan Anda dengan artikel-artikel berkualitas
+            dari para ahli
+          </p>
+        </div>
+
+        {/* Search and Filter */}
+        <div className="mb-8 space-y-4">
+          <div className="relative max-w-2xl mx-auto">
+            <SearchIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
+            <input
+              type="text"
+              placeholder="Cari artikel..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-12 pr-4 py-3 bg-white/90 backdrop-blur-sm border border-slate-200/50 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500 shadow-sm"
+            />
+          </div>
+
+          <div className="flex flex-wrap gap-2 justify-center">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${selectedCategory === category ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/30' : 'bg-white/90 backdrop-blur-sm text-slate-600 hover:bg-white border border-slate-200/50'}`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Articles Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredArticles.map((article) => (
+            <Link key={article.id} to={`/articles/${article.id}`}>
+              <Card hover className="h-full overflow-hidden">
+                <img
+                  src={article.image}
+                  alt={article.title}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-6">
+                  <div className="inline-block px-3 py-1 bg-gradient-to-r from-purple-100 to-indigo-100 text-purple-700 text-xs font-medium rounded-full mb-3">
+                    {article.category}
+                  </div>
+                  <h3 className="text-xl font-semibold text-slate-900 mb-2 line-clamp-2">
+                    {article.title}
+                  </h3>
+                  <p className="text-slate-600 mb-4 line-clamp-2">
+                    {article.excerpt}
+                  </p>
+                  <div className="flex items-center justify-between text-sm text-slate-500">
+                    <div className="flex items-center gap-2">
+                      <UserIcon className="w-4 h-4" />
+                      <span>{article.author}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <ClockIcon className="w-4 h-4" />
+                      <span>{article.readTime}</span>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+```
+```pages/ArticleDetail.tsx
+import React from 'react'
+import { useParams, Link } from 'react-router-dom'
+import { Button } from '../components/Button'
+import {
+  ArrowLeftIcon,
+  ClockIcon,
+  UserIcon,
+  CalendarIcon,
+  ShareIcon,
+} from 'lucide-react'
+export function ArticleDetail() {
+  const { id } = useParams()
+  // Mock article data
+  const article = {
+    id: 1,
+    title: 'Cara Mengelola Keuangan untuk Mahasiswa',
+    author: 'Sarah Wijaya',
+    date: '15 Januari 2024',
+    readTime: '5 menit',
+    category: 'Personal Finance',
+    image:
+      'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&h=600&fit=crop',
+    content: `
+      <p>Mengelola keuangan sebagai mahasiswa adalah keterampilan penting yang akan bermanfaat sepanjang hidup. Berikut adalah panduan lengkap untuk membantu Anda memulai perjalanan finansial yang sehat.</p>
+      
+      <h2>1. Buat Budget Bulanan</h2>
+      <p>Langkah pertama dalam mengelola keuangan adalah membuat budget bulanan. Catat semua pemasukan Anda, termasuk uang saku dari orang tua, beasiswa, atau penghasilan part-time. Kemudian, kategorikan pengeluaran Anda:</p>
+      <ul>
+        <li>Kebutuhan pokok (makan, transportasi, kos)</li>
+        <li>Pendidikan (buku, alat tulis, kursus)</li>
+        <li>Hiburan dan sosial</li>
+        <li>Tabungan</li>
+      </ul>
+      
+      <h2>2. Gunakan Aplikasi Tracking Keuangan</h2>
+      <p>Manfaatkan teknologi untuk memudahkan tracking pengeluaran. FinTrace dapat membantu Anda melacak transaksi e-wallet secara otomatis dan memberikan visualisasi pengeluaran yang jelas.</p>
+      
+      <h2>3. Terapkan Prinsip 50/30/20</h2>
+      <p>Alokasikan pendapatan Anda dengan formula:</p>
+      <ul>
+        <li>50% untuk kebutuhan pokok</li>
+        <li>30% untuk keinginan dan hiburan</li>
+        <li>20% untuk tabungan dan investasi</li>
+      </ul>
+      
+      <h2>4. Hindari Hutang Konsumtif</h2>
+      <p>Sebisa mungkin hindari berhutang untuk hal-hal konsumtif. Jika terpaksa menggunakan paylater atau kartu kredit, pastikan Anda bisa melunasinya tepat waktu untuk menghindari bunga yang membengkak.</p>
+      
+      <h2>5. Mulai Menabung Sejak Dini</h2>
+      <p>Tidak ada kata terlalu dini untuk mulai menabung. Bahkan jika hanya Rp 50.000 per bulan, kebiasaan menabung akan membentuk disiplin finansial yang kuat.</p>
+      
+      <h2>Kesimpulan</h2>
+      <p>Mengelola keuangan sebagai mahasiswa memang menantang, tetapi dengan disiplin dan tools yang tepat, Anda bisa membangun fondasi finansial yang kuat untuk masa depan. Mulai dari sekarang, dan rasakan manfaatnya di kemudian hari.</p>
+    `,
+  }
+  return (
+    <div className="min-h-screen">
+      {/* Hero Image */}
+      <div className="relative h-96 bg-slate-900 overflow-hidden">
+        <img
+          src={article.image}
+          alt={article.title}
+          className="w-full h-full object-cover opacity-60"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent" />
+      </div>
+
+      <div className="container-1280 px-4 sm:px-6 lg:px-8 -mt-32 relative z-10">
+        {/* Back Button */}
+        <Link to="/articles">
+          <Button variant="secondary" size="sm" className="mb-6">
+            <ArrowLeftIcon className="w-4 h-4 mr-2" />
+            Kembali ke Artikel
+          </Button>
+        </Link>
+
+        {/* Article Header */}
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-8 mb-8">
+          <div className="inline-block px-3 py-1 bg-gradient-to-r from-purple-100 to-indigo-100 text-purple-700 text-sm font-medium rounded-full mb-4">
+            {article.category}
+          </div>
+          <h1 className="text-4xl font-bold text-slate-900 mb-6">
+            {article.title}
+          </h1>
+
+          <div className="flex flex-wrap items-center gap-6 text-slate-600 mb-6">
+            <div className="flex items-center gap-2">
+              <UserIcon className="w-5 h-5" />
+              <span>{article.author}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CalendarIcon className="w-5 h-5" />
+              <span>{article.date}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <ClockIcon className="w-5 h-5" />
+              <span>{article.readTime} baca</span>
+            </div>
+          </div>
+
+          <div className="flex gap-3">
+            <Button variant="outline" size="sm">
+              <ShareIcon className="w-4 h-4 mr-2" />
+              Bagikan
+            </Button>
+          </div>
+        </div>
+
+        {/* Article Content */}
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-8 mb-12">
+          <div
+            className="prose prose-lg max-w-none prose-headings:text-slate-900 prose-headings:font-bold prose-p:text-slate-700 prose-a:text-purple-600 prose-strong:text-slate-900 prose-ul:text-slate-700 prose-h2:text-2xl prose-h2:mt-8 prose-h2:mb-4"
+            dangerouslySetInnerHTML={{
+              __html: article.content,
+            }}
+          />
+        </div>
+
+        {/* Related Articles */}
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold text-slate-900 mb-6">
+            Artikel Terkait
+          </h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[1, 2, 3].map((i) => (
+              <Link key={i} to={`/articles/${i + 1}`}>
+                <div className="bg-white/90 backdrop-blur-sm rounded-2xl border border-slate-200/50 overflow-hidden hover:shadow-xl hover:shadow-purple-500/10 hover:-translate-y-1 transition-all duration-300">
+                  <img
+                    src={`https://images.unsplash.com/photo-${1554224155 + i}000-6726b3ff858f?w=400&h=200&fit=crop`}
+                    alt="Related article"
+                    className="w-full h-40 object-cover"
+                  />
+                  <div className="p-4">
+                    <h3 className="font-semibold text-slate-900 mb-2 line-clamp-2">
+                      Artikel Terkait {i}
+                    </h3>
+                    <p className="text-sm text-slate-600">5 menit baca</p>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+```
+```pages/ProductCatalog.tsx
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { Card } from '../components/Card'
+import { Button } from '../components/Button'
+import { StarIcon, ClockIcon, UsersIcon, VideoIcon } from 'lucide-react'
+const products = [
+  {
+    id: 1,
+    title: 'Personal Finance Mastery',
+    type: 'Kursus Online',
+    price: 299000,
+    rating: 4.8,
+    students: 1234,
+    duration: '8 jam',
+    lessons: 24,
+    instructor: 'Sarah Wijaya, CFP',
+    image:
+      'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&h=400&fit=crop',
+    description:
+      'Kuasai dasar-dasar manajemen keuangan pribadi dari perencanaan hingga investasi.',
+  },
+  {
+    id: 2,
+    title: 'Investasi Saham untuk Pemula',
+    type: 'Kursus Online',
+    price: 399000,
+    rating: 4.9,
+    students: 856,
+    duration: '10 jam',
+    lessons: 30,
+    instructor: 'Budi Santoso, CFA',
+    image:
+      'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=400&fit=crop',
+    description:
+      'Pelajari strategi investasi saham yang tepat untuk membangun portofolio jangka panjang.',
+  },
+  {
+    id: 3,
+    title: 'Konsultasi Financial Planning',
+    type: 'Konsultasi 1-on-1',
+    price: 500000,
+    rating: 5.0,
+    students: 234,
+    duration: '1 jam',
+    lessons: 1,
+    instructor: 'Tim Financial Advisor',
+    image:
+      'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=400&fit=crop',
+    description:
+      'Sesi konsultasi pribadi dengan financial advisor profesional untuk perencanaan keuangan Anda.',
+  },
+  {
+    id: 4,
+    title: 'Debt Management Bootcamp',
+    type: 'Kursus Online',
+    price: 249000,
+    rating: 4.7,
+    students: 567,
+    duration: '6 jam',
+    lessons: 18,
+    instructor: 'Linda Pratiwi, MBA',
+    image:
+      'https://images.unsplash.com/photo-1554224154-26032ffc0d07?w=800&h=400&fit=crop',
+    description:
+      'Strategi efektif untuk keluar dari jerat hutang dan membangun kembali kesehatan finansial.',
+  },
+  {
+    id: 5,
+    title: 'Cryptocurrency & Blockchain',
+    type: 'Kursus Online',
+    price: 449000,
+    rating: 4.6,
+    students: 423,
+    duration: '12 jam',
+    lessons: 36,
+    instructor: 'Ahmad Fauzi, CTO',
+    image:
+      'https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=800&h=400&fit=crop',
+    description:
+      'Memahami dunia cryptocurrency dan teknologi blockchain untuk investasi masa depan.',
+  },
+  {
+    id: 6,
+    title: 'UMKM Financial Management',
+    type: 'Kursus Online',
+    price: 349000,
+    rating: 4.8,
+    students: 789,
+    duration: '9 jam',
+    lessons: 27,
+    instructor: 'Dedi Kurniawan, MBA',
+    image:
+      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop',
+    description:
+      'Kelola keuangan bisnis kecil Anda dengan profesional dan efisien.',
+  },
+]
+export function ProductCatalog() {
+  const [selectedType, setSelectedType] = useState('Semua')
+  const types = ['Semua', 'Kursus Online', 'Konsultasi 1-on-1']
+  const filteredProducts = products.filter(
+    (product) => selectedType === 'Semua' || product.type === selectedType,
+  )
+  return (
+    <div className="min-h-screen">
+      <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
+        {/* Header */}
+        <div className="mb-12 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+            Education <span className="gradient-text">Marketplace</span>
+          </h1>
+          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+            Tingkatkan literasi keuangan dengan kursus berkualitas dan
+            konsultasi profesional
+          </p>
+        </div>
+
+        {/* Filter */}
+        <div className="mb-8 flex flex-wrap gap-3 justify-center">
+          {types.map((type) => (
+            <button
+              key={type}
+              onClick={() => setSelectedType(type)}
+              className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all ${selectedType === type ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/30' : 'bg-white/90 backdrop-blur-sm text-slate-600 hover:bg-white border border-slate-200/50'}`}
+            >
+              {type}
+            </button>
+          ))}
+        </div>
+
+        {/* Products Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredProducts.map((product) => (
+            <Card
+              key={product.id}
+              hover
+              className="overflow-hidden flex flex-col"
+            >
+              <img
+                src={product.image}
+                alt={product.title}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-6 flex-1 flex flex-col">
+                <div className="inline-block px-3 py-1 bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-700 text-xs font-medium rounded-full mb-3 self-start">
+                  {product.type}
+                </div>
+                <h3 className="text-xl font-semibold text-slate-900 mb-2">
+                  {product.title}
+                </h3>
+                <p className="text-slate-600 mb-4 flex-1">
+                  {product.description}
+                </p>
+
+                <div className="space-y-3 mb-4">
+                  <div className="flex items-center justify-between text-sm text-slate-600">
+                    <div className="flex items-center gap-1">
+                      <StarIcon className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                      <span className="font-medium">{product.rating}</span>
+                      <span>({product.students} siswa)</span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-4 text-sm text-slate-600">
+                    {product.type === 'Kursus Online' ? (
+                      <>
+                        <div className="flex items-center gap-1">
+                          <VideoIcon className="w-4 h-4" />
+                          <span>{product.lessons} pelajaran</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <ClockIcon className="w-4 h-4" />
+                          <span>{product.duration}</span>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="flex items-center gap-1">
+                        <ClockIcon className="w-4 h-4" />
+                        <span>{product.duration} sesi</span>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="text-sm text-slate-600">
+                    <UsersIcon className="w-4 h-4 inline mr-1" />
+                    {product.instructor}
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between pt-4 border-t border-slate-200">
+                  <div>
+                    <div className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
+                      Rp {product.price.toLocaleString('id-ID')}
+                    </div>
+                  </div>
+                  <Link to={`/products/${product.id}`}>
+                    <Button size="sm">Detail</Button>
+                  </Link>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+```
+```pages/ProductDetail.tsx
+import React, { useState } from 'react'
+import { useParams, Link, useNavigate } from 'react-router-dom'
+import { Button } from '../components/Button'
+import { Card } from '../components/Card'
+import {
+  ArrowLeftIcon,
+  StarIcon,
+  ClockIcon,
+  VideoIcon,
+  CheckCircleIcon,
+  UsersIcon,
+  ShoppingCartIcon,
+} from 'lucide-react'
+export function ProductDetail() {
+  const { id } = useParams()
+  const navigate = useNavigate()
+  const [addedToCart, setAddedToCart] = useState(false)
+  const product = {
+    id: 1,
+    title: 'Personal Finance Mastery',
+    type: 'Kursus Online',
+    price: 299000,
+    rating: 4.8,
+    reviews: 342,
+    students: 1234,
+    duration: '8 jam',
+    lessons: 24,
+    instructor: {
+      name: 'Sarah Wijaya, CFP',
+      title: 'Certified Financial Planner',
+      image:
+        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop',
+      bio: 'Financial advisor dengan 10+ tahun pengalaman membantu ribuan klien mencapai tujuan finansial mereka.',
+    },
+    image:
+      'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1200&h=600&fit=crop',
+    description:
+      'Kuasai dasar-dasar manajemen keuangan pribadi dari perencanaan hingga investasi. Kursus komprehensif ini akan membekali Anda dengan pengetahuan dan keterampilan praktis untuk mengelola keuangan dengan lebih baik.',
+    whatYouLearn: [
+      'Membuat budget dan tracking pengeluaran yang efektif',
+      'Strategi menabung dan membangun dana darurat',
+      'Dasar-dasar investasi dan diversifikasi portofolio',
+      'Manajemen hutang dan kredit yang sehat',
+      'Perencanaan keuangan jangka pendek dan panjang',
+      'Tips mengoptimalkan pajak dan asuransi',
+    ],
+    curriculum: [
+      {
+        title: 'Pengenalan Personal Finance',
+        lessons: 3,
+        duration: '45 menit',
+      },
+      {
+        title: 'Budgeting & Expense Tracking',
+        lessons: 4,
+        duration: '1 jam',
+      },
+      {
+        title: 'Saving Strategies',
+        lessons: 3,
+        duration: '45 menit',
+      },
+      {
+        title: 'Debt Management',
+        lessons: 4,
+        duration: '1 jam',
+      },
+      {
+        title: 'Investment Basics',
+        lessons: 5,
+        duration: '1.5 jam',
+      },
+      {
+        title: 'Financial Planning',
+        lessons: 5,
+        duration: '1.5 jam',
+      },
+    ],
+  }
+  const handleAddToCart = () => {
+    setAddedToCart(true)
+    setTimeout(() => setAddedToCart(false), 2000)
+  }
+  return (
+    <div className="min-h-screen">
+      <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
+        {/* Back Button */}
+        <Link to="/products">
+          <Button variant="outline" size="sm" className="mb-6">
+            <ArrowLeftIcon className="w-4 h-4 mr-2" />
+            Kembali ke Katalog
+          </Button>
+        </Link>
+
+        <div className="grid lg:grid-cols-3 gap-8">
+          {/* Main Content */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Hero */}
+            <Card className="overflow-hidden">
+              <img
+                src={product.image}
+                alt={product.title}
+                className="w-full h-80 object-cover"
+              />
+              <div className="p-8">
+                <div className="inline-block px-3 py-1 bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-700 text-sm font-medium rounded-full mb-4">
+                  {product.type}
+                </div>
+                <h1 className="text-3xl font-bold text-slate-900 mb-4">
+                  {product.title}
+                </h1>
+                <p className="text-lg text-slate-600 mb-6">
+                  {product.description}
+                </p>
+
+                <div className="flex flex-wrap items-center gap-6 text-slate-600">
+                  <div className="flex items-center gap-2">
+                    <StarIcon className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                    <span className="font-semibold">{product.rating}</span>
+                    <span>({product.reviews} ulasan)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <UsersIcon className="w-5 h-5" />
+                    <span>{product.students} siswa</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <VideoIcon className="w-5 h-5" />
+                    <span>{product.lessons} pelajaran</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <ClockIcon className="w-5 h-5" />
+                    <span>{product.duration}</span>
+                  </div>
+                </div>
+              </div>
+            </Card>
+
+            {/* What You'll Learn */}
+            <Card className="p-8">
+              <h2 className="text-2xl font-bold text-slate-900 mb-6">
+                Yang Akan Anda Pelajari
+              </h2>
+              <div className="grid md:grid-cols-2 gap-4">
+                {product.whatYouLearn.map((item, index) => (
+                  <div key={index} className="flex items-start gap-3">
+                    <CheckCircleIcon className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
+                    <span className="text-slate-700">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </Card>
+
+            {/* Curriculum */}
+            <Card className="p-8">
+              <h2 className="text-2xl font-bold text-slate-900 mb-6">
+                Kurikulum Kursus
+              </h2>
+              <div className="space-y-4">
+                {product.curriculum.map((section, index) => (
+                  <div
+                    key={index}
+                    className="border border-slate-200 rounded-2xl p-4 hover:border-purple-300 transition-colors"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h3 className="font-semibold text-slate-900 mb-1">
+                          {section.title}
+                        </h3>
+                        <div className="flex items-center gap-4 text-sm text-slate-600">
+                          <span>{section.lessons} pelajaran</span>
+                          <span>•</span>
+                          <span>{section.duration}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Card>
+
+            {/* Instructor */}
+            <Card className="p-8">
+              <h2 className="text-2xl font-bold text-slate-900 mb-6">
+                Instruktur
+              </h2>
+              <div className="flex items-start gap-4">
+                <img
+                  src={product.instructor.image}
+                  alt={product.instructor.name}
+                  className="w-20 h-20 rounded-full object-cover"
+                />
+                <div>
+                  <h3 className="text-xl font-semibold text-slate-900 mb-1">
+                    {product.instructor.name}
+                  </h3>
+                  <p className="text-purple-600 font-medium mb-2">
+                    {product.instructor.title}
+                  </p>
+                  <p className="text-slate-600">{product.instructor.bio}</p>
+                </div>
+              </div>
+            </Card>
+          </div>
+
+          {/* Sidebar */}
+          <div className="lg:col-span-1">
+            <Card className="p-6 sticky top-24">
+              <div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent mb-6">
+                Rp {product.price.toLocaleString('id-ID')}
+              </div>
+
+              <div className="space-y-3 mb-6">
+                <Button
+                  className="w-full"
+                  size="lg"
+                  onClick={() => navigate('/cart')}
+                >
+                  Beli Sekarang
+                </Button>
+                <Button
+                  variant="outline"
+                  className="w-full"
+                  size="lg"
+                  onClick={handleAddToCart}
+                >
+                  <ShoppingCartIcon className="w-5 h-5 mr-2" />
+                  {addedToCart ? 'Ditambahkan!' : 'Tambah ke Keranjang'}
+                </Button>
+              </div>
+
+              <div className="border-t border-slate-200 pt-6 space-y-3 text-sm">
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-600">Durasi</span>
+                  <span className="font-medium text-slate-900">
+                    {product.duration}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-600">Jumlah Pelajaran</span>
+                  <span className="font-medium text-slate-900">
+                    {product.lessons} video
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-600">Akses</span>
+                  <span className="font-medium text-slate-900">Selamanya</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-600">Sertifikat</span>
+                  <span className="font-medium text-slate-900">Ya</span>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+```
+```pages/Cart.tsx
+import React from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { Button } from '../components/Button'
+import { Card } from '../components/Card'
+import { TrashIcon, ShoppingBagIcon } from 'lucide-react'
+export function Cart() {
+  const navigate = useNavigate()
+  const cartItems = [
+    {
+      id: 1,
+      title: 'Personal Finance Mastery',
+      type: 'Kursus Online',
+      price: 299000,
+      image:
+        'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=200&h=200&fit=crop',
+      instructor: 'Sarah Wijaya, CFP',
+    },
+    {
+      id: 2,
+      title: 'Investasi Saham untuk Pemula',
+      type: 'Kursus Online',
+      price: 399000,
+      image:
+        'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=200&h=200&fit=crop',
+      instructor: 'Budi Santoso, CFA',
+    },
+  ]
+  const subtotal = cartItems.reduce((sum, item) => sum + item.price, 0)
+  const tax = subtotal * 0.11 // PPN 11%
+  const total = subtotal + tax
+  return (
+    <div className="min-h-screen">
+      <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
+        <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8">
+          Shopping <span className="gradient-text">Cart</span>
+        </h1>
+
+        <div className="grid lg:grid-cols-3 gap-8">
+          {/* Cart Items */}
+          <div className="lg:col-span-2 space-y-4">
+            {cartItems.length === 0 ? (
+              <Card className="p-12 text-center">
+                <ShoppingBagIcon className="w-16 h-16 text-slate-300 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-slate-900 mb-2">
+                  Keranjang Kosong
+                </h3>
+                <p className="text-slate-600 mb-6">
+                  Belum ada produk di keranjang Anda
+                </p>
+                <Link to="/products">
+                  <Button>Mulai Belanja</Button>
+                </Link>
+              </Card>
+            ) : (
+              cartItems.map((item) => (
+                <Card key={item.id} className="p-6">
+                  <div className="flex gap-4">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-24 h-24 rounded-2xl object-cover"
+                    />
+                    <div className="flex-1">
+                      <div className="flex items-start justify-between mb-2">
+                        <div>
+                          <h3 className="text-lg font-semibold text-slate-900 mb-1">
+                            {item.title}
+                          </h3>
+                          <p className="text-sm text-slate-600">
+                            {item.instructor}
+                          </p>
+                          <span className="inline-block px-2 py-1 bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-700 text-xs font-medium rounded-full mt-2">
+                            {item.type}
+                          </span>
+                        </div>
+                        <button className="text-rose-500 hover:text-rose-600 transition-colors p-2 hover:bg-rose-50 rounded-lg">
+                          <TrashIcon className="w-5 h-5" />
+                        </button>
+                      </div>
+                      <div className="text-xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent mt-3">
+                        Rp {item.price.toLocaleString('id-ID')}
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              ))
+            )}
+          </div>
+
+          {/* Order Summary */}
+          <div className="lg:col-span-1">
+            <Card className="p-6 sticky top-24">
+              <h2 className="text-xl font-bold text-slate-900 mb-6">
+                Ringkasan Pesanan
+              </h2>
+
+              <div className="space-y-3 mb-6">
+                <div className="flex items-center justify-between text-slate-600">
+                  <span>Subtotal</span>
+                  <span>Rp {subtotal.toLocaleString('id-ID')}</span>
+                </div>
+                <div className="flex items-center justify-between text-slate-600">
+                  <span>PPN (11%)</span>
+                  <span>Rp {tax.toLocaleString('id-ID')}</span>
+                </div>
+                <div className="border-t border-slate-200 pt-3 flex items-center justify-between">
+                  <span className="text-lg font-bold text-slate-900">
+                    Total
+                  </span>
+                  <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
+                    Rp {total.toLocaleString('id-ID')}
+                  </span>
+                </div>
+              </div>
+
+              <Button
+                className="w-full mb-3"
+                size="lg"
+                onClick={() => navigate('/payment')}
+                disabled={cartItems.length === 0}
+              >
+                Lanjut ke Pembayaran
+              </Button>
+
+              <Link to="/products">
+                <Button variant="outline" className="w-full">
+                  Lanjut Belanja
+                </Button>
+              </Link>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+```
+```pages/Payment.tsx
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Button } from '../components/Button'
+import { Card } from '../components/Card'
+import { Input } from '../components/Input'
+import {
+  CreditCardIcon,
+  WalletIcon,
+  BuildingIcon,
+  CheckCircleIcon,
+} from 'lucide-react'
+export function Payment() {
+  const navigate = useNavigate()
+  const [paymentMethod, setPaymentMethod] = useState('credit-card')
+  const [processing, setProcessing] = useState(false)
+  const orderSummary = {
+    items: [
+      {
+        title: 'Personal Finance Mastery',
+        price: 299000,
+      },
+      {
+        title: 'Investasi Saham untuk Pemula',
+        price: 399000,
+      },
+    ],
+    subtotal: 698000,
+    tax: 76780,
+    total: 774780,
+  }
+  const handlePayment = () => {
+    setProcessing(true)
+    setTimeout(() => {
+      navigate('/transaction-history')
+    }, 2000)
+  }
+  return (
+    <div className="min-h-screen">
+      <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
+        <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8">
+          <span className="gradient-text">Payment</span> Checkout
+        </h1>
+
+        <div className="grid lg:grid-cols-3 gap-8">
+          {/* Payment Form */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Payment Method Selection */}
+            <Card className="p-6">
+              <h2 className="text-xl font-bold text-slate-900 mb-6">
+                Metode Pembayaran
+              </h2>
+
+              <div className="space-y-3">
+                <button
+                  onClick={() => setPaymentMethod('credit-card')}
+                  className={`w-full p-4 rounded-2xl border-2 transition-all flex items-center gap-4 ${paymentMethod === 'credit-card' ? 'border-purple-500 bg-purple-50' : 'border-slate-200 hover:border-slate-300'}`}
+                >
+                  <CreditCardIcon className="w-6 h-6 text-slate-600" />
+                  <div className="text-left">
+                    <div className="font-semibold text-slate-900">
+                      Kartu Kredit/Debit
+                    </div>
+                    <div className="text-sm text-slate-600">
+                      Visa, Mastercard, JCB
+                    </div>
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => setPaymentMethod('e-wallet')}
+                  className={`w-full p-4 rounded-2xl border-2 transition-all flex items-center gap-4 ${paymentMethod === 'e-wallet' ? 'border-purple-500 bg-purple-50' : 'border-slate-200 hover:border-slate-300'}`}
+                >
+                  <WalletIcon className="w-6 h-6 text-slate-600" />
+                  <div className="text-left">
+                    <div className="font-semibold text-slate-900">E-Wallet</div>
+                    <div className="text-sm text-slate-600">
+                      GoPay, OVO, DANA, ShopeePay
+                    </div>
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => setPaymentMethod('bank-transfer')}
+                  className={`w-full p-4 rounded-2xl border-2 transition-all flex items-center gap-4 ${paymentMethod === 'bank-transfer' ? 'border-purple-500 bg-purple-50' : 'border-slate-200 hover:border-slate-300'}`}
+                >
+                  <BuildingIcon className="w-6 h-6 text-slate-600" />
+                  <div className="text-left">
+                    <div className="font-semibold text-slate-900">
+                      Transfer Bank
+                    </div>
+                    <div className="text-sm text-slate-600">
+                      BCA, Mandiri, BNI, BRI
+                    </div>
+                  </div>
+                </button>
+              </div>
+            </Card>
+
+            {/* Payment Details */}
+            {paymentMethod === 'credit-card' && (
+              <Card className="p-6">
+                <h2 className="text-xl font-bold text-slate-900 mb-6">
+                  Detail Kartu
+                </h2>
+                <div className="space-y-4">
+                  <Input
+                    label="Nomor Kartu"
+                    placeholder="1234 5678 9012 3456"
+                    required
+                  />
+                  <Input
+                    label="Nama Pemegang Kartu"
+                    placeholder="JOHN DOE"
+                    required
+                  />
+                  <div className="grid grid-cols-2 gap-4">
+                    <Input
+                      label="Tanggal Kadaluarsa"
+                      placeholder="MM/YY"
+                      required
+                    />
+                    <Input label="CVV" placeholder="123" required />
+                  </div>
+                </div>
+              </Card>
+            )}
+
+            {paymentMethod === 'e-wallet' && (
+              <Card className="p-6">
+                <h2 className="text-xl font-bold text-slate-900 mb-6">
+                  Pilih E-Wallet
+                </h2>
+                <div className="grid grid-cols-2 gap-4">
+                  {['GoPay', 'OVO', 'DANA', 'ShopeePay'].map((wallet) => (
+                    <button
+                      key={wallet}
+                      className="p-4 border-2 border-slate-200 rounded-2xl hover:border-purple-500 hover:bg-purple-50 transition-all"
+                    >
+                      <div className="font-semibold text-slate-900">
+                        {wallet}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </Card>
+            )}
+
+            {paymentMethod === 'bank-transfer' && (
+              <Card className="p-6">
+                <h2 className="text-xl font-bold text-slate-900 mb-6">
+                  Pilih Bank
+                </h2>
+                <div className="grid grid-cols-2 gap-4">
+                  {['BCA', 'Mandiri', 'BNI', 'BRI'].map((bank) => (
+                    <button
+                      key={bank}
+                      className="p-4 border-2 border-slate-200 rounded-2xl hover:border-purple-500 hover:bg-purple-50 transition-all"
+                    >
+                      <div className="font-semibold text-slate-900">{bank}</div>
+                    </button>
+                  ))}
+                </div>
+              </Card>
+            )}
+          </div>
+
+          {/* Order Summary */}
+          <div className="lg:col-span-1">
+            <Card className="p-6 sticky top-24">
+              <h2 className="text-xl font-bold text-slate-900 mb-6">
+                Ringkasan Pesanan
+              </h2>
+
+              <div className="space-y-3 mb-6">
+                {orderSummary.items.map((item, index) => (
+                  <div
+                    key={index}
+                    className="flex items-start justify-between text-sm"
+                  >
+                    <span className="text-slate-600 flex-1">{item.title}</span>
+                    <span className="font-medium text-slate-900 ml-2">
+                      Rp {item.price.toLocaleString('id-ID')}
+                    </span>
+                  </div>
+                ))}
+
+                <div className="border-t border-slate-200 pt-3 space-y-2">
+                  <div className="flex items-center justify-between text-slate-600">
+                    <span>Subtotal</span>
+                    <span>
+                      Rp {orderSummary.subtotal.toLocaleString('id-ID')}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between text-slate-600">
+                    <span>PPN (11%)</span>
+                    <span>Rp {orderSummary.tax.toLocaleString('id-ID')}</span>
+                  </div>
+                </div>
+
+                <div className="border-t border-slate-200 pt-3 flex items-center justify-between">
+                  <span className="text-lg font-bold text-slate-900">
+                    Total
+                  </span>
+                  <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
+                    Rp {orderSummary.total.toLocaleString('id-ID')}
+                  </span>
+                </div>
+              </div>
+
+              <Button
+                className="w-full"
+                size="lg"
+                onClick={handlePayment}
+                disabled={processing}
+              >
+                {processing ? (
+                  <span className="flex items-center gap-2">
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Memproses...
+                  </span>
+                ) : (
+                  'Bayar Sekarang'
+                )}
+              </Button>
+
+              <div className="mt-4 flex items-center gap-2 text-sm text-slate-600">
+                <CheckCircleIcon className="w-4 h-4 text-emerald-500" />
+                <span>Pembayaran aman dan terenkripsi</span>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+```
+```pages/TransactionHistory.tsx
+import React, { useState } from 'react'
+import { Card } from '../components/Card'
+import { Button } from '../components/Button'
+import {
+  DownloadIcon,
+  CheckCircleIcon,
+  ClockIcon,
+  XCircleIcon,
+} from 'lucide-react'
+export function TransactionHistory() {
+  const [filter, setFilter] = useState('all')
+  const transactions = [
+    {
+      id: 'TRX-2024-001',
+      date: '15 Januari 2024',
+      items: ['Personal Finance Mastery', 'Investasi Saham untuk Pemula'],
+      total: 774780,
+      status: 'completed',
+      paymentMethod: 'Kartu Kredit',
+    },
+    {
+      id: 'TRX-2024-002',
+      date: '10 Januari 2024',
+      items: ['Konsultasi Financial Planning'],
+      total: 550000,
+      status: 'completed',
+      paymentMethod: 'GoPay',
+    },
+    {
+      id: 'TRX-2024-003',
+      date: '5 Januari 2024',
+      items: ['Debt Management Bootcamp'],
+      total: 276390,
+      status: 'pending',
+      paymentMethod: 'Transfer Bank',
+    },
+    {
+      id: 'TRX-2023-045',
+      date: '28 Desember 2023',
+      items: ['UMKM Financial Management'],
+      total: 387390,
+      status: 'completed',
+      paymentMethod: 'OVO',
+    },
+    {
+      id: 'TRX-2023-044',
+      date: '20 Desember 2023',
+      items: ['Cryptocurrency & Blockchain'],
+      total: 498390,
+      status: 'failed',
+      paymentMethod: 'Kartu Kredit',
+    },
+  ]
+  const filteredTransactions = transactions.filter((tx) => {
+    if (filter === 'all') return true
+    return tx.status === filter
+  })
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'completed':
+        return <CheckCircleIcon className="w-5 h-5 text-emerald-500" />
+      case 'pending':
+        return <ClockIcon className="w-5 h-5 text-amber-500" />
+      case 'failed':
+        return <XCircleIcon className="w-5 h-5 text-rose-500" />
+      default:
+        return null
+    }
+  }
+  const getStatusText = (status: string) => {
+    switch (status) {
+      case 'completed':
+        return 'Selesai'
+      case 'pending':
+        return 'Menunggu'
+      case 'failed':
+        return 'Gagal'
+      default:
+        return status
+    }
+  }
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'completed':
+        return 'bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-700'
+      case 'pending':
+        return 'bg-gradient-to-r from-amber-100 to-yellow-100 text-amber-700'
+      case 'failed':
+        return 'bg-gradient-to-r from-rose-100 to-pink-100 text-rose-700'
+      default:
+        return 'bg-slate-100 text-slate-700'
+    }
+  }
+  return (
+    <div className="min-h-screen">
+      <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
+        <div className="mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
+            Transaction <span className="gradient-text">History</span>
+          </h1>
+          <p className="text-slate-600">Lihat semua transaksi pembelian Anda</p>
+        </div>
+
+        {/* Filter */}
+        <div className="mb-6 flex flex-wrap gap-3">
+          <button
+            onClick={() => setFilter('all')}
+            className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${filter === 'all' ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/30' : 'bg-white/90 backdrop-blur-sm text-slate-600 hover:bg-white border border-slate-200/50'}`}
+          >
+            Semua
+          </button>
+          <button
+            onClick={() => setFilter('completed')}
+            className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${filter === 'completed' ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/30' : 'bg-white/90 backdrop-blur-sm text-slate-600 hover:bg-white border border-slate-200/50'}`}
+          >
+            Selesai
+          </button>
+          <button
+            onClick={() => setFilter('pending')}
+            className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${filter === 'pending' ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/30' : 'bg-white/90 backdrop-blur-sm text-slate-600 hover:bg-white border border-slate-200/50'}`}
+          >
+            Menunggu
+          </button>
+          <button
+            onClick={() => setFilter('failed')}
+            className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${filter === 'failed' ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/30' : 'bg-white/90 backdrop-blur-sm text-slate-600 hover:bg-white border border-slate-200/50'}`}
+          >
+            Gagal
+          </button>
+        </div>
+
+        {/* Transactions */}
+        <div className="space-y-4">
+          {filteredTransactions.map((transaction) => (
+            <Card key={transaction.id} className="p-6">
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <div className="flex items-center gap-3 mb-2">
+                    <h3 className="text-lg font-semibold text-slate-900">
+                      {transaction.id}
+                    </h3>
+                    <div
+                      className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(transaction.status)}`}
+                    >
+                      {getStatusIcon(transaction.status)}
+                      {getStatusText(transaction.status)}
+                    </div>
+                  </div>
+                  <p className="text-sm text-slate-600">{transaction.date}</p>
+                </div>
+                <div className="text-right">
+                  <div className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent mb-1">
+                    Rp {transaction.total.toLocaleString('id-ID')}
+                  </div>
+                  <p className="text-sm text-slate-600">
+                    {transaction.paymentMethod}
+                  </p>
+                </div>
+              </div>
+
+              <div className="border-t border-slate-200 pt-4 mb-4">
+                <h4 className="text-sm font-medium text-slate-700 mb-2">
+                  Produk:
+                </h4>
+                <ul className="space-y-1">
+                  {transaction.items.map((item, index) => (
+                    <li key={index} className="text-sm text-slate-600">
+                      • {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {transaction.status === 'completed' && (
+                <Button variant="outline" size="sm">
+                  <DownloadIcon className="w-4 h-4 mr-2" />
+                  Download Invoice
+                </Button>
+              )}
+
+              {transaction.status === 'pending' && (
+                <Button size="sm">Selesaikan Pembayaran</Button>
+              )}
+            </Card>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+```
+```pages/Dashboard.tsx
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { Card } from '../components/Card'
+import { Button } from '../components/Button'
+import {
+  TrendingUpIcon,
+  TrendingDownIcon,
+  WalletIcon,
+  CreditCardIcon,
+  PiggyBankIcon,
+  TargetIcon,
+  BookOpenIcon,
+  SettingsIcon,
+} from 'lucide-react'
+export function Dashboard() {
+  const stats = [
+    {
+      label: 'Total Saldo',
+      value: 'Rp 12.450.000',
+      change: '+12.5%',
+      trend: 'up',
+      icon: WalletIcon,
+      color: 'emerald',
+    },
+    {
+      label: 'Pengeluaran Bulan Ini',
+      value: 'Rp 3.250.000',
+      change: '-8.2%',
+      trend: 'down',
+      icon: CreditCardIcon,
+      color: 'red',
+    },
+    {
+      label: 'Tabungan',
+      value: 'Rp 8.500.000',
+      change: '+15.3%',
+      trend: 'up',
+      icon: PiggyBankIcon,
+      color: 'blue',
+    },
+    {
+      label: 'Target Tercapai',
+      value: '3 dari 5',
+      change: '60%',
+      trend: 'up',
+      icon: TargetIcon,
+      color: 'purple',
+    },
+  ]
+  const recentTransactions = [
+    {
+      id: 1,
+      title: 'Gojek - Transport',
+      amount: -25000,
+      category: 'Transportasi',
+      date: '15 Jan 2024',
+      type: 'expense',
+    },
+    {
+      id: 2,
+      title: 'Salary Transfer',
+      amount: 8000000,
+      category: 'Pemasukan',
+      date: '15 Jan 2024',
+      type: 'income',
+    },
+    {
+      id: 3,
+      title: 'Indomaret',
+      amount: -150000,
+      category: 'Belanja',
+      date: '14 Jan 2024',
+      type: 'expense',
+    },
+    {
+      id: 4,
+      title: 'Spotify Premium',
+      amount: -54000,
+      category: 'Hiburan',
+      date: '14 Jan 2024',
+      type: 'expense',
+    },
+    {
+      id: 5,
+      title: 'Freelance Project',
+      amount: 2500000,
+      category: 'Pemasukan',
+      date: '13 Jan 2024',
+      type: 'income',
+    },
+  ]
+  const budgetCategories = [
+    {
+      name: 'Makanan & Minuman',
+      spent: 1200000,
+      budget: 2000000,
+      percentage: 60,
+    },
+    {
+      name: 'Transportasi',
+      spent: 450000,
+      budget: 500000,
+      percentage: 90,
+    },
+    {
+      name: 'Hiburan',
+      spent: 300000,
+      budget: 800000,
+      percentage: 37.5,
+    },
+    {
+      name: 'Belanja',
+      spent: 800000,
+      budget: 1000000,
+      percentage: 80,
+    },
+  ]
+  const goals = [
+    {
+      name: 'Dana Darurat',
+      current: 8500000,
+      target: 15000000,
+      percentage: 56.7,
+    },
+    {
+      name: 'Liburan Bali',
+      current: 3200000,
+      target: 5000000,
+      percentage: 64,
+    },
+    {
+      name: 'Laptop Baru',
+      current: 7500000,
+      target: 12000000,
+      percentage: 62.5,
+    },
+  ]
+  return (
+    <div className="min-h-screen">
+      <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
+              Financial <span className="gradient-text">Dashboard</span>
+            </h1>
+            <p className="text-slate-600">Selamat datang kembali, John Doe!</p>
+          </div>
+          <Button variant="outline" size="sm">
+            <SettingsIcon className="w-5 h-5 mr-2" />
+            Settings
+          </Button>
+        </div>
+
+        {/* Stats Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          {stats.map((stat, index) => {
+            const Icon = stat.icon
+            const colorClasses = {
+              emerald: 'from-emerald-500 to-teal-500',
+              red: 'from-rose-500 to-pink-500',
+              blue: 'from-blue-500 to-cyan-500',
+              purple: 'from-purple-500 to-indigo-500',
+            }
+            return (
+              <Card key={index} className="p-6">
+                <div className="flex items-start justify-between mb-4">
+                  <div
+                    className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${colorClasses[stat.color as keyof typeof colorClasses]} flex items-center justify-center shadow-lg`}
+                  >
+                    <Icon className="w-6 h-6 text-white" />
+                  </div>
+                  <div
+                    className={`flex items-center gap-1 text-sm font-medium ${stat.trend === 'up' ? 'text-emerald-600' : 'text-rose-600'}`}
+                  >
+                    {stat.trend === 'up' ? (
+                      <TrendingUpIcon className="w-4 h-4" />
+                    ) : (
+                      <TrendingDownIcon className="w-4 h-4" />
+                    )}
+                    {stat.change}
+                  </div>
+                </div>
+                <p className="text-sm text-slate-600 mb-1">{stat.label}</p>
+                <p className="text-2xl font-bold text-slate-900">
+                  {stat.value}
+                </p>
+              </Card>
+            )
+          })}
+        </div>
+
+        <div className="grid lg:grid-cols-3 gap-8">
+          {/* Recent Transactions */}
+          <div className="lg:col-span-2 space-y-6">
+            <Card className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-xl font-bold text-slate-900">
+                  Transaksi Terbaru
+                </h2>
+                <Link to="/transaction-history">
+                  <Button variant="outline" size="sm">
+                    Lihat Semua
+                  </Button>
+                </Link>
+              </div>
+
+              <div className="space-y-3">
+                {recentTransactions.map((transaction) => (
+                  <div
+                    key={transaction.id}
+                    className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div
+                        className={`w-10 h-10 rounded-full flex items-center justify-center ${transaction.type === 'income' ? 'bg-emerald-100' : 'bg-rose-100'}`}
+                      >
+                        {transaction.type === 'income' ? (
+                          <TrendingUpIcon className="w-5 h-5 text-emerald-600" />
+                        ) : (
+                          <TrendingDownIcon className="w-5 h-5 text-rose-600" />
+                        )}
+                      </div>
+                      <div>
+                        <p className="font-medium text-slate-900">
+                          {transaction.title}
+                        </p>
+                        <p className="text-sm text-slate-600">
+                          {transaction.category} • {transaction.date}
+                        </p>
+                      </div>
+                    </div>
+                    <p
+                      className={`text-lg font-semibold ${transaction.type === 'income' ? 'text-emerald-600' : 'text-rose-600'}`}
+                    >
+                      {transaction.type === 'income' ? '+' : ''}Rp{' '}
+                      {Math.abs(transaction.amount).toLocaleString('id-ID')}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </Card>
+
+            {/* Budget Tracking */}
+            <Card className="p-6">
+              <h2 className="text-xl font-bold text-slate-900 mb-6">
+                Budget Tracking
+              </h2>
+              <div className="space-y-4">
+                {budgetCategories.map((category, index) => (
+                  <div key={index}>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-medium text-slate-900">
+                        {category.name}
+                      </span>
+                      <span className="text-sm text-slate-600">
+                        Rp {category.spent.toLocaleString('id-ID')} / Rp{' '}
+                        {category.budget.toLocaleString('id-ID')}
+                      </span>
+                    </div>
+                    <div className="w-full bg-slate-200 rounded-full h-2">
+                      <div
+                        className={`h-2 rounded-full transition-all ${category.percentage > 80 ? 'bg-gradient-to-r from-rose-500 to-pink-500' : category.percentage > 60 ? 'bg-gradient-to-r from-amber-500 to-yellow-500' : 'bg-gradient-to-r from-emerald-500 to-teal-500'}`}
+                        style={{
+                          width: `${category.percentage}%`,
+                        }}
+                      />
+                    </div>
+                    <p className="text-xs text-slate-600 mt-1">
+                      {category.percentage}% terpakai
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          </div>
+
+          {/* Sidebar */}
+          <div className="space-y-6">
+            {/* Financial Goals */}
+            <Card className="p-6">
+              <h2 className="text-xl font-bold text-slate-900 mb-6">
+                Target Keuangan
+              </h2>
+              <div className="space-y-4">
+                {goals.map((goal, index) => (
+                  <div key={index}>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-medium text-slate-900">
+                        {goal.name}
+                      </span>
+                      <span className="text-sm text-emerald-600 font-medium">
+                        {goal.percentage}%
+                      </span>
+                    </div>
+                    <div className="w-full bg-slate-200 rounded-full h-2 mb-1">
+                      <div
+                        className="bg-gradient-to-r from-emerald-500 to-teal-500 h-2 rounded-full transition-all"
+                        style={{
+                          width: `${goal.percentage}%`,
+                        }}
+                      />
+                    </div>
+                    <p className="text-xs text-slate-600">
+                      Rp {goal.current.toLocaleString('id-ID')} / Rp{' '}
+                      {goal.target.toLocaleString('id-ID')}
+                    </p>
+                  </div>
+                ))}
+              </div>
+              <Button className="w-full mt-4" variant="outline">
+                <TargetIcon className="w-4 h-4 mr-2" />
+                Tambah Target Baru
+              </Button>
+            </Card>
+
+            {/* Learning Resources */}
+            <Card className="p-6">
+              <h2 className="text-xl font-bold text-slate-900 mb-4">
+                Rekomendasi Belajar
+              </h2>
+              <div className="space-y-3">
+                <Link
+                  to="/articles/1"
+                  className="block p-3 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-2xl hover:from-purple-100 hover:to-indigo-100 transition-colors"
+                >
+                  <div className="flex items-start gap-3">
+                    <BookOpenIcon className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-medium text-slate-900 text-sm">
+                        Cara Mengelola Keuangan untuk Mahasiswa
+                      </p>
+                      <p className="text-xs text-slate-600 mt-1">
+                        5 menit baca
+                      </p>
+                    </div>
+                  </div>
+                </Link>
+                <Link
+                  to="/products/2"
+                  className="block p-3 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl hover:from-blue-100 hover:to-cyan-100 transition-colors"
+                >
+                  <div className="flex items-start gap-3">
+                    <BookOpenIcon className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-medium text-slate-900 text-sm">
+                        Investasi Saham untuk Pemula
+                      </p>
+                      <p className="text-xs text-slate-600 mt-1">
+                        Kursus Online
+                      </p>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+              <Link to="/articles">
+                <Button className="w-full mt-4" variant="outline">
+                  Lihat Semua Artikel
+                </Button>
+              </Link>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+```
+```pages/admin/ManageArticles.tsx
+import React, { useState } from 'react'
+import { Card } from '../../components/Card'
+import { Button } from '../../components/Button'
+import { Input } from '../../components/Input'
+import { PlusIcon, EditIcon, TrashIcon, SearchIcon } from 'lucide-react'
+export function ManageArticles() {
+  const [searchQuery, setSearchQuery] = useState('')
+  const [showModal, setShowModal] = useState(false)
+  const articles = [
+    {
+      id: 1,
+      title: 'Cara Mengelola Keuangan untuk Mahasiswa',
+      author: 'Sarah Wijaya',
+      category: 'Personal Finance',
+      status: 'Published',
+      date: '15 Jan 2024',
+      views: 1234,
+    },
+    {
+      id: 2,
+      title: 'Investasi untuk Pemula: Panduan Lengkap',
+      author: 'Budi Santoso',
+      category: 'Investasi',
+      status: 'Published',
+      date: '12 Jan 2024',
+      views: 856,
+    },
+    {
+      id: 3,
+      title: 'Mengenal E-Wallet dan Keamanannya',
+      author: 'Rina Kusuma',
+      category: 'Digital Finance',
+      status: 'Draft',
+      date: '10 Jan 2024',
+      views: 0,
+    },
+  ]
+  const filteredArticles = articles.filter(
+    (article) =>
+      article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      article.author.toLowerCase().includes(searchQuery.toLowerCase()),
+  )
+  return (
+    <div className="min-h-screen">
+      <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
+              Kelola <span className="gradient-text">Artikel</span>
+            </h1>
+            <p className="text-slate-600">
+              Manajemen konten artikel edukasi finansial
+            </p>
+          </div>
+          <Button onClick={() => setShowModal(true)}>
+            <PlusIcon className="w-5 h-5 mr-2" />
+            Tambah Artikel
+          </Button>
+        </div>
+
+        {/* Search */}
+        <Card className="p-4 mb-6">
+          <div className="relative">
+            <SearchIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
+            <input
+              type="text"
+              placeholder="Cari artikel..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-12 pr-4 py-2.5 bg-white border border-slate-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
+        </Card>
+
+        {/* Articles Table */}
+        <Card className="overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200">
+                <tr>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
+                    Judul
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
+                    Penulis
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
+                    Kategori
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
+                    Status
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
+                    Tanggal
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
+                    Views
+                  </th>
+                  <th className="px-6 py-4 text-right text-sm font-semibold text-slate-900">
+                    Aksi
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200">
+                {filteredArticles.map((article) => (
+                  <tr
+                    key={article.id}
+                    className="hover:bg-slate-50 transition-colors"
+                  >
+                    <td className="px-6 py-4">
+                      <p className="font-medium text-slate-900">
+                        {article.title}
+                      </p>
+                    </td>
+                    <td className="px-6 py-4 text-slate-600">
+                      {article.author}
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className="inline-block px-3 py-1 bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-700 text-xs font-medium rounded-full">
+                        {article.category}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span
+                        className={`inline-block px-3 py-1 text-xs font-medium rounded-full ${article.status === 'Published' ? 'bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-700' : 'bg-gradient-to-r from-amber-100 to-yellow-100 text-amber-700'}`}
+                      >
+                        {article.status}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 text-slate-600">{article.date}</td>
+                    <td className="px-6 py-4 text-slate-600">
+                      {article.views.toLocaleString()}
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center justify-end gap-2">
+                        <button className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                          <EditIcon className="w-4 h-4" />
+                        </button>
+                        <button className="p-2 text-rose-600 hover:bg-rose-50 rounded-lg transition-colors">
+                          <TrashIcon className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+
+        {/* Add Article Modal */}
+        {showModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <Card className="max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+              <div className="p-6">
+                <h2 className="text-2xl font-bold text-slate-900 mb-6">
+                  Tambah Artikel Baru
+                </h2>
+                <div className="space-y-4">
+                  <Input
+                    label="Judul Artikel"
+                    placeholder="Masukkan judul artikel"
+                    required
+                  />
+                  <Input label="Penulis" placeholder="Nama penulis" required />
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">
+                      Kategori
+                    </label>
+                    <select className="w-full px-4 py-2.5 border border-slate-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500">
+                      <option>Personal Finance</option>
+                      <option>Investasi</option>
+                      <option>Digital Finance</option>
+                      <option>Saving</option>
+                      <option>Debt Management</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">
+                      Konten
+                    </label>
+                    <textarea
+                      rows={8}
+                      className="w-full px-4 py-2.5 border border-slate-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+                      placeholder="Tulis konten artikel..."
+                    />
+                  </div>
+                  <Input
+                    label="URL Gambar"
+                    placeholder="https://example.com/image.jpg"
+                  />
+                </div>
+                <div className="flex gap-3 mt-6">
+                  <Button className="flex-1">Simpan</Button>
+                  <Button
+                    variant="outline"
+                    className="flex-1"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Batal
+                  </Button>
+                </div>
+              </div>
+            </Card>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+```
+```pages/admin/ManageProducts.tsx
+import React, { useState } from 'react'
+import { Card } from '../../components/Card'
+import { Button } from '../../components/Button'
+import { Input } from '../../components/Input'
+import { PlusIcon, EditIcon, TrashIcon, SearchIcon } from 'lucide-react'
+export function ManageProducts() {
+  const [searchQuery, setSearchQuery] = useState('')
+  const [showModal, setShowModal] = useState(false)
+  const products = [
+    {
+      id: 1,
+      title: 'Personal Finance Mastery',
+      type: 'Kursus Online',
+      price: 299000,
+      instructor: 'Sarah Wijaya, CFP',
+      students: 1234,
+      status: 'Active',
+      rating: 4.8,
+    },
+    {
+      id: 2,
+      title: 'Investasi Saham untuk Pemula',
+      type: 'Kursus Online',
+      price: 399000,
+      instructor: 'Budi Santoso, CFA',
+      students: 856,
+      status: 'Active',
+      rating: 4.9,
+    },
+    {
+      id: 3,
+      title: 'Konsultasi Financial Planning',
+      type: 'Konsultasi 1-on-1',
+      price: 500000,
+      instructor: 'Tim Financial Advisor',
+      students: 234,
+      status: 'Active',
+      rating: 5.0,
+    },
+  ]
+  const filteredProducts = products.filter(
+    (product) =>
+      product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.instructor.toLowerCase().includes(searchQuery.toLowerCase()),
+  )
+  return (
+    <div className="min-h-screen">
+      <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
+              Kelola <span className="gradient-text">Produk</span>
+            </h1>
+            <p className="text-slate-600">
+              Manajemen kursus dan layanan konsultasi
+            </p>
+          </div>
+          <Button onClick={() => setShowModal(true)}>
+            <PlusIcon className="w-5 h-5 mr-2" />
+            Tambah Produk
+          </Button>
+        </div>
+
+        {/* Search */}
+        <Card className="p-4 mb-6">
+          <div className="relative">
+            <SearchIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
+            <input
+              type="text"
+              placeholder="Cari produk..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-12 pr-4 py-2.5 bg-white border border-slate-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
+        </Card>
+
+        {/* Products Table */}
+        <Card className="overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200">
+                <tr>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
+                    Produk
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
+                    Tipe
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
+                    Instruktur
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
+                    Harga
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
+                    Siswa
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
+                    Rating
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
+                    Status
+                  </th>
+                  <th className="px-6 py-4 text-right text-sm font-semibold text-slate-900">
+                    Aksi
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200">
+                {filteredProducts.map((product) => (
+                  <tr
+                    key={product.id}
+                    className="hover:bg-slate-50 transition-colors"
+                  >
+                    <td className="px-6 py-4">
+                      <p className="font-medium text-slate-900">
+                        {product.title}
+                      </p>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className="inline-block px-3 py-1 bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-700 text-xs font-medium rounded-full">
+                        {product.type}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 text-slate-600">
+                      {product.instructor}
+                    </td>
+                    <td className="px-6 py-4 text-slate-900 font-medium">
+                      Rp {product.price.toLocaleString('id-ID')}
+                    </td>
+                    <td className="px-6 py-4 text-slate-600">
+                      {product.students.toLocaleString()}
+                    </td>
+                    <td className="px-6 py-4 text-slate-600">
+                      ⭐ {product.rating}
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className="inline-block px-3 py-1 bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-700 text-xs font-medium rounded-full">
+                        {product.status}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center justify-end gap-2">
+                        <button className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                          <EditIcon className="w-4 h-4" />
+                        </button>
+                        <button className="p-2 text-rose-600 hover:bg-rose-50 rounded-lg transition-colors">
+                          <TrashIcon className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+
+        {/* Add Product Modal */}
+        {showModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <Card className="max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+              <div className="p-6">
+                <h2 className="text-2xl font-bold text-slate-900 mb-6">
+                  Tambah Produk Baru
+                </h2>
+                <div className="space-y-4">
+                  <Input
+                    label="Nama Produk"
+                    placeholder="Masukkan nama produk"
+                    required
+                  />
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">
+                      Tipe Produk
+                    </label>
+                    <select className="w-full px-4 py-2.5 border border-slate-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500">
+                      <option>Kursus Online</option>
+                      <option>Konsultasi 1-on-1</option>
+                    </select>
+                  </div>
+                  <Input
+                    label="Instruktur"
+                    placeholder="Nama instruktur"
+                    required
+                  />
+                  <Input
+                    label="Harga"
+                    type="number"
+                    placeholder="299000"
+                    required
+                  />
+                  <Input label="Durasi" placeholder="8 jam" />
+                  <Input
+                    label="Jumlah Pelajaran"
+                    type="number"
+                    placeholder="24"
+                  />
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">
+                      Deskripsi
+                    </label>
+                    <textarea
+                      rows={4}
+                      className="w-full px-4 py-2.5 border border-slate-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+                      placeholder="Deskripsi produk..."
+                    />
+                  </div>
+                  <Input
+                    label="URL Gambar"
+                    placeholder="https://example.com/image.jpg"
+                  />
+                </div>
+                <div className="flex gap-3 mt-6">
+                  <Button className="flex-1">Simpan</Button>
+                  <Button
+                    variant="outline"
+                    className="flex-1"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Batal
+                  </Button>
+                </div>
+              </div>
+            </Card>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+```
+```pages/admin/ManageUsers.tsx
+import React, { useState } from 'react'
+import { Card } from '../../components/Card'
+import {
+  SearchIcon,
+  MoreVerticalIcon,
+  ShieldCheckIcon,
+  UserIcon,
+} from 'lucide-react'
+export function ManageUsers() {
+  const [searchQuery, setSearchQuery] = useState('')
+  const [filterRole, setFilterRole] = useState('all')
+  const users = [
+    {
+      id: 1,
+      name: 'John Doe',
+      email: 'john.doe@example.com',
+      role: 'User',
+      status: 'Active',
+      joinDate: '15 Jan 2024',
+      transactions: 5,
+      totalSpent: 1500000,
+    },
+    {
+      id: 2,
+      name: 'Sarah Wijaya',
+      email: 'sarah.wijaya@example.com',
+      role: 'Advisor',
+      status: 'Active',
+      joinDate: '10 Jan 2024',
+      transactions: 0,
+      totalSpent: 0,
+    },
+    {
+      id: 3,
+      name: 'Budi Santoso',
+      email: 'budi.santoso@example.com',
+      role: 'Advisor',
+      status: 'Active',
+      joinDate: '8 Jan 2024',
+      transactions: 0,
+      totalSpent: 0,
+    },
+    {
+      id: 4,
+      name: 'Admin User',
+      email: 'admin@fintrace.com',
+      role: 'Admin',
+      status: 'Active',
+      joinDate: '1 Jan 2024',
+      transactions: 0,
+      totalSpent: 0,
+    },
+    {
+      id: 5,
+      name: 'Jane Smith',
+      email: 'jane.smith@example.com',
+      role: 'User',
+      status: 'Inactive',
+      joinDate: '5 Jan 2024',
+      transactions: 2,
+      totalSpent: 500000,
+    },
+  ]
+  const filteredUsers = users.filter((user) => {
+    const matchesSearch =
+      user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchQuery.toLowerCase())
+    const matchesRole = filterRole === 'all' || user.role === filterRole
+    return matchesSearch && matchesRole
+  })
+  return (
+    <div className="min-h-screen">
+      <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
+            Kelola <span className="gradient-text">Pengguna</span>
+          </h1>
+          <p className="text-slate-600">Manajemen pengguna dan hak akses</p>
+        </div>
+
+        {/* Stats */}
+        <div className="grid md:grid-cols-4 gap-6 mb-8">
+          <Card className="p-6">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg">
+                <UserIcon className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <p className="text-sm text-slate-600">Total Users</p>
+                <p className="text-2xl font-bold text-slate-900">2</p>
+              </div>
+            </div>
+          </Card>
+          <Card className="p-6">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-2xl flex items-center justify-center shadow-lg">
+                <ShieldCheckIcon className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <p className="text-sm text-slate-600">Advisors</p>
+                <p className="text-2xl font-bold text-slate-900">2</p>
+              </div>
+            </div>
+          </Card>
+          <Card className="p-6">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-2xl flex items-center justify-center shadow-lg">
+                <ShieldCheckIcon className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <p className="text-sm text-slate-600">Active Users</p>
+                <p className="text-2xl font-bold text-slate-900">4</p>
+              </div>
+            </div>
+          </Card>
+          <Card className="p-6">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-rose-500 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg">
+                <UserIcon className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <p className="text-sm text-slate-600">Inactive</p>
+                <p className="text-2xl font-bold text-slate-900">1</p>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        {/* Filters */}
+        <Card className="p-4 mb-6">
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex-1 relative">
+              <SearchIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
+              <input
+                type="text"
+                placeholder="Cari pengguna..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-12 pr-4 py-2.5 border border-slate-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+              />
+            </div>
+            <div className="flex gap-2">
+              <button
+                onClick={() => setFilterRole('all')}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${filterRole === 'all' ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/30' : 'bg-white text-slate-600 hover:bg-slate-100'}`}
+              >
+                Semua
+              </button>
+              <button
+                onClick={() => setFilterRole('User')}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${filterRole === 'User' ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/30' : 'bg-white text-slate-600 hover:bg-slate-100'}`}
+              >
+                Users
+              </button>
+              <button
+                onClick={() => setFilterRole('Advisor')}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${filterRole === 'Advisor' ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/30' : 'bg-white text-slate-600 hover:bg-slate-100'}`}
+              >
+                Advisors
+              </button>
+              <button
+                onClick={() => setFilterRole('Admin')}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${filterRole === 'Admin' ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/30' : 'bg-white text-slate-600 hover:bg-slate-100'}`}
+              >
+                Admins
+              </button>
+            </div>
+          </div>
+        </Card>
+
+        {/* Users Table */}
+        <Card className="overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200">
+                <tr>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
+                    Pengguna
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
+                    Role
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
+                    Status
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
+                    Bergabung
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
+                    Transaksi
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
+                    Total Belanja
+                  </th>
+                  <th className="px-6 py-4 text-right text-sm font-semibold text-slate-900">
+                    Aksi
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200">
+                {filteredUsers.map((user) => (
+                  <tr
+                    key={user.id}
+                    className="hover:bg-slate-50 transition-colors"
+                  >
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-slate-200 to-slate-300 rounded-full flex items-center justify-center">
+                          <UserIcon className="w-5 h-5 text-slate-600" />
+                        </div>
+                        <div>
+                          <p className="font-medium text-slate-900">
+                            {user.name}
+                          </p>
+                          <p className="text-sm text-slate-600">{user.email}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span
+                        className={`inline-block px-3 py-1 text-xs font-medium rounded-full ${user.role === 'Admin' ? 'bg-gradient-to-r from-rose-100 to-pink-100 text-rose-700' : user.role === 'Advisor' ? 'bg-gradient-to-r from-purple-100 to-indigo-100 text-purple-700' : 'bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-700'}`}
+                      >
+                        {user.role}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span
+                        className={`inline-block px-3 py-1 text-xs font-medium rounded-full ${user.status === 'Active' ? 'bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-700' : 'bg-slate-100 text-slate-700'}`}
+                      >
+                        {user.status}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 text-slate-600">
+                      {user.joinDate}
+                    </td>
+                    <td className="px-6 py-4 text-slate-600">
+                      {user.transactions}
+                    </td>
+                    <td className="px-6 py-4 text-slate-900 font-medium">
+                      {user.totalSpent > 0
+                        ? `Rp ${user.totalSpent.toLocaleString('id-ID')}`
+                        : '-'}
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center justify-end">
+                        <button className="p-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
+                          <MoreVerticalIcon className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+      </div>
+    </div>
+  )
+}
+
+```
+```pages/admin/ManageTransactions.tsx
+import React, { useState } from 'react'
+import { Card } from '../../components/Card'
+import { Button } from '../../components/Button'
+import {
+  SearchIcon,
+  DownloadIcon,
+  TrendingUpIcon,
+  DollarSignIcon,
+  ShoppingBagIcon,
+  UsersIcon,
+} from 'lucide-react'
+export function ManageTransactions() {
+  const [searchQuery, setSearchQuery] = useState('')
+  const [filterStatus, setFilterStatus] = useState('all')
+  const transactions = [
+    {
+      id: 'TRX-2024-001',
+      user: 'John Doe',
+      email: 'john.doe@example.com',
+      date: '15 Jan 2024',
+      items: ['Personal Finance Mastery', 'Investasi Saham untuk Pemula'],
+      total: 774780,
+      status: 'completed',
+      paymentMethod: 'Kartu Kredit',
+    },
+    {
+      id: 'TRX-2024-002',
+      user: 'Jane Smith',
+      email: 'jane.smith@example.com',
+      date: '10 Jan 2024',
+      items: ['Konsultasi Financial Planning'],
+      total: 550000,
+      status: 'completed',
+      paymentMethod: 'GoPay',
+    },
+    {
+      id: 'TRX-2024-003',
+      user: 'Ahmad Fauzi',
+      email: 'ahmad.fauzi@example.com',
+      date: '5 Jan 2024',
+      items: ['Debt Management Bootcamp'],
+      total: 276390,
+      status: 'pending',
+      paymentMethod: 'Transfer Bank',
+    },
+  ]
+  const filteredTransactions = transactions.filter((tx) => {
+    const matchesSearch =
+      tx.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      tx.user.toLowerCase().includes(searchQuery.toLowerCase())
+    const matchesStatus = filterStatus === 'all' || tx.status === filterStatus
+    return matchesSearch && matchesStatus
+  })
+  const totalRevenue = transactions
+    .filter((tx) => tx.status === 'completed')
+    .reduce((sum, tx) => sum + tx.total, 0)
+  const pendingRevenue = transactions
+    .filter((tx) => tx.status === 'pending')
+    .reduce((sum, tx) => sum + tx.total, 0)
+  return (
+    <div className="min-h-screen">
+      <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
+              Kelola <span className="gradient-text">Transaksi</span>
+            </h1>
+            <p className="text-slate-600">Monitor dan kelola semua transaksi</p>
+          </div>
+          <Button variant="outline">
+            <DownloadIcon className="w-5 h-5 mr-2" />
+            Export Data
+          </Button>
+        </div>
+
+        {/* Stats */}
+        <div className="grid md:grid-cols-4 gap-6 mb-8">
+          <Card className="p-6">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-2xl flex items-center justify-center shadow-lg">
+                <DollarSignIcon className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <p className="text-sm text-slate-600">Total Revenue</p>
+                <p className="text-xl font-bold text-slate-900">
+                  Rp {totalRevenue.toLocaleString('id-ID')}
+                </p>
+              </div>
+            </div>
+          </Card>
+          <Card className="p-6">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-yellow-500 rounded-2xl flex items-center justify-center shadow-lg">
+                <TrendingUpIcon className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <p className="text-sm text-slate-600">Pending</p>
+                <p className="text-xl font-bold text-slate-900">
+                  Rp {pendingRevenue.toLocaleString('id-ID')}
+                </p>
+              </div>
+            </div>
+          </Card>
+          <Card className="p-6">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg">
+                <ShoppingBagIcon className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <p className="text-sm text-slate-600">Total Transaksi</p>
+                <p className="text-2xl font-bold text-slate-900">
+                  {transactions.length}
+                </p>
+              </div>
+            </div>
+          </Card>
+          <Card className="p-6">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-2xl flex items-center justify-center shadow-lg">
+                <UsersIcon className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <p className="text-sm text-slate-600">Customers</p>
+                <p className="text-2xl font-bold text-slate-900">
+                  {new Set(transactions.map((tx) => tx.user)).size}
+                </p>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        {/* Filters */}
+        <Card className="p-4 mb-6">
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex-1 relative">
+              <SearchIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
+              <input
+                type="text"
+                placeholder="Cari transaksi..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-12 pr-4 py-2.5 border border-slate-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+              />
+            </div>
+            <div className="flex gap-2">
+              <button
+                onClick={() => setFilterStatus('all')}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${filterStatus === 'all' ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/30' : 'bg-white text-slate-600 hover:bg-slate-100'}`}
+              >
+                Semua
+              </button>
+              <button
+                onClick={() => setFilterStatus('completed')}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${filterStatus === 'completed' ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/30' : 'bg-white text-slate-600 hover:bg-slate-100'}`}
+              >
+                Selesai
+              </button>
+              <button
+                onClick={() => setFilterStatus('pending')}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${filterStatus === 'pending' ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/30' : 'bg-white text-slate-600 hover:bg-slate-100'}`}
+              >
+                Pending
+              </button>
+            </div>
+          </div>
+        </Card>
+
+        {/* Transactions Table */}
+        <Card className="overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200">
+                <tr>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
+                    ID Transaksi
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
+                    Customer
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
+                    Produk
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
+                    Tanggal
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
+                    Metode
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
+                    Total
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
+                    Status
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200">
+                {filteredTransactions.map((transaction) => (
+                  <tr
+                    key={transaction.id}
+                    className="hover:bg-slate-50 transition-colors"
+                  >
+                    <td className="px-6 py-4">
+                      <p className="font-medium text-slate-900">
+                        {transaction.id}
+                      </p>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div>
+                        <p className="font-medium text-slate-900">
+                          {transaction.user}
+                        </p>
+                        <p className="text-sm text-slate-600">
+                          {transaction.email}
+                        </p>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="text-sm text-slate-600">
+                        {transaction.items.map((item, idx) => (
+                          <div key={idx}>• {item}</div>
+                        ))}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 text-slate-600">
+                      {transaction.date}
+                    </td>
+                    <td className="px-6 py-4 text-slate-600">
+                      {transaction.paymentMethod}
+                    </td>
+                    <td className="px-6 py-4 text-slate-900 font-semibold">
+                      Rp {transaction.total.toLocaleString('id-ID')}
+                    </td>
+                    <td className="px-6 py-4">
+                      <span
+                        className={`inline-block px-3 py-1 text-xs font-medium rounded-full ${transaction.status === 'completed' ? 'bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-700' : 'bg-gradient-to-r from-amber-100 to-yellow-100 text-amber-700'}`}
+                      >
+                        {transaction.status === 'completed'
+                          ? 'Selesai'
+                          : 'Pending'}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+      </div>
+    </div>
+  )
+}
+
+```
