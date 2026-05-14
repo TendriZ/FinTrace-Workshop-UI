@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
+import { mockProducts } from '../../data/mockProducts';
+import { formatCurrency } from '../../utils/formatCurrency';
+import { useAuthContext } from '../../context/AuthContext';
 import {
   ArrowLeftIcon,
   StarIcon,
@@ -9,78 +12,22 @@ import {
   VideoIcon,
   CheckCircleIcon,
   UsersIcon,
-  ShoppingCartIcon } from
+  ShoppingCartIcon,
+  AlertTriangleIcon } from
 'lucide-react';
+
 export function ProductDetailPage() {
-  const { id } = useParams();
+  const { slug } = useParams();
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuthContext();
   const [addedToCart, setAddedToCart] = useState(false);
-  const product = {
-    id: 1,
-    title: 'Personal Finance Mastery',
-    type: 'Kursus Online',
-    price: 299000,
-    rating: 4.8,
-    reviews: 342,
-    students: 1234,
-    duration: '8 jam',
-    lessons: 24,
-    instructor: {
-      name: 'Sarah Wijaya, CFP',
-      title: 'Certified Financial Planner',
-      image:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop',
-      bio: 'Financial advisor dengan 10+ tahun pengalaman membantu ribuan klien mencapai tujuan finansial mereka.'
-    },
-    image:
-    'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1200&h=600&fit=crop',
-    description:
-    'Kuasai dasar-dasar manajemen keuangan pribadi dari perencanaan hingga investasi. Kursus komprehensif ini akan membekali Anda dengan pengetahuan dan keterampilan praktis untuk mengelola keuangan dengan lebih baik.',
-    whatYouLearn: [
-    'Membuat budget dan tracking pengeluaran yang efektif',
-    'Strategi menabung dan membangun dana darurat',
-    'Dasar-dasar investasi dan diversifikasi portofolio',
-    'Manajemen hutang dan kredit yang sehat',
-    'Perencanaan keuangan jangka pendek dan panjang',
-    'Tips mengoptimalkan pajak dan asuransi'],
+  const product = mockProducts.find((item) => item.slug === slug) ?? mockProducts[0];
 
-    curriculum: [
-    {
-      title: 'Pengenalan Personal Finance',
-      lessons: 3,
-      duration: '45 menit'
-    },
-    {
-      title: 'Budgeting & Expense Tracking',
-      lessons: 4,
-      duration: '1 jam'
-    },
-    {
-      title: 'Saving Strategies',
-      lessons: 3,
-      duration: '45 menit'
-    },
-    {
-      title: 'Debt Management',
-      lessons: 4,
-      duration: '1 jam'
-    },
-    {
-      title: 'Investment Basics',
-      lessons: 5,
-      duration: '1.5 jam'
-    },
-    {
-      title: 'Financial Planning',
-      lessons: 5,
-      duration: '1.5 jam'
-    }]
-
-  };
   const handleAddToCart = () => {
     setAddedToCart(true);
     setTimeout(() => setAddedToCart(false), 2000);
   };
+
   return (
     <div className="min-h-screen">
       <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
@@ -98,16 +45,16 @@ export function ProductDetailPage() {
             {/* Hero */}
             <Card className="overflow-hidden">
               <img
-                src={product.image}
-                alt={product.title}
+                src={product.featuredImage}
+                alt={product.name}
                 className="w-full h-80 object-cover" />
-              
+
               <div className="p-8">
                 <div className="inline-block px-3 py-1 bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-700 text-sm font-medium rounded-full mb-4">
-                  {product.type}
+                  {product.category}
                 </div>
                 <h1 className="text-3xl font-bold text-slate-900 mb-4">
-                  {product.title}
+                  {product.name}
                 </h1>
                 <p className="text-lg text-slate-600 mb-6">
                   {product.description}
@@ -117,15 +64,15 @@ export function ProductDetailPage() {
                   <div className="flex items-center gap-2">
                     <StarIcon className="w-5 h-5 fill-yellow-400 text-yellow-400" />
                     <span className="font-semibold">{product.rating}</span>
-                    <span>({product.reviews} ulasan)</span>
+                    <span>({product.reviewCount} ulasan)</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <UsersIcon className="w-5 h-5" />
-                    <span>{product.students} siswa</span>
+                    <span>{product.salesCount} pembelian</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <VideoIcon className="w-5 h-5" />
-                    <span>{product.lessons} pelajaran</span>
+                    <span>{product.modules} modul</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <ClockIcon className="w-5 h-5" />
@@ -141,7 +88,7 @@ export function ProductDetailPage() {
                 Yang Akan Anda Pelajari
               </h2>
               <div className="grid md:grid-cols-2 gap-4">
-                {product.whatYouLearn.map((item, index) =>
+                {product.whatYouLearn?.map((item, index) =>
                 <div key={index} className="flex items-start gap-3">
                     <CheckCircleIcon className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
                     <span className="text-slate-700">{item}</span>
@@ -156,18 +103,18 @@ export function ProductDetailPage() {
                 Kurikulum Kursus
               </h2>
               <div className="space-y-4">
-                {product.curriculum.map((section, index) =>
+                {(product.curriculum ?? []).map((section, index) =>
                 <div
                   key={index}
                   className="border border-slate-200 rounded-2xl p-4 hover:border-purple-300 transition-colors">
-                  
+
                     <div className="flex items-center justify-between">
                       <div>
                         <h3 className="font-semibold text-slate-900 mb-1">
                           {section.title}
                         </h3>
                         <div className="flex items-center gap-4 text-sm text-slate-600">
-                          <span>{section.lessons} pelajaran</span>
+                          <span>{section.description}</span>
                           <span>•</span>
                           <span>{section.duration}</span>
                         </div>
@@ -185,18 +132,18 @@ export function ProductDetailPage() {
               </h2>
               <div className="flex items-start gap-4">
                 <img
-                  src={product.instructor.image}
-                  alt={product.instructor.name}
+                  src={'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop'}
+                  alt={product.instructor}
                   className="w-20 h-20 rounded-full object-cover" />
-                
+
                 <div>
                   <h3 className="text-xl font-semibold text-slate-900 mb-1">
-                    {product.instructor.name}
+                    {product.instructor}
                   </h3>
                   <p className="text-purple-600 font-medium mb-2">
-                    {product.instructor.title}
+                    Certified Financial Planner
                   </p>
-                  <p className="text-slate-600">{product.instructor.bio}</p>
+                  <p className="text-slate-600">Instruktur berpengalaman yang membantu banyak peserta memahami keuangan pribadi dan investasi.</p>
                 </div>
               </div>
             </Card>
@@ -205,16 +152,35 @@ export function ProductDetailPage() {
           {/* Sidebar */}
           <div className="lg:col-span-1">
             <Card className="p-6 sticky top-24">
+              {product.badge && (
+                <div className="inline-block px-3 py-1 bg-emerald-100 text-emerald-700 text-xs font-semibold rounded-full mb-4">
+                  {product.badge}
+                </div>
+              )}
+
               <div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent mb-6">
-                Rp {product.price.toLocaleString('id-ID')}
+                {formatCurrency(product.salePrice ?? product.price)}
               </div>
+
+              {product.salePrice && product.salePrice < product.price && (
+                <div className="mb-4 flex items-center gap-2 text-sm">
+                  <span className="text-slate-400 line-through">{formatCurrency(product.price)}</span>
+                  <span className="rounded-full bg-emerald-100 px-3 py-1 text-emerald-700 font-medium">Save {Math.round(((product.price - product.salePrice) / product.price) * 100)}%</span>
+                </div>
+              )}
 
               <div className="space-y-3 mb-6">
                 <Button
                   className="w-full"
                   size="lg"
-                  onClick={() => navigate('/cart')}>
-                  
+                  onClick={() => {
+                    if (!isAuthenticated) {
+                      navigate('/login');
+                    } else {
+                      navigate('/cart');
+                    }
+                  }}>
+
                   Beli Sekarang
                 </Button>
                 <Button
@@ -222,7 +188,7 @@ export function ProductDetailPage() {
                   className="w-full"
                   size="lg"
                   onClick={handleAddToCart}>
-                  
+
                   <ShoppingCartIcon className="w-5 h-5 mr-2" />
                   {addedToCart ? 'Ditambahkan!' : 'Tambah ke Keranjang'}
                 </Button>
@@ -238,7 +204,7 @@ export function ProductDetailPage() {
                 <div className="flex items-center justify-between">
                   <span className="text-slate-600">Jumlah Pelajaran</span>
                   <span className="font-medium text-slate-900">
-                    {product.lessons} video
+                    {product.modules} modul
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
@@ -253,7 +219,20 @@ export function ProductDetailPage() {
             </Card>
           </div>
         </div>
+
+        {/* Guest Warning Banner */}
+        {!isAuthenticated && (
+          <div className="fixed bottom-0 left-0 right-0 z-50">
+            <div className="container-1280 mx-auto px-4 sm:px-6 lg:px-8 py-4">
+              <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-2xl px-6 py-4 flex items-center justify-center gap-3 shadow-lg">
+                <AlertTriangleIcon className="w-5 h-5 text-amber-600 flex-shrink-0" />
+                <p className="text-sm md:text-base text-amber-800 font-medium">
+                  Anda akan diarahkan ke halaman login jika ingin membeli produk
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>);
-
 }

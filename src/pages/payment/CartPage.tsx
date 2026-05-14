@@ -2,9 +2,12 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
-import { TrashIcon, ShoppingBagIcon } from 'lucide-react';
+import { TrashIcon, ShoppingBagIcon, AlertTriangleIcon } from 'lucide-react';
+import { useAuthContext } from '../../context/AuthContext';
+
 export function CartPage() {
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuthContext();
   const cartItems = [
   {
     id: 1,
@@ -28,6 +31,7 @@ export function CartPage() {
   const subtotal = cartItems.reduce((sum, item) => sum + item.price, 0);
   const tax = subtotal * 0.11; // PPN 11%
   const total = subtotal + tax;
+
   return (
     <div className="min-h-screen">
       <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
@@ -59,7 +63,7 @@ export function CartPage() {
                   src={item.image}
                   alt={item.title}
                   className="w-24 h-24 rounded-2xl object-cover" />
-                
+
                     <div className="flex-1">
                       <div className="flex items-start justify-between mb-2">
                         <div>
@@ -116,9 +120,15 @@ export function CartPage() {
               <Button
                 className="w-full mb-3"
                 size="lg"
-                onClick={() => navigate('/payment')}
+                onClick={() => {
+                  if (!isAuthenticated) {
+                    navigate('/login');
+                  } else {
+                    navigate('/checkout');
+                  }
+                }}
                 disabled={cartItems.length === 0}>
-                
+
                 Lanjut ke Pembayaran
               </Button>
 
@@ -130,7 +140,20 @@ export function CartPage() {
             </Card>
           </div>
         </div>
+
+        {/* Guest Warning Banner */}
+        {!isAuthenticated && (
+          <div className="fixed bottom-0 left-0 right-0 z-50">
+            <div className="container-1280 mx-auto px-4 sm:px-6 lg:px-8 py-4">
+              <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-2xl px-6 py-4 flex items-center justify-center gap-3 shadow-lg">
+                <AlertTriangleIcon className="w-5 h-5 text-amber-600 flex-shrink-0" />
+                <p className="text-sm md:text-base text-amber-800 font-medium">
+                  Anda akan diarahkan ke halaman login jika ingin melanjutkan pembayaran
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>);
-
 }

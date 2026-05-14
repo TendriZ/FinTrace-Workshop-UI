@@ -12,25 +12,26 @@ import {
   UsersIcon,
   StarIcon } from
 'lucide-react';
+import { router } from '../../router';
 export function LandingPage() {
   const stats = [
   {
-    icon: '👥',
+    imageUrl : './public/images/Active-User-Icon.png',
     value: '100K+',
     label: 'Active Users'
   },
   {
-    icon: '💰',
+    imageUrl : './public/images/Transaction-Tracked-Icon.png',
     value: '1M+',
     label: 'Transaction Tracked'
   },
   {
-    icon: '🏦',
+    imageUrl : './public/images/Card.png',
     value: '15+',
     label: 'Supported Platforms'
   },
   {
-    icon: '⭐',
+    imageUrl : './public/images/Stars-Icon.png',
     value: '5.0',
     label: 'Users Rating'
   }];
@@ -82,7 +83,7 @@ export function LandingPage() {
   const articles = [
   {
     image:
-    'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=400&h=300&fit=crop',
+    './public/images/article-1-land.png',
     title: '5 Simple Way to Save Money Every Month',
     description:
     'Discover practical strategies to cut expenses and increase your savings without sacrificing your lifestyle.',
@@ -90,7 +91,7 @@ export function LandingPage() {
   },
   {
     image:
-    'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=300&fit=crop',
+    './public/images/article-2-land.png',
     title: 'Understanding E-Wallet Security',
     description:
     'Essential tips to keep your digital money safe from fraud and unauthorized access.',
@@ -98,7 +99,7 @@ export function LandingPage() {
   },
   {
     image:
-    'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&h=300&fit=crop',
+    './public/images/article-3-land.png',
     title: 'Investment Basics for Young Professionals',
     description:
     'Start your investment journey with these beginner-friendly tips and strategies.',
@@ -122,7 +123,7 @@ export function LandingPage() {
               control of your money.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-              <Link to="/dashboard">
+              <Link to='/login'>
                 <Button size="lg">Start Tracking Free</Button>
               </Link>
               <Button variant="outline" size="lg">
@@ -135,42 +136,76 @@ export function LandingPage() {
           </div>
 
           {/* Platform Logos */}
-          <div className="mt-12 flex flex-wrap items-center justify-center gap-6 max-w-4xl mx-auto">
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-6 max-w-2xl mx-auto">
             <div className="w-20 h-20 bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg flex items-center justify-center">
               <img
-                src="https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg"
-                alt="GoPay"
-                className="w-12 h-12 object-contain" />
+                src="/images/Gopay-Logo.png"
+                alt="Gopay"
+                className="w-15 h-15 object-contain" />
               
             </div>
             <div className="w-20 h-20 bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg flex items-center justify-center">
               <img
-                src="https://upload.wikimedia.org/wikipedia/commons/e/eb/Logo_ovo_purple.svg"
+                src="/images/OVO-Logo.png"
                 alt="OVO"
-                className="w-12 h-12 object-contain" />
+                className="w-15 h-15 object-contain" />
               
             </div>
             <div className="w-20 h-20 bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg flex items-center justify-center">
               <img
-                src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg"
+                src="/images/Dana-Logo.png"
                 alt="DANA"
-                className="w-12 h-12 object-contain" />
+                className="w-15 h-15 object-contain" />
               
             </div>
             <div className="w-20 h-20 bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg flex items-center justify-center">
-              <span className="text-2xl font-bold text-orange-500">S Pay</span>
+              <img
+                src="/images/Shoopepay-Logo.png"
+                alt="ShoopePay"
+                className="w-15 h-15 object-contain" />
+              
             </div>
             <div className="w-20 h-20 bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg flex items-center justify-center">
-              <span className="text-xl font-bold text-red-600">LinkAja</span>
+              <img
+                src="/images/LinkAja-Logo.png"
+                alt="LinkAja"
+                className="w-15 h-15 object-contain" />
+              
             </div>
             <div className="w-20 h-20 bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg flex items-center justify-center">
-              <span className="text-xl font-bold text-blue-700">BRI</span>
+              <img
+                src="/images/Doku-Logo.png"
+                alt="Doku"
+                className="object-cover" />
+              
             </div>
             <div className="w-20 h-20 bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg flex items-center justify-center">
-              <span className="text-xl font-bold text-yellow-600">Livin'</span>
+              <img
+                src="/images/brimo-logo.png"
+                alt="Brimo"
+                className="w-15 h-15 object-contain" />
+              
+            </div>
+            <div className="w-20 h-20 backdrop-blur-sm  shadow-lg flex items-center justify-center">
+              <img
+                src="/images/livin-mandiri-logo.png"
+                alt="Livin'"
+                className="object-cover" />
+              
             </div>
             <div className="w-20 h-20 bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg flex items-center justify-center">
-              <span className="text-xl font-bold text-blue-600">BCA</span>
+              <img
+                src="/images/bca-mobile-logo.png"
+                alt="BCA"
+                className="w-15 h-15 object-contain" />
+              
+            </div>
+            <div className="w-20 h-20 bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg flex items-center justify-center">
+              <img
+                src="/images/bni-logo.png"
+                alt="BNI"
+                className="w-15 h-15 object-contain" />
+              
             </div>
           </div>
         </div>
@@ -181,7 +216,9 @@ export function LandingPage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {stats.map((stat, index) =>
           <Card key={index} className="p-6 text-center">
-              <div className="text-4xl mb-2">{stat.icon}</div>
+              <div className="text-4xl mb-2 justify-center align-center flex">
+                <img src={stat.imageUrl} alt={stat.label} className="w-10 h-10 object-contain" />
+              </div>
               <div className="text-3xl font-bold text-slate-900 mb-1">
                 {stat.value}
               </div>
@@ -278,93 +315,13 @@ export function LandingPage() {
           <p className="text-xl text-indigo-100 mb-8">
             Everything you need to take control of your finances
           </p>
-          <Link to="/dashboard">
+          <Link to="/login">
             <Button variant="white" size="lg">
               Start Your Free Trial Today
             </Button>
           </Link>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-white/50 backdrop-blur-sm border-t border-slate-200/50 py-12">
-        <div className="container-1280 px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-5 gap-8 mb-8">
-            <div className="md:col-span-2">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
-                  <WalletIcon className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-lg font-bold gradient-text">
-                  FinTrace
-                </span>
-              </div>
-              <p className="text-sm text-slate-600">
-                Platform manajemen keuangan digital untuk masa depan finansial
-                yang lebih cerah.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-semibold text-slate-900 mb-4">Product</h4>
-              <ul className="space-y-2 text-sm text-slate-600">
-                <li>
-                  <Link to="/dashboard" className="hover:text-indigo-600">
-                    Dashboard
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/articles" className="hover:text-indigo-600">
-                    Articles
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/products" className="hover:text-indigo-600">
-                    Courses
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold text-slate-900 mb-4">Company</h4>
-              <ul className="space-y-2 text-sm text-slate-600">
-                <li>
-                  <a href="#" className="hover:text-indigo-600">
-                    About Us
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-indigo-600">
-                    Features
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-indigo-600">
-                    Pricing
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold text-slate-900 mb-4">Legal</h4>
-              <ul className="space-y-2 text-sm text-slate-600">
-                <li>
-                  <a href="#" className="hover:text-indigo-600">
-                    Privacy Policy
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-indigo-600">
-                    Terms of Service
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-slate-200 pt-8 text-center text-sm text-slate-600">
-            © 2025 FinTrace. All rights reserved.
-          </div>
-        </div>
-      </footer>
     </div>);
 
 }

@@ -1,17 +1,38 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { EyeOff, Mail, Lock, User } from 'lucide-react';
 import { Button } from '../../components/ui/Button';
-import { useAuth } from '../../hooks/useAuth';
+import { useAuthContext } from '../../context/AuthContext';
+
+const REDIRECT_TARGET_KEY = 'fintrace_redirect';
 
 export function RegisterPage() {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, isAuthenticated } = useAuthContext();
+  const [redirectTarget, setRedirectTarget] = React.useState<string | null>(null);
+
+  useEffect(() => {
+    // Check for redirect target in localStorage on mount
+    const target = localStorage.getItem(REDIRECT_TARGET_KEY);
+    if (target) {
+      setRedirectTarget(target);
+    }
+  }, []);
+
+  useEffect(() => {
+    // If already authenticated, redirect to target or dashboard
+    if (isAuthenticated) {
+      const target = redirectTarget || localStorage.getItem(REDIRECT_TARGET_KEY) || '/dashboard';
+      navigate(target);
+    }
+  }, [isAuthenticated, redirectTarget, navigate]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     login('user');
-    navigate('/dashboard');
+    // Clear redirect target after successful registration
+    localStorage.removeItem(REDIRECT_TARGET_KEY);
+    // Navigate will be handled by useEffect above
   };
 
   return (
@@ -52,7 +73,7 @@ export function RegisterPage() {
 
           <div className="flex justify-between items-center mb-6">
             <label className="flex items-center gap-2 text-sm text-slate-600">
-              <input type="checkbox" className="w-4 h-4 rounded accent-purple-500" /> I agree to the terms
+              <input type="checkbox" className="w-4 h-4 rounded accent-purple-500" /> I agree to terms
             </label>
           </div>
 
