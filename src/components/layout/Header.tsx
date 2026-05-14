@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { WalletIcon } from 'lucide-react';
+import { Wallet } from 'lucide-react';
 export function Header() {
   const location = useLocation();
   const isActive = (path: string) => location.pathname === path;
@@ -11,7 +11,7 @@ export function Header() {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
             <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-xl flex items-center justify-center transform group-hover:scale-105 transition-transform">
-              <WalletIcon className="w-6 h-6 text-white" />
+              <Wallet className="w-6 h-6 text-white" />
             </div>
             <span className="text-xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
               FinTrace
