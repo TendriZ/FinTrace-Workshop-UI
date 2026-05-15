@@ -193,7 +193,7 @@ export function ProductsPage() {
                       Rp {product.price.toLocaleString('id-ID')}
                     </div>
                   </div>
-                  <Link to={`/products/${product.id}`}>
+                  <Link to={`/courses/${product.id}`}>
                     <Button size="sm">Detail</Button>
                   </Link>
                 </div>

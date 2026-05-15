@@ -21,7 +21,7 @@ export function ProductDetailPage() {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuthContext();
   const [addedToCart, setAddedToCart] = useState(false);
-  const product = mockProducts.find((item) => item.slug === slug) ?? mockProducts[0];
+  const product = mockProducts.find((items) => items.slug === slug);
 
   const handleAddToCart = () => {
     setAddedToCart(true);
@@ -32,7 +32,7 @@ export function ProductDetailPage() {
     <div className="min-h-screen">
       <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
         {/* Back Button */}
-        <Link to="/products">
+        <Link to="/courses">
           <Button variant="outline" size="sm" className="mb-6">
             <ArrowLeftIcon className="w-4 h-4 mr-2" />
             Kembali ke Katalog
