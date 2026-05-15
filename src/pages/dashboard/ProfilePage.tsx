@@ -22,6 +22,18 @@ export function ProfilePage() {
   const [notifications, setNotifications] = useState(true);
   const [twoFactor, setTwoFactor] = useState(false);
 
+  const [formData, setFormData] = useState({
+    firstName: 'John',
+    lastName: 'Doe',
+    jobTitle: 'Software Engineer',
+    department: 'Engineering',
+    bio: 'Financial enthusiast and lifelong learner. Passionate about helping others achieve financial freedom.'
+  });
+
+  const handleSaveProfile = () => {
+    setIsEditing(false);
+  };
+
   const achievements = [
     {
       id: 1,
@@ -112,6 +124,7 @@ export function ProfilePage() {
                   src="/images/Photo-Profile-Nayla-Sasha-Meliana.png"
                   alt="Profile"
                   className="w-12 h-12 object-contain" />
+            </div>
             <div className="flex-1">
               <h2 className="text-2xl font-bold mb-1">John Doe</h2>
               <p className="text-white/80 mb-3">@johndoe</p>
@@ -183,21 +196,25 @@ export function ProfilePage() {
                   <div className="grid md:grid-cols-2 gap-4">
                     <Input
                       label="First Name"
-                      defaultValue="John"
+                      value={formData.firstName}
+                      onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                     />
                     <Input
                       label="Last Name"
-                      defaultValue="Doe"
+                      value={formData.lastName}
+                      onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                     />
                   </div>
                   <div className="grid md:grid-cols-2 gap-4">
                     <Input
                       label="Job Title"
-                      defaultValue="Software Engineer"
+                      value={formData.jobTitle}
+                      onChange={(e) => setFormData({ ...formData, jobTitle: e.target.value })}
                     />
                     <Input
                       label="Department"
-                      defaultValue="Engineering"
+                      value={formData.department}
+                      onChange={(e) => setFormData({ ...formData, department: e.target.value })}
                     />
                   </div>
                   <div>
@@ -208,11 +225,12 @@ export function ProfilePage() {
                       rows={4}
                       className="w-full px-4 py-2.5 border border-slate-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500"
                       placeholder="Tulis bio Anda..."
-                      defaultValue="Financial enthusiast and lifelong learner. Passionate about helping others achieve financial freedom."
+                      value={formData.bio}
+                      onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
                     />
                   </div>
                   <div className="flex gap-3">
-                    <Button size="sm">Simpan</Button>
+                    <Button size="sm" onClick={handleSaveProfile}>Simpan</Button>
                     <Button
                       variant="outline"
                       size="sm"
