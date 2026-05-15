@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
@@ -21,7 +21,29 @@ export function ProductDetailPage() {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuthContext();
   const [addedToCart, setAddedToCart] = useState(false);
-  const product = mockProducts.find((items) => items.slug === slug);
+  const product = mockProducts.find((item) => item.slug === slug);
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  // Handle case when product is not found
+  if (!product) {
+    return (
+      <div className="min-h-screen">
+        <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
+          <Card className="p-12 text-center">
+            <h1 className="text-2xl font-bold text-slate-900 mb-4">Produk Tidak Ditemukan</h1>
+            <p className="text-slate-600 mb-6">Produk yang Anda cari tidak tersedia.</p>
+            <Link to="/courses">
+              <Button>Kembali ke Katalog</Button>
+            </Link>
+          </Card>
+        </div>
+      </div>
+    );
+  }
 
   const handleAddToCart = () => {
     setAddedToCart(true);
