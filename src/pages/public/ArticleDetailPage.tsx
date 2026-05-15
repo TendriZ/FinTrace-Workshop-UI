@@ -1,6 +1,9 @@
-import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
+import { Card } from '../../components/ui/Card';
+import { mockArticles } from '../../data/mockArticles';
+import { useAuthContext } from '../../context/AuthContext';
 import {
   ArrowLeftIcon,
   ClockIcon,
@@ -8,57 +11,51 @@ import {
   CalendarIcon,
   ShareIcon } from
 'lucide-react';
+
 export function ArticleDetailPage() {
-  const { id } = useParams();
-  // Mock article data
-  const article = {
-    id: 1,
-    title: 'Cara Mengelola Keuangan untuk Mahasiswa',
-    author: 'Sarah Wijaya',
-    date: '15 Januari 2024',
-    readTime: '5 menit',
-    category: 'Personal Finance',
-    image:
-    'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&h=600&fit=crop',
-    content: `
-      <p>Mengelola keuangan sebagai mahasiswa adalah keterampilan penting yang akan bermanfaat sepanjang hidup. Berikut adalah panduan lengkap untuk membantu Anda memulai perjalanan finansial yang sehat.</p>
-      
-      <h2>1. Buat Budget Bulanan</h2>
-      <p>Langkah pertama dalam mengelola keuangan adalah membuat budget bulanan. Catat semua pemasukan Anda, termasuk uang saku dari orang tua, beasiswa, atau penghasilan part-time. Kemudian, kategorikan pengeluaran Anda:</p>
-      <ul>
-        <li>Kebutuhan pokok (makan, transportasi, kos)</li>
-        <li>Pendidikan (buku, alat tulis, kursus)</li>
-        <li>Hiburan dan sosial</li>
-        <li>Tabungan</li>
-      </ul>
-      
-      <h2>2. Gunakan Aplikasi Tracking Keuangan</h2>
-      <p>Manfaatkan teknologi untuk memudahkan tracking pengeluaran. FinTrace dapat membantu Anda melacak transaksi e-wallet secara otomatis dan memberikan visualisasi pengeluaran yang jelas.</p>
-      
-      <h2>3. Terapkan Prinsip 50/30/20</h2>
-      <p>Alokasikan pendapatan Anda dengan formula:</p>
-      <ul>
-        <li>50% untuk kebutuhan pokok</li>
-        <li>30% untuk keinginan dan hiburan</li>
-        <li>20% untuk tabungan dan investasi</li>
-      </ul>
-      
-      <h2>4. Hindari Hutang Konsumtif</h2>
-      <p>Sebisa mungkin hindari berhutang untuk hal-hal konsumtif. Jika terpaksa menggunakan paylater atau kartu kredit, pastikan Anda bisa melunasinya tepat waktu untuk menghindari bunga yang membengkak.</p>
-      
-      <h2>5. Mulai Menabung Sejak Dini</h2>
-      <p>Tidak ada kata terlalu dini untuk mulai menabung. Bahkan jika hanya Rp 50.000 per bulan, kebiasaan menabung akan membentuk disiplin finansial yang kuat.</p>
-      
-      <h2>Kesimpulan</h2>
-      <p>Mengelola keuangan sebagai mahasiswa memang menantang, tetapi dengan disiplin dan tools yang tepat, Anda bisa membangun fondasi finansial yang kuat untuk masa depan. Mulai dari sekarang, dan rasakan manfaatnya di kemudian hari.</p>
-    `
+  const { slug } = useParams();
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuthContext();
+  const [addedToCart, setAddedToCart] = useState(false);
+  const article = mockArticles.find((item) => item.slug === slug);
+
+  // Helper function to get random related articles excluding current article
+  const getRelatedArticles = () => {
+    const filteredArticles = mockArticles.filter(item => item.id !== article?.id);
+    const shuffled = [...filteredArticles].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, 3);
   };
+
+  const relatedArticles = article ? getRelatedArticles() : [];
+
+  // Scroll to top when component mounts
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
+  
+    // Handle case when article is not found
+    if (!article) {
+      return (
+        <div className="min-h-screen">
+          <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
+            <Card className="p-12 text-center">
+              <h1 className="text-2xl font-bold text-slate-900 mb-4">Artikel Tidak Ditemukan</h1>
+              <p className="text-slate-600 mb-6">Artikel yang Anda cari tidak tersedia.</p>
+              <Link to="/articles">
+                <Button>Kembali ke Artikel</Button>
+              </Link>
+            </Card>
+          </div>
+        </div>
+      );
+    }
+
   return (
     <div className="min-h-screen">
       {/* Hero Image */}
       <div className="relative h-96 bg-slate-900 overflow-hidden">
         <img
-          src={article.image}
+          src={article.featuredImage}
           alt={article.title}
           className="w-full h-full object-cover opacity-60" />
         
@@ -86,15 +83,15 @@ export function ArticleDetailPage() {
           <div className="flex flex-wrap items-center gap-6 text-slate-600 mb-6">
             <div className="flex items-center gap-2">
               <UserIcon className="w-5 h-5" />
-              <span>{article.author}</span>
+              <span>{article.author.name}</span>
             </div>
             <div className="flex items-center gap-2">
               <CalendarIcon className="w-5 h-5" />
-              <span>{article.date}</span>
+              <span>{article.publishedAt}</span>
             </div>
             <div className="flex items-center gap-2">
               <ClockIcon className="w-5 h-5" />
-              <span>{article.readTime} baca</span>
+              <span>{article.readTime} menit</span>
             </div>
           </div>
 
@@ -122,19 +119,19 @@ export function ArticleDetailPage() {
             Artikel Terkait
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
-            {[1, 2, 3].map((i) =>
-            <Link key={i} to={`/articles/${i + 1}`}>
+            {relatedArticles.map((relatedArticle) =>
+            <Link key={relatedArticle.id} to={`/articles/${relatedArticle.slug}`}>
                 <div className="bg-white/90 backdrop-blur-sm rounded-2xl border border-slate-200/50 overflow-hidden hover:shadow-xl hover:shadow-purple-500/10 hover:-translate-y-1 transition-all duration-300">
                   <img
-                  src={`https://images.unsplash.com/photo-${1554224155 + i}000-6726b3ff858f?w=400&h=200&fit=crop`}
-                  alt="Related article"
+                  src={relatedArticle.featuredImage}
+                  alt={relatedArticle.title}
                   className="w-full h-40 object-cover" />
                 
                   <div className="p-4">
                     <h3 className="font-semibold text-slate-900 mb-2 line-clamp-2">
-                      Artikel Terkait {i}
+                      {relatedArticle.title}
                     </h3>
-                    <p className="text-sm text-slate-600">5 menit baca</p>
+                    <p className="text-sm text-slate-600">{relatedArticle.readTime} menit baca</p>
                   </div>
                 </div>
               </Link>
