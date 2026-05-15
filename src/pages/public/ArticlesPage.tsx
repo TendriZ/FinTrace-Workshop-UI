@@ -1,84 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from '../../components/ui/Card';
+import { Button } from '../../components/ui/Button';
+import { mockArticles } from '../../data/mockArticles';
 import { SearchIcon, ClockIcon, UserIcon } from 'lucide-react';
-const articles = [
-{
-  id: 1,
-  title: 'Cara Mengelola Keuangan untuk Mahasiswa',
-  excerpt:
-  'Tips praktis mengelola uang saku dan membangun kebiasaan finansial yang sehat sejak dini.',
-  author: 'Sarah Wijaya',
-  date: '15 Januari 2024',
-  readTime: '5 menit',
-  category: 'Personal Finance',
-  image:
-  'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=400&fit=crop'
-},
-{
-  id: 2,
-  title: 'Investasi untuk Pemula: Panduan Lengkap',
-  excerpt:
-  'Memulai perjalanan investasi Anda dengan strategi yang tepat dan risiko yang terukur.',
-  author: 'Budi Santoso',
-  date: '12 Januari 2024',
-  readTime: '8 menit',
-  category: 'Investasi',
-  image:
-  'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=400&fit=crop'
-},
-{
-  id: 3,
-  title: 'Mengenal E-Wallet dan Keamanannya',
-  excerpt:
-  'Panduan lengkap menggunakan e-wallet dengan aman dan maksimal untuk transaksi sehari-hari.',
-  author: 'Rina Kusuma',
-  date: '10 Januari 2024',
-  readTime: '6 menit',
-  category: 'Digital Finance',
-  image:
-  'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=400&fit=crop'
-},
-{
-  id: 4,
-  title: 'Strategi Menabung untuk Dana Darurat',
-  excerpt:
-  'Membangun dana darurat yang kuat untuk menghadapi situasi finansial yang tidak terduga.',
-  author: 'Ahmad Fauzi',
-  date: '8 Januari 2024',
-  readTime: '7 menit',
-  category: 'Saving',
-  image:
-  'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=800&h=400&fit=crop'
-},
-{
-  id: 5,
-  title: 'Cara Keluar dari Jerat Hutang',
-  excerpt:
-  'Strategi efektif untuk melunasi hutang dan membangun kembali kesehatan finansial Anda.',
-  author: 'Linda Pratiwi',
-  date: '5 Januari 2024',
-  readTime: '10 menit',
-  category: 'Debt Management',
-  image:
-  'https://images.unsplash.com/photo-1554224154-26032ffc0d07?w=800&h=400&fit=crop'
-},
-{
-  id: 6,
-  title: 'Perencanaan Keuangan untuk UMKM',
-  excerpt:
-  'Tips mengelola keuangan bisnis kecil dan memisahkan keuangan pribadi dengan bisnis.',
-  author: 'Dedi Kurniawan',
-  date: '3 Januari 2024',
-  readTime: '9 menit',
-  category: 'Business',
-  image:
-  'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop'
-}];
 
 export function ArticlesPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Semua');
+
   const categories = [
   'Semua',
   'Personal Finance',
@@ -88,7 +18,7 @@ export function ArticlesPage() {
   'Debt Management',
   'Business'];
 
-  const filteredArticles = articles.filter((article) => {
+  const filteredArticles = mockArticles.filter((article) => {
     const matchesSearch =
     article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     article.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
@@ -139,10 +69,10 @@ export function ArticlesPage() {
         {/* Articles Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredArticles.map((article) =>
-          <Link key={article.id} to={`/articles/${article.id}`}>
+          <Link key={article.id} to={`/articles/${article.slug}`}>
               <Card hover className="h-full overflow-hidden">
                 <img
-                src={article.image}
+                src={article.featuredImage}
                 alt={article.title}
                 className="w-full h-48 object-cover" />
               
@@ -159,11 +89,11 @@ export function ArticlesPage() {
                   <div className="flex items-center justify-between text-sm text-slate-500">
                     <div className="flex items-center gap-2">
                       <UserIcon className="w-4 h-4" />
-                      <span>{article.author}</span>
+                      <span>{article.author.name}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <ClockIcon className="w-4 h-4" />
-                      <span>{article.readTime}</span>
+                      <span>{article.readTime} menit</span>
                     </div>
                   </div>
                 </div>

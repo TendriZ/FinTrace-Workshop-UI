@@ -41,7 +41,7 @@ export interface Product {
   name: string;
   description: string;
   shortDescription: string;
-  category: 'course' | 'consultation' | 'premium' | 'ebook';
+  category: 'course' | 'consultation' | 'premium' | 'ebook' ;
   price: number;
   salePrice?: number;
   featuredImage: string;
