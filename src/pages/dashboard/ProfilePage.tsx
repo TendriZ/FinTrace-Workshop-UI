@@ -23,10 +23,10 @@ export function ProfilePage() {
   const [twoFactor, setTwoFactor] = useState(false);
 
   const [formData, setFormData] = useState({
-    firstName: 'John',
-    lastName: 'Doe',
-    jobTitle: 'Software Engineer',
-    department: 'Engineering',
+    firstName: 'Nayla',
+    lastName: 'Sasha Meliana',
+    jobTitle: 'Financial Analyst',
+    department: 'Finance',
     bio: 'Financial enthusiast and lifelong learner. Passionate about helping others achieve financial freedom.'
   });
 
@@ -123,11 +123,11 @@ export function ProfilePage() {
               <img
                   src="/images/Photo-Profile-Nayla-Sasha-Meliana.png"
                   alt="Profile"
-                  className="w-12 h-12 object-contain" />
+                  className="w-20 h-20 object-cover rounded-full" />
             </div>
             <div className="flex-1">
-              <h2 className="text-2xl font-bold mb-1">John Doe</h2>
-              <p className="text-white/80 mb-3">@johndoe</p>
+              <h2 className="text-2xl font-bold mb-1">Nayla Sasha Meliana</h2>
+              <p className="text-white/80 mb-3">@naylasasha</p>
               <div className="flex flex-wrap gap-2 mb-3">
                 <Badge className="bg-white/20 text-white border-0">Royal Buyer</Badge>
                 <Badge className="bg-white/20 text-white border-0">Verified</Badge>
@@ -387,11 +387,11 @@ export function ProfilePage() {
               <div className="space-y-4">
                 <div>
                   <p className="text-sm text-slate-600 mb-1">Username</p>
-                  <p className="font-medium text-slate-900">@johndoe</p>
+                  <p className="font-medium text-slate-900">@naylasasha</p>
                 </div>
                 <div>
                   <p className="text-sm text-slate-600 mb-1">Email</p>
-                  <p className="font-medium text-slate-900">john.doe@example.com</p>
+                  <p className="font-medium text-slate-900">nayla.sasha.meliana@gmail.com</p>
                 </div>
                 <div>
                   <p className="text-sm text-slate-600 mb-1">Phone</p>

@@ -140,11 +140,17 @@ export function DashboardPage() {
       <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
-              Financial <span className="gradient-text">Dashboard</span>
-            </h1>
-            <p className="text-slate-600">Selamat datang kembali, John Doe!</p>
+          <div className="flex items-center gap-4">
+            <img
+              src="/images/Photo-Profile-Nayla-Sasha-Meliana.png"
+              alt="Profile"
+              className="w-16 h-16 rounded-full object-cover border-2 border-purple-200" />
+            <div>
+              <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
+                Financial <span className="gradient-text">Dashboard</span>
+              </h1>
+              <p className="text-slate-600">Selamat datang kembali, Nayla Sasha Meliana!</p>
+            </div>
           </div>
           <Button variant="outline" size="sm">
             <SettingsIcon className="w-5 h-5 mr-2" />

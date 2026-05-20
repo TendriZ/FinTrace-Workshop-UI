@@ -28,10 +28,13 @@ export function UserHeader() {
       </nav>
       
       <div className="flex items-center gap-3 bg-slate-100/80 px-4 py-2 rounded-full border border-slate-200">
-        <div className="w-8 h-8 rounded-full bg-purple-200 flex items-center justify-center text-purple-700 font-bold">N</div>
+        <img
+          src="/images/Photo-Profile-Nayla-Sasha-Meliana.png"
+          alt="Profile"
+          className="w-8 h-8 rounded-full object-cover" />
         <div className="hidden sm:block">
-          <p className="text-sm font-semibold text-slate-700">Naysana</p>
-          <p className="text-xs text-slate-500">naysana1907@gmail.com</p>
+          <p className="text-sm font-semibold text-slate-700">Nayla Sasha Meliana</p>
+          <p className="text-xs text-slate-500">nayla.sasha.meliana@gmail.com</p>
         </div>
       </div>
     </header>
