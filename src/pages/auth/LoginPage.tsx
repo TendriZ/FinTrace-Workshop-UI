@@ -44,7 +44,7 @@ export function LoginPage() {
           <img
             src="/images/FinTrace-Logo.png"
             alt="FinTrace Logo"
-            className="w-48 h-48 object-contain mb-8" />
+            className="w-64 h-64 object-contain mb-8" />
         </div>
       </div>
 

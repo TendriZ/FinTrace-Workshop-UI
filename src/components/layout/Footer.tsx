@@ -11,7 +11,7 @@ export function Footer() {
               <img
                 src="/images/FinTrace-Logo.png"
                 alt="FinTrace Logo"
-                className="w-10 h-10 object-contain" />
+                className="w-12 h-12 object-contain" />
             </div>
             <p className="text-slate-500 text-sm">
               Mulai kelola keuanganmu menjadi lebih baik bersama FinTrace. Solusi cerdas untuk masa depan finansialmu.

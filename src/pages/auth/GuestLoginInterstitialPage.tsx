@@ -34,7 +34,7 @@ export function GuestLoginInterstitialPage() {
           <img
             src="/images/FinTrace-Logo.png"
             alt="FinTrace Logo"
-            className="w-20 h-20 object-contain mx-auto mb-8" />
+            className="w-32 h-32 object-contain mx-auto mb-8" />
 
           <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4 text-center">
             Login to Continue
@@ -100,7 +100,7 @@ export function GuestLoginInterstitialPage() {
           <img
             src="/images/FinTrace-Logo.png"
             alt="FinTrace Logo"
-            className="w-24 h-24 object-contain mx-auto mb-6" />
+            className="w-40 h-40 object-contain mx-auto mb-6" />
 
           <h2 className="text-4xl font-bold text-white mb-4">
             Join FinTrace Today

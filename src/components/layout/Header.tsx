@@ -9,11 +9,11 @@ export function Header() {
       <div className="container-1280 px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 group">
+          <Link to="/" className="flex items-center gap-3 group">
             <img
               src="/images/FinTrace-Logo.png"
               alt="FinTrace Logo"
-              className="w-10 h-10 object-contain transform group-hover:scale-105 transition-transform" />
+              className="w-16 h-16 object-contain transform group-hover:scale-105 transition-transform" />
           </Link>
 
           {/* Navigation */}
