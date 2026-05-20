@@ -8,7 +8,7 @@ const REDIRECT_TARGET_KEY = 'fintrace_redirect';
 
 export function RegisterPage() {
   const navigate = useNavigate();
-  const { login, isAuthenticated } = useAuthContext();
+  const { loginByRole, isAuthenticated } = useAuthContext();
   const [redirectTarget, setRedirectTarget] = React.useState<string | null>(null);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export function RegisterPage() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    login('user');
+    loginByRole('user');
     // Clear redirect target after successful registration
     localStorage.removeItem(REDIRECT_TARGET_KEY);
     // Navigate will be handled by useEffect above

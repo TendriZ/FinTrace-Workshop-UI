@@ -6,7 +6,7 @@ import { useAuthContext } from '../../context/AuthContext';
 
 export function GuestLoginInterstitialPage() {
   const navigate = useNavigate();
-  const { guestLoginTarget, isAuthenticated, checkIfLoggedIn, onGuestLoginAttempt } = useAuthContext();
+  const { guestLoginTarget, isAuthenticated, checkIfLoggedIn, onGuestLoginAttempt, loginByRole } = useAuthContext();
 
   React.useEffect(() => {
     // Check if user just logged in and redirect them to original target

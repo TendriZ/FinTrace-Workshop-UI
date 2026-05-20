@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { EyeOff, Mail, Lock } from 'lucide-react';
+import { EyeOff, Mail, Lock, AlertCircle } from 'lucide-react';
 import { Button } from '../../components/ui/Button';
 import { useAuthContext } from '../../context/AuthContext';
 
@@ -10,6 +10,8 @@ export function LoginPage() {
   const navigate = useNavigate();
   const { login, isAuthenticated } = useAuthContext();
   const [redirectTarget, setRedirectTarget] = React.useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [formData, setFormData] = useState({ email: '', password: '' });
 
   useEffect(() => {
     // Check for redirect target in localStorage on mount
@@ -29,7 +31,15 @@ export function LoginPage() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    login('user');
+    setError(null);
+
+    const result = login(formData.email, formData.password);
+
+    if (!result.success) {
+      setError(result.error || 'Login gagal');
+      return;
+    }
+
     // Clear redirect target after successful login
     localStorage.removeItem(REDIRECT_TARGET_KEY);
     // Navigate will be handled by useEffect above
@@ -53,16 +63,35 @@ export function LoginPage() {
           <h1 className="text-4xl font-bold text-indigo-500 text-center mb-1">Welcome Back</h1>
           <p className="text-slate-400 text-center text-sm mb-8">Enter your email and password to access your account</p>
 
-          <label className="text-purple-600 font-semibold text-sm">Telepon/Email :</label>
+          {error && (
+            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-xl flex items-center gap-2">
+              <AlertCircle className="w-5 h-5 text-red-500" />
+              <p className="text-sm text-red-600">{error}</p>
+            </div>
+          )}
+
+          <label className="text-purple-600 font-semibold text-sm">Email :</label>
           <div className="relative mt-1 mb-4">
             <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5 transition-colors duration-300" />
-            <input className="w-full pl-11 pr-4 py-3 bg-white border-2 border-purple-300 rounded-xl focus:border-purple-500 outline-none transition-all duration-300 ease-in-out hover:border-purple-400 focus:ring-2 focus:ring-purple-200" placeholder="Enter Your Email" />
+            <input
+              className="w-full pl-11 pr-4 py-3 bg-white border-2 border-purple-300 rounded-xl focus:border-purple-500 outline-none transition-all duration-300 ease-in-out hover:border-purple-400 focus:ring-2 focus:ring-purple-200"
+              placeholder="Enter Your Email"
+              type="email"
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            />
           </div>
 
           <label className="text-purple-600 font-semibold text-sm">Password</label>
           <div className="relative mt-1 mb-4">
             <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5 transition-colors duration-300" />
-            <input type="password" className="w-full px-11 py-3 bg-white border-2 border-purple-300 rounded-xl pr-12 outline-none transition-all duration-300 ease-in-out hover:border-purple-400 focus:ring-2 focus:ring-purple-200" placeholder="Enter Your Password" />
+            <input
+              type="password"
+              className="w-full px-11 py-3 bg-white border-2 border-purple-300 rounded-xl pr-12 outline-none transition-all duration-300 ease-in-out hover:border-purple-400 focus:ring-2 focus:ring-purple-200"
+              placeholder="Enter Your Password"
+              value={formData.password}
+              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+            />
             <EyeOff className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5 cursor-pointer transition-all duration-300 ease-in-out hover:text-purple-600" />
           </div>
 

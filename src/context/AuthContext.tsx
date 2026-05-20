@@ -4,13 +4,19 @@ import { mockUsers } from '../data/mockUsers';
 
 type AuthRole = 'user' | 'admin';
 
+interface LoginResult {
+  success: boolean;
+  error?: string;
+}
+
 interface AuthContextValue {
   user: User | null;
   isAuthenticated: boolean;
   isAdmin: boolean;
   isGuest: boolean;
   guestLoginTarget: string | null;
-  login: (role: AuthRole) => void;
+  login: (email: string, password: string) => LoginResult;
+  loginByRole: (role: AuthRole) => void;
   logout: () => void;
   checkIfLoggedIn: (targetPath: string) => boolean;
   onGuestLoginAttempt: (targetPath: string) => void;
@@ -38,7 +44,26 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const [guestLoginTarget, setGuestLoginTarget] = useState<string | null>(null);
 
-  const login = (role: AuthRole) => {
+  const login = (email: string, password: string): LoginResult => {
+    if (!email || !password) {
+      return { success: false, error: 'Email dan password harus diisi' };
+    }
+
+    const foundUser = mockUsers.find((user) => user.email === email);
+
+    if (!foundUser) {
+      return { success: false, error: 'Email atau password salah' };
+    }
+
+    setUser(foundUser);
+    localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(foundUser));
+    setGuestLoginTarget(null);
+    localStorage.removeItem(REDIRECT_TARGET_KEY);
+
+    return { success: true };
+  };
+
+  const loginByRole = (role: AuthRole) => {
     const nextUser = mockUsers.find((item) => item.role === role) ?? null;
     setUser(nextUser);
 
@@ -79,6 +104,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     isGuest,
     guestLoginTarget,
     login,
+    loginByRole,
     logout,
     checkIfLoggedIn,
     onGuestLoginAttempt,

@@ -55,12 +55,12 @@ export const router = createBrowserRouter([
 
       // Dashboard Routes
       { path: '/dashboard', element: <DashboardPage /> },
-      { path: '/dashboard/transactions', element: <TransactionsPage /> },
-      { path: '/dashboard/analytics', element: <AnalyticsPage /> },
-      { path: '/dashboard/budget', element: <BudgetPage /> },
-      { path: '/dashboard/my-courses', element: <MyCoursesPage /> },
-      { path: '/dashboard/profile', element: <ProfilePage /> },
-      { path: '/dashboard/feedback', element: <FeedbackPage /> },
+      { path: '/transactions', element: <TransactionsPage /> },
+      { path: '/analytics', element: <AnalyticsPage /> },
+      { path: '/budget', element: <BudgetPage /> },
+      { path: '/my-courses', element: <MyCoursesPage /> },
+      { path: '/profile', element: <ProfilePage /> },
+      { path: '/feedback', element: <FeedbackPage /> },
 
       // Admin Routes
       { path: '/admin', element: <AdminDashboardPage /> },
