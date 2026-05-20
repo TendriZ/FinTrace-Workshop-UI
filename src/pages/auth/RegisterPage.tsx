@@ -55,21 +55,21 @@ export function RegisterPage() {
 
           <label className="text-purple-600 font-semibold text-sm">Full Name</label>
           <div className="relative mt-1 mb-4">
-            <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
-            <input className="w-full pl-11 pr-4 py-3 bg-white border-2 border-purple-300 rounded-xl focus:border-purple-500 outline-none" placeholder="Enter Your Full Name" />
+            <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5 transition-colors duration-300" />
+            <input className="w-full pl-11 pr-4 py-3 bg-white border-2 border-purple-300 rounded-xl focus:border-purple-500 outline-none transition-all duration-300 ease-in-out hover:border-purple-400 focus:ring-2 focus:ring-purple-200" placeholder="Enter Your Full Name" />
           </div>
 
           <label className="text-purple-600 font-semibold text-sm">Telepon/Email :</label>
           <div className="relative mt-1 mb-4">
-            <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
-            <input className="w-full pl-11 pr-4 py-3 bg-white border-2 border-purple-300 rounded-xl focus:border-purple-500 outline-none" placeholder="Enter Your Email" />
+            <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5 transition-colors duration-300" />
+            <input className="w-full pl-11 pr-4 py-3 bg-white border-2 border-purple-300 rounded-xl focus:border-purple-500 outline-none transition-all duration-300 ease-in-out hover:border-purple-400 focus:ring-2 focus:ring-purple-200" placeholder="Enter Your Email" />
           </div>
 
           <label className="text-purple-600 font-semibold text-sm">Password</label>
           <div className="relative mt-1 mb-4">
-            <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
-            <input type="password" className="w-full px-11 py-3 bg-white border-2 border-purple-300 rounded-xl pr-12 outline-none" placeholder="Create a Password" />
-            <EyeOff className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5 cursor-pointer" />
+            <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5 transition-colors duration-300" />
+            <input type="password" className="w-full px-11 py-3 bg-white border-2 border-purple-300 rounded-xl pr-12 outline-none transition-all duration-300 ease-in-out hover:border-purple-400 focus:ring-2 focus:ring-purple-200" placeholder="Create a Password" />
+            <EyeOff className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5 cursor-pointer transition-all duration-300 ease-in-out hover:text-purple-600" />
           </div>
 
           <div className="flex justify-between items-center mb-6">
@@ -78,7 +78,7 @@ export function RegisterPage() {
             </label>
           </div>
 
-          <Button type="submit" className="w-full py-3 bg-gradient-to-r from-cyan-100 to-blue-100 text-purple-600 font-semibold rounded-xl hover:from-cyan-200 hover:to-blue-200 mb-6">
+          <Button type="submit" className="w-full py-3 bg-gradient-to-r from-cyan-100 to-blue-100 text-purple-600 font-semibold rounded-xl hover:from-cyan-200 hover:to-blue-200 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg hover:shadow-cyan-200/50 mb-6">
             Register
           </Button>
 
@@ -89,16 +89,21 @@ export function RegisterPage() {
           </div>
 
           <div className="flex gap-3 mb-6">
-            <button type="button" className="flex-1 flex items-center justify-center gap-2 py-3 border border-slate-300 rounded-xl bg-white hover:bg-slate-50 text-sm font-medium">
+            <button type="button" className="flex-1 flex items-center justify-center gap-2 py-3 border border-slate-300 rounded-xl bg-white hover:bg-slate-50 text-sm font-medium transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-md">
               Google
             </button>
-            <button type="button" className="flex-1 flex items-center justify-center gap-2 py-3 border border-slate-300 rounded-xl bg-white hover:bg-slate-50 text-sm font-medium">
+            <button type="button" className="flex-1 flex items-center justify-center gap-2 py-3 border border-slate-300 rounded-xl bg-white hover:bg-slate-50 text-sm font-medium transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-md">
               Apple
             </button>
           </div>
 
           <p className="text-center text-slate-500 text-sm">
-            Already have an account? <Link to="/login" className="text-indigo-600 font-semibold hover:underline">Login</Link>
+            Already have an account?
+            <Link
+              to="/login"
+              className="text-indigo-600 font-semibold transition-all duration-300 ease-in-out hover:scale-105 hover:text-purple-700 hover:underline decoration-2 underline-offset-4">
+              Login
+            </Link>
           </p>
         </form>
 

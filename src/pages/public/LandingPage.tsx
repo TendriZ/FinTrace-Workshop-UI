@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
+import { mockArticlesForLP } from '../../data/mockArticlesForLandingPage';
 import {
   WalletIcon,
   TrendingUpIcon,
@@ -80,31 +81,26 @@ export function LandingPage() {
     color: 'from-indigo-500 to-purple-500'
   }];
 
-  const articles = [
-  {
-    image:
-    './public/images/article-1-land.png',
-    title: '5 Simple Way to Save Money Every Month',
-    description:
-    'Discover practical strategies to cut expenses and increase your savings without sacrificing your lifestyle.',
-    link: '/articles/1'
-  },
-  {
-    image:
-    './public/images/article-2-land.png',
-    title: 'Understanding E-Wallet Security',
-    description:
-    'Essential tips to keep your digital money safe from fraud and unauthorized access.',
-    link: '/articles/2'
-  },
-  {
-    image:
-    './public/images/article-3-land.png',
-    title: 'Investment Basics for Young Professionals',
-    description:
-    'Start your investment journey with these beginner-friendly tips and strategies.',
-    link: '/articles/3'
-  }];
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('Semua');
+
+  const categories = [
+  'Semua',
+  'Personal Finance',
+  'Investasi',
+  'Digital Finance',
+  'Saving',
+  'Debt Management',
+  'Business'];
+
+  const filteredArticles = mockArticlesForLP.filter((article) => {
+    const matchesSearch =
+    article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    article.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory =
+    selectedCategory === 'Semua' || article.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
 
   return (
     <div className="min-h-screen">
@@ -240,11 +236,11 @@ export function LandingPage() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {articles.map((article, index) =>
-          <Link key={index} to={article.link}>
+          {filteredArticles.map((article, index) =>
+          <Link key={article.id} to={`/articles/${article.slug}`}>
               <Card hover className="overflow-hidden h-full">
                 <img
-                src={article.image}
+                src={article.featuredImage}
                 alt={article.title}
                 className="w-full h-48 object-cover" />
               
@@ -252,7 +248,7 @@ export function LandingPage() {
                   <h3 className="text-xl font-semibold text-slate-900 mb-3">
                     {article.title}
                   </h3>
-                  <p className="text-slate-600 mb-4">{article.description}</p>
+                  <p className="text-slate-600 mb-4">{article.excerpt}</p>
                   <span className="text-indigo-600 font-medium text-sm flex items-center gap-1">
                     Read More
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -262,7 +258,6 @@ export function LandingPage() {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round" />
-                    
                     </svg>
                   </span>
                 </div>
