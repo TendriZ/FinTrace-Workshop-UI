@@ -28,9 +28,9 @@ export function UserHeader() {
       </Link>
 
       <nav className="hidden md:flex items-center gap-6 px-8 py-3 border-2 border-purple-400 rounded-full">
-        <NavIcon icon={DollarSign} to="/transactions" title="Financial" />
+        <NavIcon icon={DollarSign} to="/dashboard" title="Financial" />
         <NavIcon icon={ClipboardList} to="/budget" title="Budget" />
-        <NavIcon icon={Target} to="/goals" title="Goals" />
+        <NavIcon icon={Target} to="/dashboard" title="Goals" />
         <NavIcon icon={BarChart2} to="/analytics" title="Analytics" />
         <NavIcon icon={BookOpen} to="/articles" title="Articles" />
         <NavIcon icon={Store} to="/courses" title="Marketplace" />
@@ -39,7 +39,7 @@ export function UserHeader() {
       <div className="flex items-center gap-3">
         <Link to="/profile" className="flex items-center gap-3 group bg-slate-100/80 px-4 py-2 rounded-full border border-slate-200 transition-all duration-300 ease-in-out hover:bg-slate-200">
           <img
-            src={user?.avatar || "/images/Photo-Profile-Nayla-Sasha-Meliana.png"}
+            src={user?.avatar || 'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?w=200&h=200&fit=crop'}
             alt="Profile"
             className="w-8 h-8 rounded-full object-cover" />
           <div className="hidden sm:block">

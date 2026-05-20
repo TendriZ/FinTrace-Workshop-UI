@@ -13,15 +13,16 @@ export const AppLayout = () => {
 
   const isAuth = pathname === '/login' || pathname === '/register' || pathname === '/guest-redirect';
   const isAdmin = pathname.startsWith('/admin');
-  const isUserPrivate = pathname.startsWith('/dashboard') ||
-    ['/checkout', '/purchases', '/checkout/success'].includes(pathname);
+
+  const userPrivateRoutes = ['/dashboard', '/transactions', '/budget', '/analytics', '/my-courses', '/profile', '/feedback', '/checkout', '/purchases', '/checkout/success'];
+  const isUserPrivate = userPrivateRoutes.some(route => pathname.startsWith(route));
 
   return (
     <div className="min-h-screen flex flex-col">
-      {!isAuth && !isAdmin && !isUserPrivate && <Header />}
-
-      {isUserPrivate && <UserHeader />}
+      {isAuth && <span />}
       {isAdmin && <AdminHeader />}
+      {isUserPrivate && <UserHeader />}
+      {!isAuth && !isAdmin && !isUserPrivate && <Header />}
 
       <div className="flex flex-1">
         {isAdmin && <AdminSidebar />}
@@ -30,6 +31,9 @@ export const AppLayout = () => {
         </main>
       </div>
 
+      {isAuth && <span />}
+      {isAdmin && <span />}
+      {isUserPrivate && <span />}
       {!isAuth && !isAdmin && !isUserPrivate && <Footer />}
     </div>
   );
