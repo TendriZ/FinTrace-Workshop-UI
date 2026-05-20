@@ -36,7 +36,7 @@ export function ProductDetailPage() {
           <Card className="p-12 text-center">
             <h1 className="text-2xl font-bold text-slate-900 mb-4">Produk Tidak Ditemukan</h1>
             <p className="text-slate-600 mb-6">Produk yang Anda cari tidak tersedia.</p>
-            <Link to="/courses">
+            <Link to={isAuthenticated ? "/courses" : "/courses"}>
               <Button>Kembali ke Katalog</Button>
             </Link>
           </Card>
@@ -54,7 +54,7 @@ export function ProductDetailPage() {
     <div className="min-h-screen">
       <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
         {/* Back Button */}
-        <Link to="/courses">
+        <Link to={isAuthenticated ? "/courses" : "/courses"}>
           <Button variant="outline" size="sm" className="mb-6">
             <ArrowLeftIcon className="w-4 h-4 mr-2" />
             Kembali ke Katalog

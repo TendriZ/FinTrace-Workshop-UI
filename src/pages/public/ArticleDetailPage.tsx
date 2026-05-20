@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
 import { mockArticles } from '../../data/mockArticles';
+import { useAuthContext } from '../../context/AuthContext';
 import {
   ArrowLeftIcon,
   ClockIcon,
@@ -13,6 +14,7 @@ import {
 
 export function ArticleDetailPage() {
   const { slug } = useParams();
+  const { isAuthenticated } = useAuthContext();
   const article = mockArticles.find((item) => item.slug === slug);
 
   // Helper function to get random related articles excluding current article
@@ -37,7 +39,7 @@ export function ArticleDetailPage() {
             <Card className="p-12 text-center">
               <h1 className="text-2xl font-bold text-slate-900 mb-4">Artikel Tidak Ditemukan</h1>
               <p className="text-slate-600 mb-6">Artikel yang Anda cari tidak tersedia.</p>
-              <Link to="/articles">
+              <Link to={isAuthenticated ? "/articles" : "/articles"}>
                 <Button>Kembali ke Artikel</Button>
               </Link>
             </Card>
@@ -60,7 +62,7 @@ export function ArticleDetailPage() {
 
       <div className="container-1280 px-4 sm:px-6 lg:px-8 -mt-32 relative z-10">
         {/* Back Button */}
-        <Link to="/articles">
+        <Link to={isAuthenticated ? "/articles" : "/articles"}>
           <Button variant="secondary" size="sm" className="mb-6">
             <ArrowLeftIcon className="w-4 h-4 mr-2" />
             Kembali ke Artikel

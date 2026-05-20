@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { LucideIcon, WalletIcon, DollarSign, ClipboardList, Target, BarChart2, BookOpen, Store, LogOut } from 'lucide-react';
+import { LucideIcon, WalletIcon, DollarSign, ClipboardList, Target, BarChart2, BookOpen, Store, LogOut, Package } from 'lucide-react';
 import { useAuthContext } from '../../context/AuthContext';
 
 const NavIcon = ({ icon: Icon, to, title }: { icon: LucideIcon; to: string; title: string }) => (
@@ -33,7 +33,7 @@ export function UserHeader() {
         <NavIcon icon={Target} to="/dashboard" title="Goals" />
         <NavIcon icon={BarChart2} to="/analytics" title="Analytics" />
         <NavIcon icon={BookOpen} to="/articles" title="Articles" />
-        <NavIcon icon={Store} to="/courses" title="Marketplace" />
+        <NavIcon icon={Package} to="/my-courses" title="My Courses" />
       </nav>
 
       <div className="flex items-center gap-3">
