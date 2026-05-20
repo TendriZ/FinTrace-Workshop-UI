@@ -49,7 +49,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       return { success: false, error: 'Email dan password harus diisi' };
     }
 
-    const foundUser = mockUsers.find((user) => user.email === email);
+    const foundUser = mockUsers.find((user) => user.email === email && user.password === password);
 
     if (!foundUser) {
       return { success: false, error: 'Email atau password salah' };
