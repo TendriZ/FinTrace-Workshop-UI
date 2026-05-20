@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
-import { WalletIcon, User } from 'lucide-react';
+import { User } from 'lucide-react';
 import { useAuthContext } from '../../context/AuthContext';
 
 export function GuestLoginInterstitialPage() {
@@ -31,9 +31,10 @@ export function GuestLoginInterstitialPage() {
       {/* Left Side - Info */}
       <div className="w-full lg:w-1/2 p-8 lg:p-16 flex items-center justify-center">
         <div className="max-w-md">
-          <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-8">
-            <WalletIcon className="w-10 h-10 text-white" />
-          </div>
+          <img
+            src="/images/FinTrace-Logo.png"
+            alt="FinTrace Logo"
+            className="w-20 h-20 object-contain mx-auto mb-8" />
 
           <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4 text-center">
             Login to Continue
@@ -96,9 +97,10 @@ export function GuestLoginInterstitialPage() {
       {/* Right Side - Hero */}
       <div className="hidden lg:flex w-1/2 bg-gradient-to-br from-purple-600 via-indigo-600 to-pink-600 items-center justify-center p-16">
         <div className="max-w-md text-center">
-          <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6">
-            <WalletIcon className="w-12 h-12 text-white" />
-          </div>
+          <img
+            src="/images/FinTrace-Logo.png"
+            alt="FinTrace Logo"
+            className="w-24 h-24 object-contain mx-auto mb-6" />
 
           <h2 className="text-4xl font-bold text-white mb-4">
             Join FinTrace Today

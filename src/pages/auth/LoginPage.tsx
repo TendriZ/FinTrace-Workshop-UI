@@ -37,14 +37,15 @@ export function LoginPage() {
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row">
-      <div className="w-full lg:w-[52%] bg-gradient-to-br from-blue-900 via-indigo-900 to-blue-800 relative flex flex-col items-center justify-center p-12 text-center overflow-hidden">
-        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.18)_1px,transparent_0)] bg-[size:24px_24px]" />
-        <div className="w-48 h-48 rounded-full bg-gradient-to-br from-cyan-400 via-indigo-400 to-pink-400 flex items-center justify-center shadow-2xl shadow-cyan-500/20 z-10 mb-8">
-          <span className="text-white text-6xl font-black tracking-tight">FT</span>
+      <div className="w-full lg:w-[52%] bg-cover bg-center bg-no-repeat relative flex flex-col items-center justify-center p-12 text-center overflow-hidden"
+           style={{ backgroundImage: 'url(/images/Background-Login-Register-Behind-FinTraceLogo-and-Motto.png)' }}>
+        <div className="absolute inset-0 bg-black/30" />
+        <div className="relative z-10 flex flex-col items-center justify-center">
+          <img
+            src="/images/FinTrace-Logo.png"
+            alt="FinTrace Logo"
+            className="w-48 h-48 object-contain mb-8" />
         </div>
-        <h2 className="text-4xl font-bold text-white z-10 leading-tight max-w-md">
-          Effortlessly and Easily<br />track your financial
-        </h2>
       </div>
 
       <div className="w-full lg:w-[48%] bg-gradient-to-br from-blue-50 via-purple-50 to-pink-100 flex flex-col justify-between p-6 sm:p-10 lg:p-12">

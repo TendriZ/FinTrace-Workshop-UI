@@ -12,12 +12,10 @@ export function UserHeader() {
   return (
     <header className="flex items-center justify-between px-6 py-3 bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200/50">
       <Link to="/" className="flex items-center gap-2 group">
-        <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-xl flex items-center justify-center transform group-hover:scale-105 transition-transform">
-          <WalletIcon className="w-6 h-6 text-white" />
-        </div>
-        <span className="text-xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-          FinTrace
-        </span>
+        <img
+          src="/images/FinTrace-Logo.png"
+          alt="FinTrace Logo"
+          className="w-10 h-10 object-contain transform group-hover:scale-105 transition-transform" />
       </Link>
 
       <nav className="hidden md:flex items-center gap-6 px-8 py-3 border-2 border-purple-400 rounded-full">

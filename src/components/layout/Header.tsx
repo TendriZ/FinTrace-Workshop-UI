@@ -10,12 +10,10 @@ export function Header() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-xl flex items-center justify-center transform group-hover:scale-105 transition-transform">
-              <Wallet className="w-6 h-6 text-white" />
-            </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-              FinTrace
-            </span>
+            <img
+              src="/images/FinTrace-Logo.png"
+              alt="FinTrace Logo"
+              className="w-10 h-10 object-contain transform group-hover:scale-105 transition-transform" />
           </Link>
 
           {/* Navigation */}
@@ -37,12 +35,6 @@ export function Header() {
               className={`text-sm font-medium transition-colors ${isActive('/products') ? 'text-indigo-600' : 'text-slate-600 hover:text-slate-900'}`}>
               
               Courses
-            </Link>
-            <Link
-              to="/dashboard"
-              className={`text-sm font-medium transition-colors ${isActive('/dashboard') ? 'text-indigo-600' : 'text-slate-600 hover:text-slate-900'}`}>
-              
-              Dashboard
             </Link>
           </nav>
 

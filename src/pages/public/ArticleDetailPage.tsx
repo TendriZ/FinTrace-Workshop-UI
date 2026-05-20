@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
 import { mockArticles } from '../../data/mockArticles';
-import { useAuthContext } from '../../context/AuthContext';
 import {
   ArrowLeftIcon,
   ClockIcon,
@@ -14,9 +13,6 @@ import {
 
 export function ArticleDetailPage() {
   const { slug } = useParams();
-  const navigate = useNavigate();
-  const { isAuthenticated } = useAuthContext();
-  const [addedToCart, setAddedToCart] = useState(false);
   const article = mockArticles.find((item) => item.slug === slug);
 
   // Helper function to get random related articles excluding current article

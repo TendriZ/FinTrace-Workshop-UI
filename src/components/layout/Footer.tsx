@@ -8,12 +8,10 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
-                <WalletIcon className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-                FinTrace
-              </span>
+              <img
+                src="/images/FinTrace-Logo.png"
+                alt="FinTrace Logo"
+                className="w-10 h-10 object-contain" />
             </div>
             <p className="text-slate-500 text-sm">
               Mulai kelola keuanganmu menjadi lebih baik bersama FinTrace. Solusi cerdas untuk masa depan finansialmu.
