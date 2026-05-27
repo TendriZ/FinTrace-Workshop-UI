@@ -97,7 +97,7 @@ export function UserArticlesPage() {
                     {article.title}
                   </h3>
                   <p className="text-slate-600 mb-4 flex-1">
-                    {article.shortDescription || article.excerpt}
+                    { article.excerpt}
                   </p>
                   <div className="flex items-center gap-4 text-sm text-slate-500">
                     <div className="flex items-center gap-1">

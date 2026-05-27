@@ -7,7 +7,7 @@ export const mockUsers: User[] = [
     password: 'user123',
     fullName: 'Nayla Sasha Meliana',
     phoneNumber: '+62 812-3456-7890',
-    avatar: './images/Photo-Profile-Nayla-Sasha-Meliana.png',
+    avatar: '/images/Photo-Profile-Nayla-Sasha-Meliana.png',
     role: 'user',
     status: 'active',
   },
