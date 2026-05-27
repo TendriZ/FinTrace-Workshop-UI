@@ -14,7 +14,7 @@ export const AppLayout = () => {
   const isAuth = pathname === '/login' || pathname === '/register' || pathname === '/guest-redirect';
   const isAdmin = pathname.startsWith('/admin');
 
-  const userPrivateRoutes = ['/dashboard', '/transactions', '/budget', '/analytics', '/my-courses', '/profile', '/feedback', '/checkout', '/purchases', '/checkout/success', '/articles', '/courses'];
+  const userPrivateRoutes = ['/dashboard', '/transactions', '/budget', '/analytics', '/my-courses', '/profile', '/feedback', '/checkout', '/purchases', '/checkout/success'];
   const isUserPrivate = userPrivateRoutes.some(route => pathname.startsWith(route));
 
   return (
