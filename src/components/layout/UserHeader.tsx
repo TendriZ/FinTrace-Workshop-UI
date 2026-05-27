@@ -20,7 +20,7 @@ export function UserHeader() {
 
   return (
     <header className="flex items-center justify-between px-6 py-3 bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200/50">
-      <Link to="/" className="flex items-center gap-3 group">
+      <Link to="/dashboard" className="flex items-center gap-3 group">
         <img
           src="/images/FinTrace-Logo.png"
           alt="FinTrace Logo"
@@ -28,12 +28,12 @@ export function UserHeader() {
       </Link>
 
       <nav className="hidden md:flex items-center gap-6 px-8 py-3 border-2 border-purple-400 rounded-full">
-        <NavIcon icon={DollarSign} to="/dashboard" title="Financial" />
+        <NavIcon icon={DollarSign} to="/transactions" title="Financial" />
         <NavIcon icon={ClipboardList} to="/budget" title="Budget" />
         <NavIcon icon={Target} to="/dashboard" title="Goals" />
         <NavIcon icon={BarChart2} to="/analytics" title="Analytics" />
-        <NavIcon icon={BookOpen} to="/articles" title="Articles" />
-        <NavIcon icon={Package} to="/my-courses" title="My Courses" />
+        <NavIcon icon={BookOpen} to="/user/articles" title="Articles" />
+        <NavIcon icon={Package} to="/user/courses" title="My Courses" />
       </nav>
 
       <div className="flex items-center gap-3">
