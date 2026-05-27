@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { AppLayout } from './components/layout/AppLayout';
 
 import { LandingPage } from './pages/public/LandingPage';
+import { StitchLandingPage } from './pages/public/StitchLandingPage';
 import { ArticlesPage } from './pages/public/ArticlesPage';
 import { ArticleDetailPage } from './pages/public/ArticleDetailPage';
 import { ProductsPage } from './pages/public/ProductsPage';
@@ -37,7 +38,8 @@ export const router = createBrowserRouter([
     element: <AppLayout />,
     children: [
       // Public Routes
-      { path: '/', element: <LandingPage /> },
+      { path: '/', element: <StitchLandingPage /> },
+      { path: '/classic', element: <LandingPage /> },
       { path: '/articles', element: <ArticlesPage /> },
       { path: '/articles/:slug', element: <ArticleDetailPage /> },
       { path: '/courses', element: <ProductsPage /> },
