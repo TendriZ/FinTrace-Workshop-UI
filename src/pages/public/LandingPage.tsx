@@ -17,22 +17,22 @@ import { router } from '../../router';
 export function LandingPage() {
   const stats = [
   {
-    imageUrl : './public/images/Active-User-Icon.png',
+    imageUrl : 'images/Active-User-Icon.png',
     value: '100K+',
     label: 'Active Users'
   },
   {
-    imageUrl : './public/images/Transaction-Tracked-Icon.png',
+    imageUrl : '/images/Transaction-Tracked-Icon.png',
     value: '1M+',
     label: 'Transaction Tracked'
   },
   {
-    imageUrl : './public/images/Card.png',
+    imageUrl : '/images/card.png',
     value: '15+',
     label: 'Supported Platforms'
   },
   {
-    imageUrl : './public/images/Stars-Icon.png',
+    imageUrl : '/images/Stars-Icon.png',
     value: '5.0',
     label: 'Users Rating'
   }];
