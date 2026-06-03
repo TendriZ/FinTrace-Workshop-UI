@@ -113,13 +113,19 @@ export function AdminDashboardPage() {
     <div className="min-h-screen">
       <div className="p-6">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-slate-900">
-            Hello, <span className="gradient-text">{user?.fullName}</span>.
-          </h1>
-          <p className="text-slate-600 mt-2">
-            Selamat datang kembali ke dashboard admin
-          </p>
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-4">
+            <img
+              src={user?.avatar || '/images/cowboy-patrick.png'}
+              alt="Profile"
+              className="w-16 h-16 rounded-full object-cover border-2 border-purple-200" />
+            <div>
+              <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
+                Admin <span className="gradient-text">Dashboard</span>
+              </h1>
+              <p className="text-slate-600">Selamat datang kembali, {user?.fullName || 'User'}!</p>
+            </div>
+          </div>
         </div>
 
         {/* Stats Row */}
@@ -129,24 +135,28 @@ export function AdminDashboardPage() {
             value="1.000.000"
             change="+15.3%"
             icon={UsersIcon}
+            iconColor="emerald"
           />
           <StatCard
             title="Saled Product"
             value="500.000"
             change="+8.7%"
             icon={ShoppingCartIcon}
+            iconColor="orange"
           />
           <StatCard
             title="Transaction Track"
             value="1.500.000"
             change="+12.1%"
             icon={CheckCircleIcon}
+            iconColor="blue"
           />
           <StatCard
             title="Article Posted"
             value="150.000"
             change="+5.4%"
             icon={FileTextIcon}
+            iconColor="red"
           />
         </div>
 
