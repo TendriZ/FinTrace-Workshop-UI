@@ -15,10 +15,11 @@ export const mockUsers: User[] = [
     id: 'admin-1',
     email: 'raka1203@fintrace.com',
     password: 'admin123',
-    fullName: 'MuhammadRakaRazzani',
+    fullName: 'Muhammad Raka Razzani',
     phoneNumber: '+62 878 4797 9242',
     avatar: '/images/cowboy-patrick.jpg',
     role: 'admin',
     status: 'active',
   },
+  
 ];
