@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
-import { mockArticles } from '../../data/mockArticles';
+import { useArticlesContext } from '../../context/ArticlesContext';
 import { SearchIcon, ClockIcon, UserIcon } from 'lucide-react';
 
 export function ArticlesPage() {
+  const { articles } = useArticlesContext();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Semua');
 
@@ -18,7 +19,7 @@ export function ArticlesPage() {
   'Debt Management',
   'Business'];
 
-  const filteredArticles = mockArticles.filter((article) => {
+  const filteredArticles = articles.filter((article) => {
     const matchesSearch =
     article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     article.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
@@ -50,7 +51,7 @@ export function ArticlesPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-12 pr-4 py-3 bg-white/90 backdrop-blur-sm border border-slate-200/50 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500 shadow-sm" />
-            
+
           </div>
 
           <div className="flex flex-wrap gap-2 justify-center">
@@ -59,7 +60,7 @@ export function ArticlesPage() {
               key={category}
               onClick={() => setSelectedCategory(category)}
               className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${selectedCategory === category ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/30' : 'bg-white/90 backdrop-blur-sm text-slate-600 hover:bg-white border border-slate-200/50'}`}>
-              
+
                 {category}
               </button>
             )}
@@ -75,7 +76,7 @@ export function ArticlesPage() {
                 src={article.featuredImage}
                 alt={article.title}
                 className="w-full h-48 object-cover" />
-              
+
                 <div className="p-6">
                   <div className="inline-block px-3 py-1 bg-gradient-to-r from-purple-100 to-indigo-100 text-purple-700 text-xs font-medium rounded-full mb-3">
                     {article.category}

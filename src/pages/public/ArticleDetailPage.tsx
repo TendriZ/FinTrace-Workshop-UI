@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
-import { mockArticles } from '../../data/mockArticles';
 import { useAuthContext } from '../../context/AuthContext';
+import { useArticlesContext } from '../../context/ArticlesContext';
 import {
   ArrowLeftIcon,
   ClockIcon,
@@ -15,11 +15,13 @@ import {
 export function ArticleDetailPage() {
   const { slug } = useParams();
   const { isAuthenticated } = useAuthContext();
-  const article = mockArticles.find((item) => item.slug === slug);
+  const { getArticleBySlug, articles } = useArticlesContext();
+  const article = getArticleBySlug(slug || '');
 
   // Helper function to get random related articles excluding current article
   const getRelatedArticles = () => {
-    const filteredArticles = mockArticles.filter(item => item.id !== article?.id);
+    if (!article) return [];
+    const filteredArticles = articles.filter(item => item.id !== article.id);
     const shuffled = [...filteredArticles].sort(() => Math.random() - 0.5);
     return shuffled.slice(0, 3);
   };
@@ -30,7 +32,7 @@ export function ArticleDetailPage() {
     useEffect(() => {
       window.scrollTo(0, 0);
     }, []);
-  
+
     // Handle case when article is not found
     if (!article) {
       return (
@@ -56,7 +58,7 @@ export function ArticleDetailPage() {
           src={article.featuredImage}
           alt={article.title}
           className="w-full h-full object-cover opacity-60" />
-        
+
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent" />
       </div>
 
@@ -108,7 +110,7 @@ export function ArticleDetailPage() {
             dangerouslySetInnerHTML={{
               __html: article.content
             }} />
-          
+
         </div>
 
         {/* Related Articles */}
@@ -124,7 +126,7 @@ export function ArticleDetailPage() {
                   src={relatedArticle.featuredImage}
                   alt={relatedArticle.title}
                   className="w-full h-40 object-cover" />
-                
+
                   <div className="p-4">
                     <h3 className="font-semibold text-slate-900 mb-2 line-clamp-2">
                       {relatedArticle.title}

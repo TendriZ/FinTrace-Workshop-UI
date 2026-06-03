@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
-import { mockProducts } from '../../data/mockProducts';
+import { useProductsContext } from '../../context/ProductsContext';
 import { StarIcon, ClockIcon, UsersIcon, VideoIcon } from 'lucide-react';
 
 export function UserProductsPage() {
+  const { products } = useProductsContext();
   const [selectedCategory, setSelectedCategory] = useState('Semua');
   const categories = ['Semua', 'course', 'consultation', 'premium', 'ebook'];
 
@@ -17,7 +18,7 @@ export function UserProductsPage() {
     'ebook': 'E-Book'
   };
 
-  const filteredProducts = mockProducts.filter(
+  const filteredProducts = products.filter(
     (product) => selectedCategory === 'Semua' || product.category === selectedCategory
   );
 

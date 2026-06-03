@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
-import { mockArticles } from '../../data/mockArticles';
+import { useArticlesContext } from '../../context/ArticlesContext';
 import { SearchIcon, ClockIcon, UserIcon } from 'lucide-react';
 
 export function UserArticlesPage() {
+  const { articles } = useArticlesContext();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Semua');
 
@@ -18,7 +19,7 @@ export function UserArticlesPage() {
   'Debt Management',
   'Business'];
 
-  const filteredArticles = mockArticles.filter((article) => {
+  const filteredArticles = articles.filter((article) => {
     const matchesSearch =
     article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     article.excerpt.toLowerCase().includes(searchQuery.toLowerCase());

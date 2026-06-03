@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
-import { mockProducts } from '../../data/mockProducts';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { useAuthContext } from '../../context/AuthContext';
+import { useProductsContext } from '../../context/ProductsContext';
 import {
   ArrowLeftIcon,
   StarIcon,
@@ -21,7 +21,8 @@ export function ProductDetailPage() {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuthContext();
   const [addedToCart, setAddedToCart] = useState(false);
-  const product = mockProducts.find((item) => item.slug === slug);
+  const { getProductBySlug } = useProductsContext();
+  const product = getProductBySlug(slug || '');
 
   // Scroll to top when component mounts
   useEffect(() => {
@@ -128,7 +129,7 @@ export function ProductDetailPage() {
                 {(product.curriculum ?? []).map((section, index) =>
                 <div
                   key={index}
-                  className="border border-slate-200 rounded-2xl p-4 hover:border-purple-300 transition-colors">
+                  className="border border-slate-200 rounded-2xl p-4 hover:border-purple-300 transition-colors}">
 
                     <div className="flex items-center justify-between">
                       <div>

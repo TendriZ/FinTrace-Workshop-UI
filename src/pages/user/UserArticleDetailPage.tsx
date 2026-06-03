@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
-import { mockArticles } from '../../data/mockArticles';
+import { useArticlesContext } from '../../context/ArticlesContext';
 import {
   ArrowLeftIcon,
   ClockIcon,
@@ -13,11 +13,13 @@ import {
 
 export function UserArticleDetailPage() {
   const { slug } = useParams();
-  const article = mockArticles.find((item) => item.slug === slug);
+  const { getArticleBySlug, articles } = useArticlesContext();
+  const article = getArticleBySlug(slug || '');
 
   // Helper function to get random related articles excluding current article
   const getRelatedArticles = () => {
-    const filteredArticles = mockArticles.filter(item => item.id !== article?.id);
+    if (!article) return [];
+    const filteredArticles = articles.filter(item => item.id !== article.id);
     const shuffled = [...filteredArticles].sort(() => Math.random() - 0.5);
     return shuffled.slice(0, 3);
   };

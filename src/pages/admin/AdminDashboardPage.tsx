@@ -115,7 +115,7 @@ export function AdminDashboardPage() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-slate-900">
-            Hello, <span className="gradient-text">{user?.fullName?.split(' ')[0] || 'Admin'}</span>.
+            Hello, <span className="gradient-text">{user?.fullName}</span>.
           </h1>
           <p className="text-slate-600 mt-2">
             Selamat datang kembali ke dashboard admin
