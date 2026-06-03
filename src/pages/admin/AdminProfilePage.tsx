@@ -4,6 +4,7 @@ import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
 import { Modal } from '../../components/ui/Modal';
+import { useAuthContext } from '../../context/AuthContext';
 import {
   EditIcon,
   FileTextIcon,
@@ -17,6 +18,7 @@ import {
 } from 'lucide-react';
 
 export function AdminProfilePage() {
+  const { user } = useAuthContext();
   const [isEditing, setIsEditing] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [notificationSettings, setNotificationSettings] = useState({
@@ -100,6 +102,16 @@ export function AdminProfilePage() {
     }
   ];
 
+  // Get initials for avatar fallback
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map(n => n[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  };
+
   return (
     <div className="min-h-screen">
       <div className="p-6">
@@ -126,10 +138,18 @@ export function AdminProfilePage() {
         <Card className="p-8 mb-6 bg-gradient-to-r from-purple-600 via-indigo-600 to-pink-600 text-white">
           <div className="flex items-start gap-6">
             <div className="w-24 h-24 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
-              <span className="text-4xl font-bold">NS</span>
+              {user?.avatar ? (
+                <img
+                  src={user.avatar}
+                  alt="Profile"
+                  className="w-20 h-20 object-cover rounded-full"
+                />
+              ) : (
+                <span className="text-4xl font-bold">{getInitials(user?.fullName || 'Admin')}</span>
+              )}
             </div>
             <div className="flex-1">
-              <h2 className="text-2xl font-bold mb-1">Nayla Sasha Meliana</h2>
+              <h2 className="text-2xl font-bold mb-1">{user?.fullName || 'Admin'}</h2>
               <p className="text-white/80 mb-3">Admin | Content Creator</p>
               <div className="flex flex-wrap gap-2">
                 {achievements.slice(0, 3).map((achievement) => (

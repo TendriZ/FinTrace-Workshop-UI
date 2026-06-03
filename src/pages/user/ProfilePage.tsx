@@ -4,6 +4,7 @@ import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
 import { Input } from '../../components/ui/Input';
+import { useAuthContext } from '../../context/AuthContext';
 import {
   AwardIcon,
   BellIcon,
@@ -18,18 +19,24 @@ import {
 } from 'lucide-react';
 
 export function ProfilePage() {
+  const { user } = useAuthContext();
+
   useEffect(() => {
         window.scrollTo(0, 0);
       }, []);
-  
-      
+
+  // Split fullName into first and last name
+  const nameParts = user?.fullName?.split(' ') || ['', ''];
+  const firstName = nameParts[0];
+  const lastName = nameParts.slice(1).join(' ');
+
   const [isEditing, setIsEditing] = useState(false);
   const [notifications, setNotifications] = useState(true);
   const [twoFactor, setTwoFactor] = useState(false);
 
   const [formData, setFormData] = useState({
-    firstName: 'Nayla',
-    lastName: 'Sasha Meliana',
+    firstName,
+    lastName,
     jobTitle: 'Financial Analyst',
     department: 'Finance',
     bio: 'Financial enthusiast and lifelong learner. Passionate about helping others achieve financial freedom.'
@@ -101,6 +108,16 @@ export function ProfilePage() {
     }
   ];
 
+  // Get initials for avatar fallback
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map(n => n[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  };
+
   return (
     <div className="min-h-screen">
       <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
@@ -125,14 +142,18 @@ export function ProfilePage() {
         <Card className="p-8 mb-6 bg-gradient-to-r from-teal-500 via-cyan-500 to-indigo-600 text-white">
           <div className="flex items-start gap-6">
             <div className="w-24 h-24 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
-              <img
-                  src="/images/Photo-Profile-Nayla-Sasha-Meliana.png"
-                  alt="Profile"
-                  className="w-20 h-20 object-cover rounded-full" />
+              {user?.avatar ? (
+                <img
+                    src={user.avatar}
+                    alt="Profile"
+                    className="w-20 h-20 object-cover rounded-full" />
+              ) : (
+                <span className="text-4xl font-bold">{getInitials(user?.fullName || 'User')}</span>
+              )}
             </div>
             <div className="flex-1">
-              <h2 className="text-2xl font-bold mb-1">Nayla Sasha Meliana</h2>
-              <p className="text-white/80 mb-3">@naylasasha</p>
+              <h2 className="text-2xl font-bold mb-1">{user?.fullName || 'User'}</h2>
+              <p className="text-white/80 mb-3">@{user?.email?.split('@')[0] || 'user'}</p>
               <div className="flex flex-wrap gap-2 mb-3">
                 <Badge className="bg-white/20 text-white border-0">Royal Buyer</Badge>
                 <Badge className="bg-white/20 text-white border-0">Verified</Badge>
@@ -250,21 +271,21 @@ export function ProfilePage() {
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <p className="text-sm text-slate-600 mb-1">First Name</p>
-                      <p className="font-medium text-slate-900">John</p>
+                      <p className="font-medium text-slate-900">{firstName}</p>
                     </div>
                     <div>
                       <p className="text-sm text-slate-600 mb-1">Last Name</p>
-                      <p className="font-medium text-slate-900">Doe</p>
+                      <p className="font-medium text-slate-900">{lastName}</p>
                     </div>
                   </div>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <p className="text-sm text-slate-600 mb-1">Job Title</p>
-                      <p className="font-medium text-slate-900">Software Engineer</p>
+                      <p className="font-medium text-slate-900">Financial Analyst</p>
                     </div>
                     <div>
                       <p className="text-sm text-slate-600 mb-1">Department</p>
-                      <p className="font-medium text-slate-900">Engineering</p>
+                      <p className="font-medium text-slate-900">Finance</p>
                     </div>
                   </div>
                   <div>
@@ -392,15 +413,15 @@ export function ProfilePage() {
               <div className="space-y-4">
                 <div>
                   <p className="text-sm text-slate-600 mb-1">Username</p>
-                  <p className="font-medium text-slate-900">@naylasasha</p>
+                  <p className="font-medium text-slate-900">@{user?.email?.split('@')[0] || 'user'}</p>
                 </div>
                 <div>
                   <p className="text-sm text-slate-600 mb-1">Email</p>
-                  <p className="font-medium text-slate-900">nayla.sasha.meliana@gmail.com</p>
+                  <p className="font-medium text-slate-900">{user?.email || 'user@example.com'}</p>
                 </div>
                 <div>
                   <p className="text-sm text-slate-600 mb-1">Phone</p>
-                  <p className="font-medium text-slate-900">+62 812 3456 7890</p>
+                  <p className="font-medium text-slate-900">{user?.phoneNumber || '+62 812 3456 7890'}</p>
                 </div>
                 <div>
                   <p className="text-sm text-slate-600 mb-1">Location</p>
