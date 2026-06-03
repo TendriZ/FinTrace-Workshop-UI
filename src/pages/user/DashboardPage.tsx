@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
+import { useAuthContext } from '../../context/AuthContext';
 import {
   TrendingUpIcon,
   TrendingDownIcon,
@@ -13,6 +14,7 @@ import {
   SettingsIcon } from
 'lucide-react';
 export function DashboardPage() {
+  const { user } = useAuthContext(); 
   const stats = [
   {
     label: 'Total Saldo',
@@ -142,14 +144,14 @@ export function DashboardPage() {
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
             <img
-              src="/images/Photo-Profile-Nayla-Sasha-Meliana.png"
+              src={user?.avatar || '/images/default-avatar.png'}
               alt="Profile"
               className="w-16 h-16 rounded-full object-cover border-2 border-purple-200" />
             <div>
               <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
                 Financial <span className="gradient-text">Dashboard</span>
               </h1>
-              <p className="text-slate-600">Selamat datang kembali, Nayla Sasha Meliana!</p>
+              <p className="text-slate-600">Selamat datang kembali, {user?.fullName || 'User'}!</p>
             </div>
           </div>
           <Button variant="outline" size="sm">

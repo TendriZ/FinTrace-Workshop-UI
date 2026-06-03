@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { StatCard } from '../../components/ui/StatCard';
 import { SpendingChart } from '../../components/features/SpendingChart';
 import { Card } from '../../components/ui/Card';
+import { useAuthContext } from '../../context/AuthContext';
 import {
   UsersIcon,
   ShoppingCartIcon,
@@ -14,6 +15,7 @@ import {
 } from 'lucide-react';
 
 export function AdminDashboardPage() {
+  const { user } = useAuthContext();
   const growthData = [
     { name: '2021', Users: 91, Advisors: 47.55 },
     { name: '2022', Users: 23.36, Advisors: 15.79 },
@@ -113,7 +115,7 @@ export function AdminDashboardPage() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-slate-900">
-            Hello, <span className="gradient-text">Nayla</span>.
+            Hello, <span className="gradient-text">{user?.fullName?.split(' ')[0] || 'Admin'}</span>.
           </h1>
           <p className="text-slate-600 mt-2">
             Selamat datang kembali ke dashboard admin
