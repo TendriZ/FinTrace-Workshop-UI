@@ -11,8 +11,8 @@ import {
   VideoIcon,
   CheckCircleIcon,
   UsersIcon,
-  ShoppingCartIcon } from
-'lucide-react';
+  ShoppingCartIcon
+} from 'lucide-react';
 
 export function UserProductDetailPage() {
   const { slug } = useParams();
@@ -66,7 +66,8 @@ export function UserProductDetailPage() {
               <img
                 src={product.featuredImage}
                 alt={product.name}
-                className="w-full h-80 object-cover" />
+                className="w-full h-80 object-cover"
+              />
 
               <div className="p-8">
                 <div className="inline-block px-3 py-1 bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-700 text-sm font-medium rounded-full mb-4">
@@ -123,10 +124,10 @@ export function UserProductDetailPage() {
               </h2>
               <div className="space-y-4">
                 {(product.curriculum ?? []).map((section, index) =>
-                <div
-                  key={index}
-                  className="border border-slate-200 rounded-2xl p-4 hover:border-purple-300 transition-colors"}>
-
+                  <div
+                    key={index}
+                    className="border border-slate-200 rounded-2xl p-4 hover:border-purple-300 transition-colors"
+                  >
                     <div className="flex items-center justify-between">
                       <div>
                         <h3 className="font-semibold text-slate-900 mb-1">
@@ -153,7 +154,8 @@ export function UserProductDetailPage() {
                 <img
                   src={'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop'}
                   alt={product.instructor}
-                  className="w-20 h-20 rounded-full object-cover" />
+                  className="w-20 h-20 rounded-full object-cover"
+                />
 
                 <div>
                   <h3 className="text-xl font-semibold text-slate-900 mb-1">
@@ -192,16 +194,16 @@ export function UserProductDetailPage() {
                 <Button
                   className="w-full"
                   size="lg"
-                  onClick={() => navigate('/cart')}>
-
+                  onClick={() => navigate('/cart')}
+                >
                   Beli Sekarang
                 </Button>
                 <Button
                   variant="outline"
                   className="w-full"
                   size="lg"
-                  onClick={handleAddToCart}>
-
+                  onClick={handleAddToCart}
+                >
                   <ShoppingCartIcon className="w-5 h-5 mr-2" />
                   {addedToCart ? 'Ditambahkan!' : 'Tambah ke Keranjang'}
                 </Button>
@@ -232,7 +234,7 @@ export function UserProductDetailPage() {
             </Card>
           </div>
         </div>
-
       </div>
-    </div>);
+    </div>
+  );
 }
