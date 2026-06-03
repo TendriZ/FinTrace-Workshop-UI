@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { EyeOff, Mail, Lock, AlertCircle } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, AlertCircle } from 'lucide-react';
 import { Button } from '../../components/ui/Button';
 import { useAuthContext } from '../../context/AuthContext';
 
@@ -11,6 +11,7 @@ export function LoginPage() {
   const { login, isAuthenticated, isAdmin, user } = useAuthContext();
   const [redirectTarget, setRedirectTarget] = React.useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({ email: '', password: '' });
 
   useEffect(() => {
@@ -90,13 +91,19 @@ export function LoginPage() {
           <div className="relative mt-1 mb-4">
             <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5 transition-colors duration-300" />
             <input
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               className="w-full px-11 py-3 bg-white border-2 border-purple-300 rounded-xl pr-12 outline-none transition-all duration-300 ease-in-out hover:border-purple-400 focus:ring-2 focus:ring-purple-200"
               placeholder="Enter Your Password"
               value={formData.password}
               onChange={(e) => setFormData({ ...formData, password: e.target.value })}
             />
-            <EyeOff className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5 cursor-pointer transition-all duration-300 ease-in-out hover:text-purple-600" />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-purple-600 transition-colors duration-300 ease-in-out"
+            >
+              {showPassword ? <Eye className="w-5 h-5" /> : <EyeOff className="w-5 h-5" />}
+            </button>
           </div>
 
           <div className="flex justify-between items-center mb-6">

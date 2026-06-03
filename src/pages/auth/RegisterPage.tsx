@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { EyeOff, Mail, Lock, User } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, User } from 'lucide-react';
 import { Button } from '../../components/ui/Button';
 import { useAuthContext } from '../../context/AuthContext';
 
@@ -10,6 +10,7 @@ export function RegisterPage() {
   const navigate = useNavigate();
   const { loginByRole, isAuthenticated } = useAuthContext();
   const [redirectTarget, setRedirectTarget] = React.useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     // Check for redirect target in localStorage on mount
@@ -48,7 +49,7 @@ export function RegisterPage() {
         </div>
       </div>
 
-      <div className="w-full lg:w-[48%] bg-gradient-to-br from-blue-50 via-purple-50 to-pink-100 flex flex-col justify-between p-6 sm:p-10 lg:p-12">
+      <div className="w-full lg:w-[48%] bg-gradient-to-br from-blue-50 via-purple-50 to-pink-100 flex flex flex-col justify-between p-6 sm:p-10 lg:p-12">
         <form onSubmit={handleSubmit} className="max-w-sm mx-auto w-full pt-8 lg:pt-16">
           <h1 className="text-4xl font-bold text-indigo-500 text-center mb-1">Register Here</h1>
           <p className="text-slate-400 text-center text-sm mb-8">Create your account to start tracking your finance</p>
@@ -62,14 +63,24 @@ export function RegisterPage() {
           <label className="text-purple-600 font-semibold text-sm">Telepon/Email :</label>
           <div className="relative mt-1 mb-4">
             <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5 transition-colors duration-300" />
-            <input className="w-full pl-11 pr-4 py-3 bg-white border-2 border-purple-300 rounded-xl focus:border-purple-500 outline-none transition-all duration-300 ease-in-out hover:border-purple-400 focus:ring-2 focus:ring-purple-200" placeholder="Enter Your Email" />
+            <input className="w-full pl-11 pr-4 py-3 bg-white border-2 border-purple-300 rounded-xl focus:border-purple-500 outline-none transition-all duration-300 ease-in-out hover:border-purple-400 focus:ring-2 focus:ring-purple-200" placeholder="Enter Your Email" type="email" />
           </div>
 
           <label className="text-purple-600 font-semibold text-sm">Password</label>
           <div className="relative mt-1 mb-4">
             <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5 transition-colors duration-300" />
-            <input type="password" className="w-full px-11 py-3 bg-white border-2 border-purple-300 rounded-xl pr-12 outline-none transition-all duration-300 ease-in-out hover:border-purple-400 focus:ring-2 focus:ring-purple-200" placeholder="Create a Password" />
-            <EyeOff className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5 cursor-pointer transition-all duration-300 ease-in-out hover:text-purple-600" />
+            <input
+              type={showPassword ? 'text' : 'password'}
+              className="w-full px-11 py-3 bg-white border-2 border-purple-300 rounded-xl pr-12 outline-none transition-all duration-300 ease-in-out hover:border-purple-400 focus:ring-2 focus:ring-purple-200"
+              placeholder="Create a Password"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-purple-600 transition-colors duration-300 ease-in-out"
+            >
+              {showPassword ? <Eye className="w-5 h-5" /> : <EyeOff className="w-5 h-5" />}
+            </button>
           </div>
 
           <div className="flex justify-between items-center mb-6">
