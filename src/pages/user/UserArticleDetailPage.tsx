@@ -8,9 +8,8 @@ import {
   ClockIcon,
   UserIcon,
   CalendarIcon,
-  ShareIcon,
-  BookOpenIcon
-} from 'lucide-react';
+  ShareIcon } from
+'lucide-react';
 
 export function UserArticleDetailPage() {
   const { slug } = useParams();
@@ -26,26 +25,26 @@ export function UserArticleDetailPage() {
   const relatedArticles = article ? getRelatedArticles() : [];
 
   // Scroll to top when component mounts
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
 
-  // Handle case when article is not found
-  if (!article) {
-    return (
-      <div className="min-h-screen">
-        <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
-          <Card className="p-12 text-center">
-            <h1 className="text-2xl font-bold text-slate-900 mb-4">Artikel Tidak Ditemukan</h1>
-            <p className="text-slate-600 mb-6">Artikel yang Anda cari tidak tersedia.</p>
-            <Link to="/user/articles">
-              <Button>Kembali ke Artikel</Button>
-            </Link>
-          </Card>
+    // Handle case when article is not found
+    if (!article) {
+      return (
+        <div className="min-h-screen">
+          <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
+            <Card className="p-12 text-center">
+              <h1 className="text-2xl font-bold text-slate-900 mb-4">Artikel Tidak Ditemukan</h1>
+              <p className="text-slate-600 mb-6">Artikel yang Anda cari tidak tersedia.</p>
+              <Link to="/user/articles">
+                <Button>Kembali ke Artikel</Button>
+              </Link>
+            </Card>
+          </div>
         </div>
-      </div>
-    );
-  }
+      );
+    }
 
   return (
     <div className="min-h-screen">
@@ -54,8 +53,8 @@ export function UserArticleDetailPage() {
         <img
           src={article.featuredImage}
           alt={article.title}
-          className="w-full h-full object-cover opacity-60"
-        />
+          className="w-full h-full object-cover opacity-60" />
+
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent" />
       </div>
 
@@ -97,10 +96,6 @@ export function UserArticleDetailPage() {
               <ShareIcon className="w-4 h-4 mr-2" />
               Bagikan
             </Button>
-            <Button variant="secondary" size="sm">
-              <BookOpenIcon className="w-4 h-4 mr-2" />
-              Simpan
-            </Button>
           </div>
         </div>
 
@@ -110,8 +105,8 @@ export function UserArticleDetailPage() {
             className="prose prose-lg max-w-none prose-headings:text-slate-900 prose-headings:font-bold prose-p:text-slate-700 prose-a:text-purple-600 prose-strong:text-slate-900 prose-ul:text-slate-700 prose-h2:text-2xl prose-h2:mt-8 prose-h2:mb-4"
             dangerouslySetInnerHTML={{
               __html: article.content
-            }}
-          />
+            }} />
+
         </div>
 
         {/* Related Articles */}
@@ -120,32 +115,26 @@ export function UserArticleDetailPage() {
             Artikel Terkait
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
-            {relatedArticles.map((relatedArticle) => (
-              <Link
-                key={relatedArticle.id}
-                to={`/user/articles/${relatedArticle.slug}`}
-                className="block"
-              >
+            {relatedArticles.map((relatedArticle) =>
+            <Link key={relatedArticle.id} to={`/user/articles/${relatedArticle.slug}`}>
                 <div className="bg-white/90 backdrop-blur-sm rounded-2xl border border-slate-200/50 overflow-hidden hover:shadow-xl hover:shadow-purple-500/10 hover:-translate-y-1 transition-all duration-300">
                   <img
-                    src={relatedArticle.featuredImage}
-                    alt={relatedArticle.title}
-                    className="w-full h-40 object-cover"
-                  />
+                  src={relatedArticle.featuredImage}
+                  alt={relatedArticle.title}
+                  className="w-full h-40 object-cover" />
+
                   <div className="p-4">
                     <h3 className="font-semibold text-slate-900 mb-2 line-clamp-2">
                       {relatedArticle.title}
                     </h3>
-                    <p className="text-sm text-slate-600">
-                      {relatedArticle.readTime} menit baca
-                    </p>
+                    <p className="text-sm text-slate-600">{relatedArticle.readTime} menit baca</p>
                   </div>
                 </div>
               </Link>
-            ))}
+            )}
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 }

@@ -27,28 +27,28 @@ export function UserProductsPage() {
         {/* Header */}
         <div className="mb-12 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
-            <span className="gradient-text">Marketplace</span>
+            Education <span className="gradient-text">Marketplace</span>
           </h1>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Temukan kursus dan konsultasi keuangan yang tepat untuk membantu Anda mencapai tujuan finansial
+            Tingkatkan literasi keuangan dengan kursus berkualitas dan
+            konsultasi profesional
           </p>
         </div>
 
         {/* Filter */}
         <div className="mb-8 flex flex-wrap gap-3 justify-center">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
-              className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all ${
-                selectedCategory === category
-                  ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/30'
-                  : 'bg-white/90 backdrop-blur-sm text-slate-600 hover:bg-white border border-slate-200/50'
-              }`}
-            >
-              {categoryLabels[category as keyof typeof categoryLabels]}
-            </button>
-          ))}
+          {categories.map((category) =>
+          <button
+            key={category}
+            onClick={() => setSelectedCategory(category)}
+            className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all ${
+              selectedCategory === category
+                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/30'
+                : 'bg-white/90 backdrop-blur-sm text-slate-600 hover:bg-white border border-slate-200/50'
+            }`}>
+            {categoryLabels[category as keyof typeof categoryLabels]}
+          </button>
+          )}
         </div>
 
         {/* Products Grid */}

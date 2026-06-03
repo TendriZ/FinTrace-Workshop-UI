@@ -17,7 +17,7 @@ export const mockUsers: User[] = [
     password: 'admin123',
     fullName: 'Muhammad Raka Razzani',
     phoneNumber: '+62 811-2222-3333',
-    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop',
+    avatar: '/images/cowboy-patrick.jpg',
     role: 'admin',
     status: 'active',
   },

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
 import { mockProducts } from '../../data/mockProducts';
@@ -11,14 +11,16 @@ import {
   VideoIcon,
   CheckCircleIcon,
   UsersIcon,
-  ShoppingCartIcon
-} from 'lucide-react';
+  ShoppingCartIcon } from
+'lucide-react';
 
 export function UserProductDetailPage() {
   const { slug } = useParams();
+  const navigate = useNavigate();
   const [addedToCart, setAddedToCart] = useState(false);
   const product = mockProducts.find((item) => item.slug === slug);
 
+  // Scroll to top when component mounts
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -64,8 +66,7 @@ export function UserProductDetailPage() {
               <img
                 src={product.featuredImage}
                 alt={product.name}
-                className="w-full h-80 object-cover"
-              />
+                className="w-full h-80 object-cover" />
 
               <div className="p-8">
                 <div className="inline-block px-3 py-1 bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-700 text-sm font-medium rounded-full mb-4">
@@ -124,8 +125,8 @@ export function UserProductDetailPage() {
                 {(product.curriculum ?? []).map((section, index) =>
                 <div
                   key={index}
-                  className="border border-slate-200 rounded-2xl p-4 hover:border-purple-300 transition-colors"
-                >
+                  className="border border-slate-200 rounded-2xl p-4 hover:border-purple-300 transition-colors}">
+
                     <div className="flex items-center justify-between">
                       <div>
                         <h3 className="font-semibold text-slate-900 mb-1">
@@ -152,8 +153,7 @@ export function UserProductDetailPage() {
                 <img
                   src={'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop'}
                   alt={product.instructor}
-                  className="w-20 h-20 rounded-full object-cover"
-                />
+                  className="w-20 h-20 rounded-full object-cover" />
 
                 <div>
                   <h3 className="text-xl font-semibold text-slate-900 mb-1">
@@ -162,9 +162,7 @@ export function UserProductDetailPage() {
                   <p className="text-purple-600 font-medium mb-2">
                     Certified Financial Planner
                   </p>
-                  <p className="text-slate-600">
-                    Instruktur berpengalaman yang membantu banyak peserta memahami keuangan pribadi dan investasi.
-                  </p>
+                  <p className="text-slate-600">Instruktur berpengalaman yang membantu banyak peserta memahami keuangan pribadi dan investasi.</p>
                 </div>
               </div>
             </Card>
@@ -186,9 +184,7 @@ export function UserProductDetailPage() {
               {product.salePrice && product.salePrice < product.price && (
                 <div className="mb-4 flex items-center gap-2 text-sm">
                   <span className="text-slate-400 line-through">{formatCurrency(product.price)}</span>
-                  <span className="rounded-full bg-emerald-100 px-3 py-1 text-emerald-700 font-medium">
-                    Save {Math.round(((product.price - product.salePrice) / product.price) * 100)}%
-                  </span>
+                  <span className="rounded-full bg-emerald-100 px-3 py-1 text-emerald-700 font-medium">Save {Math.round(((product.price - product.salePrice) / product.price) * 100)}%</span>
                 </div>
               )}
 
@@ -196,16 +192,16 @@ export function UserProductDetailPage() {
                 <Button
                   className="w-full"
                   size="lg"
-                  onClick={() => window.location.href = '/cart'}
-                >
+                  onClick={() => navigate('/cart')}>
+
                   Beli Sekarang
                 </Button>
                 <Button
                   variant="outline"
                   className="w-full"
                   size="lg"
-                  onClick={handleAddToCart}
-                >
+                  onClick={handleAddToCart}>
+
                   <ShoppingCartIcon className="w-5 h-5 mr-2" />
                   {addedToCart ? 'Ditambahkan!' : 'Tambah ke Keranjang'}
                 </Button>
@@ -238,6 +234,5 @@ export function UserProductDetailPage() {
         </div>
 
       </div>
-    </div>
-  );
+    </div>);
 }
