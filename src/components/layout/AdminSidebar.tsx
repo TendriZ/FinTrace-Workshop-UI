@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, FileText, Package, Users, Receipt } from 'lucide-react';
+import { LayoutDashboard, FileText, Package, Users, Receipt, MessageSquare } from 'lucide-react';
 
 export function AdminSidebar() {
   const { pathname } = useLocation();
@@ -11,6 +11,7 @@ export function AdminSidebar() {
     { name: 'Products', path: '/admin/products', icon: Package },
     { name: 'Users', path: '/admin/users', icon: Users },
     { name: 'Transactions', path: '/admin/transactions', icon: Receipt },
+    { name: 'Feedbacks', path: '/admin/feedbacks', icon: MessageSquare },
   ];
 
   return (

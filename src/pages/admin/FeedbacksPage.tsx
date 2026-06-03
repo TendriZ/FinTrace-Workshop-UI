@@ -146,22 +146,26 @@ export function FeedbacksPage() {
             title="Total Feedback"
             value={stats.total.toString()}
             icon={MessageSquareIcon}
+            iconColor="blue"
           />
           <StatCard
             title="Avg Rating"
             value={`${stats.avgRating} ⭐`}
             icon={StarIcon}
+            iconColor="orange"
           />
           <StatCard
             title="Unread"
             value={stats.unread.toString()}
             change={stats.unread > 0 ? 'Needs attention' : undefined}
             icon={ClockIcon}
+            iconColor="red"
           />
           <StatCard
             title="Replied"
             value={stats.replied.toString()}
             icon={CheckIcon}
+            iconColor="emerald"
           />
         </div>
 
