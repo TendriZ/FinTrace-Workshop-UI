@@ -6,7 +6,7 @@ export function AdminSidebar() {
   const { pathname } = useLocation();
 
   const menu = [
-    { name: 'Dashboard', path: '/admin', icon: LayoutDashboard },
+    { name: 'Dashboard', path: '/admin/dashboard', icon: LayoutDashboard },
     { name: 'Articles', path: '/admin/articles', icon: FileText },
     { name: 'Products', path: '/admin/products', icon: Package },
     { name: 'Users', path: '/admin/users', icon: Users },
@@ -17,7 +17,7 @@ export function AdminSidebar() {
     <aside className="w-64 bg-white border-r border-slate-200/50 fixed h-full z-40">
       <div className="p-4 space-y-2 mt-4">
         {menu.map((item) => {
-          const isActive = pathname === item.path || (pathname.startsWith(item.path) && item.path !== '/admin');
+          const isActive = pathname === item.path || (pathname.startsWith(item.path) && item.path !== '/admin/dashboard');
           return (
             <Link
               key={item.path}

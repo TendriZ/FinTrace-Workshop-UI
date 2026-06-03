@@ -75,7 +75,7 @@ export const router = createBrowserRouter([
       { path: '/feedback', element: <FeedbackPage /> },
 
       // Admin Routes
-      { path: '/admin', element: <AdminDashboardPage /> },
+      { path: '/admin/dashboard', element: <AdminDashboardPage /> },
       { path: '/admin/articles', element: <ManageArticlesPage /> },
       { path: '/admin/products', element: <ManageProductsPage /> },
       { path: '/admin/users', element: <ManageUsersPage /> },

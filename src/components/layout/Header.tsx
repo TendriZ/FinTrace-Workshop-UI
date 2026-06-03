@@ -32,7 +32,7 @@ export function Header() {
             </Link>
             <Link
               to="/courses"
-              className={`text-sm font-medium transition-colors ${isActive('/products') ? 'text-indigo-600' : 'text-slate-600 hover:text-slate-900'}`}>
+              className={`text-sm font-medium transition-colors ${isActive('/courses') ? 'text-indigo-600' : 'text-slate-600 hover:text-slate-900'}`}>
               
               Courses
             </Link>

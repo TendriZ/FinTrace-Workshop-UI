@@ -25,7 +25,7 @@ export function LoginPage() {
     // If already authenticated, redirect based on role
     if (isAuthenticated && user) {
       if (isAdmin) {
-        navigate('/admin');
+        navigate('/admin/dashboard');
       } else {
         const target = redirectTarget || localStorage.getItem(REDIRECT_TARGET_KEY) || '/dashboard';
         navigate(target);

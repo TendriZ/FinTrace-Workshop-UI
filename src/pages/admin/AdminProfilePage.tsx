@@ -126,7 +126,7 @@ export function AdminProfilePage() {
             </p>
           </div>
           <div className="flex gap-2">
-            <Link to="/admin">
+            <Link to="/admin/dashboard">
               <Button variant="outline" size="sm">
                 Dashboard
               </Button>
