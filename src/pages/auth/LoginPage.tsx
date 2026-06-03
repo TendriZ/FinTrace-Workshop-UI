@@ -8,7 +8,7 @@ const REDIRECT_TARGET_KEY = 'fintrace_redirect';
 
 export function LoginPage() {
   const navigate = useNavigate();
-  const { login, isAuthenticated } = useAuthContext();
+  const { login, isAuthenticated, isAdmin, user } = useAuthContext();
   const [redirectTarget, setRedirectTarget] = React.useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -22,12 +22,16 @@ export function LoginPage() {
   }, []);
 
   useEffect(() => {
-    // If already authenticated, redirect to target or dashboard
-    if (isAuthenticated) {
-      const target = redirectTarget || localStorage.getItem(REDIRECT_TARGET_KEY) || '/dashboard';
-      navigate(target);
+    // If already authenticated, redirect based on role
+    if (isAuthenticated && user) {
+      if (isAdmin) {
+        navigate('/admin');
+      } else {
+        const target = redirectTarget || localStorage.getItem(REDIRECT_TARGET_KEY) || '/dashboard';
+        navigate(target);
+      }
     }
-  }, [isAuthenticated, redirectTarget, navigate]);
+  }, [isAuthenticated, isAdmin, user, redirectTarget, navigate]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
