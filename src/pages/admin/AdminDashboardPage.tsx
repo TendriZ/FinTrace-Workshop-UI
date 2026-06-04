@@ -83,7 +83,7 @@ export function AdminDashboardPage() {
       name: 'Personal Finance Mastery',
       type: 'Course',
       price: 299000,
-      thumbnail: 'https://images.unsplash.com/photo-1579621975567-176b4da3ac79?w=100&h=100&fit=crop'
+      thumbnail: 'images/How-to-Pay-Off-Credit-Card-Debt-Faster-Image.png'
     },
     {
       id: 2,
