@@ -7,12 +7,7 @@ import { CheckCircleIcon, ShoppingBagIcon, HomeIcon, DownloadIcon } from 'lucide
 
 export function PaymentSuccessPage() {
   const { clearCart } = useCartContext();
-
-  React.useEffect(() => {
-    clearCart();
-  }, [clearCart]);
-
-  const orderDetails = {
+  const [orderDetails] = React.useState({
     orderId: `ORD-${Date.now()}`,
     date: new Date().toLocaleDateString('id-ID', {
       day: 'numeric',
@@ -28,7 +23,11 @@ export function PaymentSuccessPage() {
       { name: 'Personal Finance Mastery', price: 299000 },
       { name: 'Investasi Saham untuk Pemula', price: 99480 }
     ]
-  };
+  });
+
+  React.useEffect(() => {
+    clearCart();
+  }, [clearCart]);
 
   return (
     <div className="min-h-screen">
