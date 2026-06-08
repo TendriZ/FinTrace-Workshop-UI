@@ -163,7 +163,7 @@ export function AdminDashboardPage() {
         {/* Growth Chart & Today's Sales */}
         <div className="grid lg:grid-cols-3 gap-6 mb-6">
           <div className="lg:col-span-2">
-            <Card className="p-6">
+            <Card className="p-6 h-full">
               <SpendingChart
                 title="Users & Advisors Growth (%)"
                 type="bar"
@@ -176,7 +176,7 @@ export function AdminDashboardPage() {
           </div>
 
           <div>
-            <Card className="p-6">
+            <Card className="p-6 h-full">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-lg font-bold text-slate-900">
                   Penjualan Hari ini
