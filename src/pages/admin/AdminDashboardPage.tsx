@@ -160,11 +160,9 @@ export function AdminDashboardPage() {
           />
         </div>
 
-        {/* Two Column Layout */}
-        <div className="grid lg:grid-cols-3 gap-6">
-          {/* Left Column - Span 2 */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Growth Chart */}
+        {/* Growth Chart & Today's Sales */}
+        <div className="grid lg:grid-cols-3 gap-6 mb-6">
+          <div className="lg:col-span-2">
             <Card className="p-6">
               <SpendingChart
                 title="Users & Advisors Growth (%)"
@@ -175,55 +173,9 @@ export function AdminDashboardPage() {
                 height={350}
               />
             </Card>
-
-            {/* Recent Activities */}
-            <Card className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-bold text-slate-900">
-                  Recent Activities
-                </h2>
-                <ClockIcon className="w-5 h-5 text-slate-400" />
-              </div>
-
-              <div className="space-y-4">
-                {recentActivities.map((activity) => {
-                  const Icon = activity.icon;
-                  return (
-                    <div
-                      key={activity.id}
-                      className="flex items-start gap-4 p-4 bg-slate-50 rounded-2xl"
-                    >
-                      <div
-                        className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
-                          activity.color === 'blue'
-                            ? 'bg-blue-100 text-blue-600'
-                            : activity.color === 'purple'
-                            ? 'bg-purple-100 text-purple-600'
-                            : activity.color === 'emerald'
-                            ? 'bg-emerald-100 text-emerald-600'
-                            : 'bg-cyan-100 text-cyan-600'
-                        }`}
-                      >
-                        <Icon className="w-5 h-5" />
-                      </div>
-                      <div className="flex-1">
-                        <p className="font-medium text-slate-900">
-                          {activity.title} → {activity.description}
-                        </p>
-                        <p className="text-sm text-slate-600">
-                          {activity.author} · {activity.time}
-                        </p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </Card>
           </div>
 
-          {/* Right Column */}
-          <div className="space-y-6">
-            {/* Today's Sales */}
+          <div>
             <Card className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-lg font-bold text-slate-900">
@@ -257,56 +209,101 @@ export function AdminDashboardPage() {
                 ))}
               </div>
             </Card>
+          </div>
+        </div>
 
-            {/* Top Performing Content */}
-            <Card className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-bold text-slate-900">
-                  Top Performing Content
-                </h2>
-                <TrendingUpIcon className="w-5 h-5 text-emerald-500" />
-              </div>
+        {/* Recent Activities & Top Performing Content */}
+        <div className="grid lg:grid-cols-2 gap-6">
+          <Card className="p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-slate-900">
+                Recent Activities
+              </h2>
+              <ClockIcon className="w-5 h-5 text-slate-400" />
+            </div>
 
-              <div className="space-y-3">
-                {topContent.map((item) => (
+            <div className="space-y-4">
+              {recentActivities.map((activity) => {
+                const Icon = activity.icon;
+                return (
                   <div
-                    key={item.rank}
-                    className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl"
+                    key={activity.id}
+                    className="flex items-start gap-4 p-4 bg-slate-50 rounded-2xl"
                   >
-                    <span className="w-6 h-6 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
-                      {item.rank}
-                    </span>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-slate-900 text-sm truncate">
-                        {item.name}
-                      </p>
-                      <div className="flex items-center gap-2 text-xs text-slate-600">
-                        <span>{item.type}</span>
-                        <span>•</span>
-                        <span>{item.views} views</span>
-                      </div>
+                    <div
+                      className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
+                        activity.color === 'blue'
+                          ? 'bg-blue-100 text-blue-600'
+                          : activity.color === 'purple'
+                          ? 'bg-purple-100 text-purple-600'
+                          : activity.color === 'emerald'
+                          ? 'bg-emerald-100 text-emerald-600'
+                          : 'bg-cyan-100 text-cyan-600'
+                      }`}
+                    >
+                      <Icon className="w-5 h-5" />
                     </div>
-                    <div className="flex items-center gap-1">
-                      {item.direction === 'up' ? (
-                        <TrendingUpIcon className="w-4 h-4 text-emerald-500" />
-                      ) : (
-                        <TrendingDownIcon className="w-4 h-4 text-rose-500" />
-                      )}
-                      <span
-                        className={`text-sm font-medium ${
-                          item.direction === 'up'
-                            ? 'text-emerald-600'
-                            : 'text-rose-600'
-                        }`}
-                      >
-                        {item.trend}%
-                      </span>
+                    <div className="flex-1">
+                      <p className="font-medium text-slate-900">
+                        {activity.title} → {activity.description}
+                      </p>
+                      <p className="text-sm text-slate-600">
+                        {activity.author} · {activity.time}
+                      </p>
                     </div>
                   </div>
-                ))}
-              </div>
-            </Card>
-          </div>
+                );
+              })}
+            </div>
+          </Card>
+
+          <Card className="p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-bold text-slate-900">
+                Top Performing Content
+              </h2>
+              <TrendingUpIcon className="w-5 h-5 text-emerald-500" />
+            </div>
+
+            <div className="space-y-3">
+              {topContent.map((item) => (
+                <div
+                  key={item.rank}
+                  className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl"
+                >
+                  <span className="w-6 h-6 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+                    {item.rank}
+                  </span>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-medium text-slate-900 text-sm truncate">
+                      {item.name}
+                    </p>
+                    <div className="flex items-center gap-2 text-xs text-slate-600">
+                      <span>{item.type}</span>
+                      <span>•</span>
+                      <span>{item.views} views</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    {item.direction === 'up' ? (
+                      <TrendingUpIcon className="w-4 h-4 text-emerald-500" />
+                    ) : (
+                      <TrendingDownIcon className="w-4 h-4 text-rose-500" />
+                    )}
+                    <span
+                      className={`text-sm font-medium ${
+                        item.direction === 'up'
+                          ? 'text-emerald-600'
+                          : 'text-rose-600'
+                      }`}
+                    >
+                      {item.trend}%
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Card>
         </div>
       </div>
     </div>
