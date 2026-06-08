@@ -14,7 +14,10 @@ import {
   CheckCircleIcon,
   UsersIcon,
   ShoppingCartIcon,
-  AlertTriangleIcon } from
+  AlertTriangleIcon,
+  ChevronDownIcon,
+  ChevronRightIcon,
+  PlayIcon } from
 'lucide-react';
 
 export function ProductDetailPage() {
@@ -22,6 +25,7 @@ export function ProductDetailPage() {
   const navigate = useNavigate();
   const { isAuthenticated, onGuestLoginAttempt } = useAuthContext();
   const [addedToCart, setAddedToCart] = useState(false);
+  const [expandedSection, setExpandedSection] = useState<number | null>(null);
   const { getProductBySlug } = useProductsContext();
   const { addItem } = useCartContext();
   const product = getProductBySlug(slug || '');
@@ -142,29 +146,104 @@ export function ProductDetailPage() {
 
             {/* Curriculum */}
             <Card className="p-8">
-              <h2 className="text-2xl font-bold text-slate-900 mb-6">
+              <h2 className="text-2xl font-bold text-slate-900 mb-2">
                 Kurikulum Kursus
               </h2>
-              <div className="space-y-4">
-                {(product.curriculum ?? []).map((section, index) =>
-                <div
-                  key={index}
-                  className="border border-slate-200 rounded-2xl p-4 hover:border-purple-300 transition-colors}">
-
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <h3 className="font-semibold text-slate-900 mb-1">
-                          {section.title}
-                        </h3>
-                        <div className="flex items-center gap-4 text-sm text-slate-600">
-                          <span>{section.description}</span>
-                          <span>•</span>
-                          <span>{section.duration}</span>
+              <p className="text-slate-600 mb-6">
+                Pelajari materi lengkap dengan struktur yang terorganisir untuk pemahaman maksimal
+              </p>
+              <div className="space-y-3">
+                {(product.curriculum ?? []).map((section, index) => {
+                  const isExpanded = expandedSection === index;
+                  return (
+                    <div
+                      key={index}
+                      className="border border-slate-200 rounded-2xl overflow-hidden hover:border-purple-300 transition-all">
+                      <button
+                        onClick={() => setExpandedSection(isExpanded ? null : index)}
+                        className="w-full p-5 flex items-center justify-between text-left hover:bg-slate-50 transition-colors">
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center text-white font-semibold text-sm">
+                            {index + 1}
+                          </div>
+                          <div>
+                            <h3 className="font-semibold text-slate-900 text-base">
+                              {section.title}
+                            </h3>
+                            <div className="flex items-center gap-4 text-sm text-slate-600 mt-1">
+                              <span className="flex items-center gap-1">
+                                <VideoIcon className="w-4 h-4" />
+                                {section.description || '3 pelajaran'}
+                              </span>
+                              <span>•</span>
+                              <span className="flex items-center gap-1">
+                                <ClockIcon className="w-4 h-4" />
+                                {section.duration}
+                              </span>
+                              {section.isPreview && (
+                                <span className="px-2 py-0.5 bg-emerald-100 text-emerald-700 text-xs font-medium rounded-full">
+                                  Preview
+                                </span>
+                              )}
+                            </div>
+                          </div>
                         </div>
-                      </div>
+                        <ChevronDownIcon
+                          className={`w-5 h-5 text-slate-400 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`} />
+                      </button>
+
+                      {/* Expanded Content */}
+                      {isExpanded && (
+                        <div className="px-5 pb-5 pt-2 border-t border-slate-100 bg-slate-50/50">
+                          <div className="space-y-3 mt-4">
+                            <p className="text-sm text-slate-700 leading-relaxed">
+                              Pelajari konsep-konsep penting dalam modul ini dengan penjelasan mendetail dan contoh praktis.
+                            </p>
+                            <div className="grid grid-cols-2 gap-3 mt-4">
+                              <div className="flex items-center gap-2 text-sm text-slate-600">
+                                <CheckCircleIcon className="w-4 h-4 text-emerald-500 flex-shrink-0" />
+                                <span>Video penjelasan HD</span>
+                              </div>
+                              <div className="flex items-center gap-2 text-sm text-slate-600">
+                                <CheckCircleIcon className="w-4 h-4 text-emerald-500 flex-shrink-0" />
+                                <span>Materi downloadable</span>
+                              </div>
+                              <div className="flex items-center gap-2 text-sm text-slate-600">
+                                <CheckCircleIcon className="w-4 h-4 text-emerald-500 flex-shrink-0" />
+                                <span>Kuis latihan</span>
+                              </div>
+                              <div className="flex items-center gap-2 text-sm text-slate-600">
+                                <CheckCircleIcon className="w-4 h-4 text-emerald-500 flex-shrink-0" />
+                                <span>Sertifikat completion</span>
+                              </div>
+                            </div>
+                            <button className="mt-4 flex items-center gap-2 text-purple-600 font-medium text-sm hover:text-purple-700 transition-colors">
+                              <PlayIcon className="w-4 h-4" />
+                              Preview pelajaran pertama
+                            </button>
+                          </div>
+                        </div>
+                      )}
                     </div>
+                  );
+                })}
+              </div>
+
+              {/* Curriculum Info */}
+              <div className="mt-6 p-5 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-2xl border border-purple-100">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center flex-shrink-0">
+                    <VideoIcon className="w-5 h-5 text-white" />
                   </div>
-                )}
+                  <div>
+                    <h4 className="font-semibold text-slate-900 mb-1">
+                      Akses Selamanya
+                    </h4>
+                    <p className="text-sm text-slate-600">
+                      Akses materi kursus selamanya setelah pembelian. Belajar sesuai kecepatan Anda, kapan saja dan di mana saja.
+                    </p>
+                  </div>
+                </div>
               </div>
             </Card>
 
