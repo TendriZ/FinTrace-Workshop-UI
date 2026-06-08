@@ -3,7 +3,7 @@ import type { User } from '../types';
 export const mockUsers: User[] = [
   {
     id: 'user-1',
-    email: 'nayla1907@fintrace.com',
+    email: 'user@gmail.com',
     password: 'user123',
     fullName: 'Nayla Sasha Meliana',
     phoneNumber: '+62 812-3456-7890',
@@ -13,7 +13,7 @@ export const mockUsers: User[] = [
   },
   {
     id: 'admin-1',
-    email: 'raka1203@fintrace.com',
+    email: 'admin@gmail.com',
     password: 'admin123',
     fullName: 'Muhammad Raka Razzani',
     phoneNumber: '+62 878 4797 9242',

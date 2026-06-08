@@ -6,6 +6,7 @@ interface CartContextValue {
   items: CartItem[];
   addItem: (product: Product, quantity?: number) => void;
   removeItem: (productId: string) => void;
+  updateQuantity: (productId: string, quantity: number) => void;
   clearCart: () => void;
   totalItems: number;
   totalPrice: number;
@@ -56,6 +57,22 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     persistItems(items.filter((item) => item.product.id !== productId));
   };
 
+  const updateQuantity = (productId: string, quantity: number) => {
+    if (quantity <= 0) {
+      // Remove item if quantity is 0 or less
+      persistItems(items.filter((item) => item.product.id !== productId));
+      return;
+    }
+
+    persistItems(
+      items.map((item) =>
+        item.product.id === productId
+          ? { ...item, quantity }
+          : item,
+      ),
+    );
+  };
+
   const clearCart = () => persistItems([]);
 
   const value = useMemo<CartContextValue>(() => {
@@ -69,6 +86,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       items,
       addItem,
       removeItem,
+      updateQuantity,
       clearCart,
       totalItems,
       totalPrice,

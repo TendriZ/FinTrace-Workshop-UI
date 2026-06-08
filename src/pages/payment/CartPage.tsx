@@ -2,14 +2,14 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
-import { TrashIcon, ShoppingBagIcon, AlertTriangleIcon } from 'lucide-react';
+import { TrashIcon, ShoppingBagIcon, AlertTriangleIcon, PlusIcon, MinusIcon } from 'lucide-react';
 import { useAuthContext } from '../../context/AuthContext';
 import { useCartContext } from '../../context/CartContext';
 
 export function CartPage() {
   const navigate = useNavigate();
   const { isAuthenticated, onGuestLoginAttempt } = useAuthContext();
-  const { items, removeItem, clearCart } = useCartContext();
+  const { items, removeItem, updateQuantity } = useCartContext();
 
   const subtotal = items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
   const tax = subtotal * 0.11; // PPN 11%
@@ -60,17 +60,34 @@ export function CartPage() {
                             {item.product.type}
                           </span>
                         </div>
+                        <button
+                          onClick={() => removeItem(item.product.id)}
+                          className="text-rose-500 hover:text-rose-600 transition-colors p-2 hover:bg-rose-50 rounded-lg">
+                          <TrashIcon className="w-5 h-5" />
+                        </button>
+                      </div>
+                      <div className="flex items-center justify-between mt-3">
+                        {/* Quantity Controls */}
                         <div className="flex items-center gap-2">
-                          <span className="text-sm text-slate-600">x{item.quantity}</span>
                           <button
-                            onClick={() => removeItem(item.product.id)}
-                            className="text-rose-500 hover:text-rose-600 transition-colors p-2 hover:bg-rose-50 rounded-lg">
-                            <TrashIcon className="w-5 h-5" />
+                            onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
+                            className="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-300 hover:border-purple-500 hover:bg-purple-50 transition-all text-slate-600 hover:text-purple-600">
+                            <MinusIcon className="w-4 h-4" />
+                          </button>
+                          <span className="w-12 text-center font-semibold text-slate-900">
+                            {item.quantity}
+                          </span>
+                          <button
+                            onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
+                            className="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-300 hover:border-purple-500 hover:bg-purple-50 transition-all text-slate-600 hover:text-purple-600">
+                            <PlusIcon className="w-4 h-4" />
                           </button>
                         </div>
-                      </div>
-                      <div className="text-xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent mt-3">
-                        Rp {(item.product.price * item.quantity).toLocaleString('id-ID')}
+
+                        {/* Price */}
+                        <div className="text-xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
+                          Rp {(item.product.price * item.quantity).toLocaleString('id-ID')}
+                        </div>
                       </div>
                     </div>
                   </div>
