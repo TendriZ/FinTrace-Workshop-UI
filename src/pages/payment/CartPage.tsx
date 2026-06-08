@@ -4,31 +4,14 @@ import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
 import { TrashIcon, ShoppingBagIcon, AlertTriangleIcon } from 'lucide-react';
 import { useAuthContext } from '../../context/AuthContext';
+import { useCartContext } from '../../context/CartContext';
 
 export function CartPage() {
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuthContext();
-  const cartItems = [
-  {
-    id: 1,
-    title: 'Personal Finance Mastery',
-    type: 'Kursus Online',
-    price: 299000,
-    image:
-    'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=200&h=200&fit=crop',
-    instructor: 'Sarah Wijaya, CFP'
-  },
-  {
-    id: 2,
-    title: 'Investasi Saham untuk Pemula',
-    type: 'Kursus Online',
-    price: 399000,
-    image:
-    'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=200&h=200&fit=crop',
-    instructor: 'Budi Santoso, CFA'
-  }];
+  const { isAuthenticated, onGuestLoginAttempt } = useAuthContext();
+  const { items, removeItem, clearCart } = useCartContext();
 
-  const subtotal = cartItems.reduce((sum, item) => sum + item.price, 0);
+  const subtotal = items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
   const tax = subtotal * 0.11; // PPN 11%
   const total = subtotal + tax;
 
@@ -42,7 +25,7 @@ export function CartPage() {
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Cart Items */}
           <div className="lg:col-span-2 space-y-4">
-            {cartItems.length === 0 ?
+            {items.length === 0 ?
             <Card className="p-12 text-center">
                 <ShoppingBagIcon className="w-16 h-16 text-slate-300 mx-auto mb-4" />
                 <h3 className="text-xl font-semibold text-slate-900 mb-2">
@@ -51,38 +34,43 @@ export function CartPage() {
                 <p className="text-slate-600 mb-6">
                   Belum ada produk di keranjang Anda
                 </p>
-                <Link to="/products">
+                <Link to="/courses">
                   <Button>Mulai Belanja</Button>
                 </Link>
               </Card> :
 
-            cartItems.map((item) =>
-            <Card key={item.id} className="p-6">
+            items.map((item) =>
+            <Card key={item.product.id} className="p-6">
                   <div className="flex gap-4">
                     <img
-                  src={item.image}
-                  alt={item.title}
+                  src={item.product.image}
+                  alt={item.product.title}
                   className="w-24 h-24 rounded-2xl object-cover" />
 
                     <div className="flex-1">
                       <div className="flex items-start justify-between mb-2">
                         <div>
                           <h3 className="text-lg font-semibold text-slate-900 mb-1">
-                            {item.title}
+                            {item.product.title}
                           </h3>
                           <p className="text-sm text-slate-600">
-                            {item.instructor}
+                            {item.product.instructor}
                           </p>
                           <span className="inline-block px-2 py-1 bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-700 text-xs font-medium rounded-full mt-2">
-                            {item.type}
+                            {item.product.type}
                           </span>
                         </div>
-                        <button className="text-rose-500 hover:text-rose-600 transition-colors p-2 hover:bg-rose-50 rounded-lg">
-                          <TrashIcon className="w-5 h-5" />
-                        </button>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm text-slate-600">x{item.quantity}</span>
+                          <button
+                            onClick={() => removeItem(item.product.id)}
+                            className="text-rose-500 hover:text-rose-600 transition-colors p-2 hover:bg-rose-50 rounded-lg">
+                            <TrashIcon className="w-5 h-5" />
+                          </button>
+                        </div>
                       </div>
                       <div className="text-xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent mt-3">
-                        Rp {item.price.toLocaleString('id-ID')}
+                        Rp {(item.product.price * item.quantity).toLocaleString('id-ID')}
                       </div>
                     </div>
                   </div>
@@ -122,17 +110,18 @@ export function CartPage() {
                 size="lg"
                 onClick={() => {
                   if (!isAuthenticated) {
+                    onGuestLoginAttempt('/checkout');
                     navigate('/login');
                   } else {
                     navigate('/checkout');
                   }
                 }}
-                disabled={cartItems.length === 0}>
+                disabled={items.length === 0}>
 
                 Lanjut ke Pembayaran
               </Button>
 
-              <Link to="/products">
+              <Link to="/courses">
                 <Button variant="outline" className="w-full">
                   Lanjut Belanja
                 </Button>

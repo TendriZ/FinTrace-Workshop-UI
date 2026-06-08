@@ -9,29 +9,53 @@ import {
   BuildingIcon,
   CheckCircleIcon } from
 'lucide-react';
+import { useCartContext } from '../../context/CartContext';
+import { useAuthContext } from '../../context/AuthContext';
+
 export function CheckoutPage() {
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuthContext();
+  const { items, totalPrice, clearCart } = useCartContext();
   const [paymentMethod, setPaymentMethod] = useState('credit-card');
   const [processing, setProcessing] = useState(false);
-  const orderSummary = {
-    items: [
-    {
-      title: 'Personal Finance Mastery',
-      price: 299000
-    },
-    {
-      title: 'Investasi Saham untuk Pemula',
-      price: 399000
-    }],
 
-    subtotal: 698000,
-    tax: 76780,
-    total: 774780
-  };
+  // Redirect if not authenticated
+  React.useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/login');
+    }
+  }, [isAuthenticated, navigate]);
+
+  // Redirect if cart is empty
+  if (items.length === 0) {
+    return (
+      <div className="min-h-screen">
+        <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
+          <Card className="p-12 text-center">
+            <CheckCircleIcon className="w-16 h-16 text-slate-300 mx-auto mb-4" />
+            <h3 className="text-xl font-semibold text-slate-900 mb-2">
+              Keranjang Kosong
+            </h3>
+            <p className="text-slate-600 mb-6">
+              Silakan tambahkan produk ke keranjang terlebih dahulu
+            </p>
+            <Button onClick={() => navigate('/courses')}>
+              Mulai Belanja
+            </Button>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
+  const subtotal = items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+  const tax = subtotal * 0.11; // PPN 11%
+  const total = subtotal + tax;
   const handlePayment = () => {
     setProcessing(true);
     setTimeout(() => {
-      navigate('/transaction-history');
+      clearCart();
+      navigate('/checkout/success');
     }, 2000);
   };
   return (
@@ -172,14 +196,17 @@ export function CheckoutPage() {
               </h2>
 
               <div className="space-y-3 mb-6">
-                {orderSummary.items.map((item, index) =>
+                {items.map((item) =>
                 <div
-                  key={index}
+                  key={item.product.id}
                   className="flex items-start justify-between text-sm">
-                  
-                    <span className="text-slate-600 flex-1">{item.title}</span>
+
+                    <div className="flex-1">
+                      <span className="text-slate-600">{item.product.title}</span>
+                      <span className="text-slate-500 ml-2">x{item.quantity}</span>
+                    </div>
                     <span className="font-medium text-slate-900 ml-2">
-                      Rp {item.price.toLocaleString('id-ID')}
+                      Rp {(item.product.price * item.quantity).toLocaleString('id-ID')}
                     </span>
                   </div>
                 )}
@@ -188,12 +215,12 @@ export function CheckoutPage() {
                   <div className="flex items-center justify-between text-slate-600">
                     <span>Subtotal</span>
                     <span>
-                      Rp {orderSummary.subtotal.toLocaleString('id-ID')}
+                      Rp {subtotal.toLocaleString('id-ID')}
                     </span>
                   </div>
                   <div className="flex items-center justify-between text-slate-600">
                     <span>PPN (11%)</span>
-                    <span>Rp {orderSummary.tax.toLocaleString('id-ID')}</span>
+                    <span>Rp {tax.toLocaleString('id-ID')}</span>
                   </div>
                 </div>
 
@@ -202,7 +229,7 @@ export function CheckoutPage() {
                     Total
                   </span>
                   <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
-                    Rp {orderSummary.total.toLocaleString('id-ID')}
+                    Rp {total.toLocaleString('id-ID')}
                   </span>
                 </div>
               </div>
