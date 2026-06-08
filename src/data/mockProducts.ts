@@ -21,6 +21,14 @@ export const mockProducts: Product[] = [
     instructor: 'Sarah Wijaya, CFP',
     whatYouLearn: ['Buat budget bulanan', 'Atur cash flow', 'Bangun dana darurat'],
     requirements: ['Tidak perlu pengalaman sebelumnya'],
+    curriculum: [
+      { id: 'c1-1', title: 'Pengenalan Personal Finance', lessons: 3, duration: '45 menit' },
+      { id: 'c1-2', title: 'Budgeting & Expense Tracking', lessons: 4, duration: '1 jam' },
+      { id: 'c1-3', title: 'Saving Strategies', lessons: 3, duration: '45 menit' },
+      { id: 'c1-4', title: 'Debt Management', lessons: 4, duration: '1 jam' },
+      { id: 'c1-5', title: 'Investment Basics', lessons: 5, duration: '1.5 jam' },
+      { id: 'c1-6', title: 'Financial Planning', lessons: 5, duration: '1.5 jam' },
+    ],
   },
   {
     id: 'product-2',
@@ -42,6 +50,12 @@ export const mockProducts: Product[] = [
     instructor: 'Budi Santoso, CFA',
     whatYouLearn: ['Membaca chart sederhana', 'Membuat watchlist', 'Mengenal risiko investasi'],
     requirements: ['Memiliki akun sekuritas dasar'],
+    curriculum: [
+      { id: 'c2-1', title: 'Pengenalan Dunia Saham', lessons: 2, duration: '30 menit' },
+      { id: 'c2-2', title: 'Membaca Chart Candlestick', lessons: 3, duration: '45 menit' },
+      { id: 'c2-3', title: 'Membuat Watchlist', lessons: 3, duration: '45 menit' },
+      { id: 'c2-4', title: 'Order Types & Execution', lessons: 2, duration: '1 jam' },
+    ],
   },
   {
     id: 'product-3',
@@ -63,6 +77,9 @@ export const mockProducts: Product[] = [
     instructor: 'Rina Permata, CFP',
     whatYouLearn: ['Analisis cash flow', 'Strategi budget', 'Rencana keuangan personal'],
     requirements: ['Bawa data pengeluaran 3 bulan terakhir'],
+    curriculum: [
+      { id: 'c3-1', title: 'Analisis Keuangan Personal', lessons: 1, duration: '1 jam' },
+    ],
   },
   {
     id: 'product-4',
@@ -84,6 +101,9 @@ export const mockProducts: Product[] = [
     instructor: 'Rina Permata, CFP',
     whatYouLearn: ['Analisis cash flow', 'Strategi budget', 'Rencana keuangan personal'],
     requirements: ['Bawa data pengeluaran 3 bulan terakhir'],
+    curriculum: [
+      { id: 'c4-1', title: 'Setup FinTrace Pro', lessons: 1, duration: '30 menit' },
+    ],
   },
   {
     id: 'product-5',
@@ -105,6 +125,11 @@ export const mockProducts: Product[] = [
     instructor: 'Sarah Wijaya, CFP',
     whatYouLearn: ['Analisis teknikal', 'Strategi trading', 'Manajemen risiko'],
     requirements: ['Pengalaman trading yang baik'],
+    curriculum: [
+      { id: 'c5-1', title: 'Advanced Technical Analysis', lessons: 4, duration: '1 jam' },
+      { id: 'c5-2', title: 'Options Trading Strategies', lessons: 3, duration: '45 menit' },
+      { id: 'c5-3', title: 'Portfolio Management', lessons: 5, duration: '1.5 jam' },
+    ],
   },
   {
     id: 'product-6',
@@ -126,5 +151,11 @@ export const mockProducts: Product[] = [
     instructor: 'Budi Santoso, CFA',
     whatYouLearn: ['Identifikasi jenis utang', 'Membuat rencana pelunasan', 'Menghindari utang baru'],
     requirements: ['Memiliki utang yang perlu dikelola'],
+    curriculum: [
+      { id: 'c6-1', title: 'Understanding Debt Types', lessons: 2, duration: '30 menit' },
+      { id: 'c6-2', title: 'Debt Snowball Method', lessons: 3, duration: '45 menit' },
+      { id: 'c6-3', title: 'Negotiation Techniques', lessons: 2, duration: '1 jam' },
+      { id: 'c6-4', title: 'Building Repayment Plan', lessons: 1, duration: '45 menit' },
+    ],
   },
 ];

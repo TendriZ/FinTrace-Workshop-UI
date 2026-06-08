@@ -12,9 +12,9 @@ export interface User {
 export interface CurriculumModule {
   id: string;
   title: string;
-  description: string;
+  lessons: number;
   duration: string;
-  isPreview: boolean;
+  isPreview?: boolean;
 }
 
 export interface Article {
