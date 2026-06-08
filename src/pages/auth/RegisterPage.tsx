@@ -4,6 +4,8 @@ import { Eye, EyeOff, Mail, Lock, User } from 'lucide-react';
 import { Button } from '../../components/ui/Button';
 import { PageTransition } from '../../components/ui/PageTransition';
 import { useAuthContext } from '../../context/AuthContext';
+import { GoogleLogo } from '../../components/icons/GoogleLogo';
+import { AppleLogo } from '../../components/icons/AppleLogo';
 
 const REDIRECT_TARGET_KEY = 'fintrace_redirect';
 
@@ -103,9 +105,11 @@ export function RegisterPage() {
 
             <div className="flex gap-3 mb-6">
               <button type="button" className="flex-1 flex items-center justify-center gap-2 py-3 border border-slate-300 rounded-xl bg-white hover:bg-slate-50 text-sm font-medium transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-md">
+                <GoogleLogo className="w-5 h-5" />
                 Google
               </button>
               <button type="button" className="flex-1 flex items-center justify-center gap-2 py-3 border border-slate-300 rounded-xl bg-white hover:bg-slate-50 text-sm font-medium transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-md">
+                <AppleLogo className="w-5 h-5" />
                 Apple
               </button>
             </div>
