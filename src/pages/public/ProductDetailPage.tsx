@@ -5,6 +5,7 @@ import { Card } from '../../components/ui/Card';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { useAuthContext } from '../../context/AuthContext';
 import { useProductsContext } from '../../context/ProductsContext';
+import { useCartContext } from '../../context/CartContext';
 import {
   ArrowLeftIcon,
   StarIcon,
@@ -19,9 +20,10 @@ import {
 export function ProductDetailPage() {
   const { slug } = useParams();
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuthContext();
+  const { isAuthenticated, onGuestLoginAttempt } = useAuthContext();
   const [addedToCart, setAddedToCart] = useState(false);
   const { getProductBySlug } = useProductsContext();
+  const { addItem } = useCartContext();
   const product = getProductBySlug(slug || '');
 
   // Scroll to top when component mounts
@@ -47,8 +49,26 @@ export function ProductDetailPage() {
   }
 
   const handleAddToCart = () => {
+    if (!product) return;
+
+    // Convert product to match CartItem structure
+    addItem(product, 1);
     setAddedToCart(true);
     setTimeout(() => setAddedToCart(false), 2000);
+  };
+
+  const handleBuyNow = () => {
+    if (!product) return;
+
+    // Add product to cart first
+    addItem(product, 1);
+
+    if (!isAuthenticated) {
+      onGuestLoginAttempt('/checkout');
+      navigate('/login');
+    } else {
+      navigate('/checkout');
+    }
   };
 
   return (
@@ -196,13 +216,7 @@ export function ProductDetailPage() {
                 <Button
                   className="w-full"
                   size="lg"
-                  onClick={() => {
-                    if (!isAuthenticated) {
-                      navigate('/login');
-                    } else {
-                      navigate('/cart');
-                    }
-                  }}>
+                  onClick={handleBuyNow}>
 
                   Beli Sekarang
                 </Button>
