@@ -26,7 +26,7 @@ export const AppLayout = () => {
 
       <div className="flex flex-1">
         {isAdmin && <AdminSidebar />}
-        <main className={`flex-1 ${isAdmin ? 'ml-64 p-6' : ''}`}>
+        <main className={`flex-1 p-4 lg:p-6 ${isAdmin ? 'lg:ml-64' : ''}`}>
           <Outlet />
         </main>
       </div>
