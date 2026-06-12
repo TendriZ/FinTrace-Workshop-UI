@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card } from '../../components/ui/Card';
 import {
   SearchIcon,
@@ -7,6 +7,10 @@ import {
   UserIcon } from
 'lucide-react';
 export function ManageUsersPage() {
+  useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
+  
   const [searchQuery, setSearchQuery] = useState('');
   const [filterRole, setFilterRole] = useState('all');
   const users = [

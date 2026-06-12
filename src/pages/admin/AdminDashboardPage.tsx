@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { StatCard } from '../../components/ui/StatCard';
 import { SpendingChart } from '../../components/features/SpendingChart';
@@ -15,6 +16,10 @@ import {
 } from 'lucide-react';
 
 export function AdminDashboardPage() {
+  useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
+  
   const { user } = useAuthContext();
   const growthData = [
     { name: '2021', Users: 91, Advisors: 47.55 },

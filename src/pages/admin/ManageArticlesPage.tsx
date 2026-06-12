@@ -21,6 +21,10 @@ interface FormData {
 }
 
 export function ManageArticlesPage() {
+  useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
+  
   const { articles, addArticle, updateArticle, deleteArticle } = useArticlesContext();
 
   const [searchQuery, setSearchQuery] = useState('');

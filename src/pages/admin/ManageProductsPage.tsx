@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
@@ -24,6 +24,10 @@ interface FormData {
 }
 
 export function ManageProductsPage() {
+  useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
+  
   const { products, addProduct, updateProduct, deleteProduct } = useProductsContext();
 
   const [searchQuery, setSearchQuery] = useState('');

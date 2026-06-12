@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import {
@@ -10,6 +10,10 @@ import {
   UsersIcon } from
 'lucide-react';
 export function ManageTransactionsPage() {
+  useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
+
   const [searchQuery, setSearchQuery] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
   const transactions = [

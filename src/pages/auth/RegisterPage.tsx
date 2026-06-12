@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Eye, EyeOff, Mail, Lock, User } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, User, AlertCircle } from 'lucide-react';
 import { Button } from '../../components/ui/Button';
 import { PageTransition } from '../../components/ui/PageTransition';
 import { useAuthContext } from '../../context/AuthContext';
@@ -13,6 +13,7 @@ export function RegisterPage() {
   const navigate = useNavigate();
   const { loginByRole, isAuthenticated } = useAuthContext();
   const [redirectTarget, setRedirectTarget] = React.useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
@@ -54,9 +55,16 @@ export function RegisterPage() {
         </div>
 
         <div className="w-full lg:w-[48%] bg-gradient-to-br from-blue-50 via-purple-50 to-pink-100 flex flex flex-col justify-between">
-          <form onSubmit={handleSubmit} className="w-full h-full flex flex-col justify-center py-8">
+          <form onSubmit={handleSubmit} className="w-full h-full flex flex-col justify-center px-12 py-8">
             <h1 className="text-4xl font-bold text-indigo-500 text-center mb-1">Register Here</h1>
             <p className="text-slate-400 text-center text-sm mb-8">Create your account to start tracking your finance</p>
+
+            {error && (
+              <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-xl flex items-center gap-2">
+                <AlertCircle className="w-5 h-5 text-red-500" />
+                <p className="text-sm text-red-600">{error}</p>
+              </div>
+            )}
 
             <label className="text-purple-600 font-semibold text-sm">Full Name</label>
             <div className="relative mt-1 mb-4">

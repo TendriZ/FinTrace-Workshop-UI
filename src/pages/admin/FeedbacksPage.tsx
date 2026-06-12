@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { Card } from '../../components/ui/Card';
 import { StatCard } from '../../components/ui/StatCard';
 import { Modal } from '../../components/ui/Modal';
@@ -29,6 +30,10 @@ interface Feedback {
 }
 
 export function FeedbacksPage() {
+  useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
+  
   const [searchQuery, setSearchQuery] = useState('');
   const [ratingFilter, setRatingFilter] = useState<number | null>(null);
   const [showReplyModal, setShowReplyModal] = useState(false);

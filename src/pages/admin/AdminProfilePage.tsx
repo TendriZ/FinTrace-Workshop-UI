@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -18,6 +19,10 @@ import {
 } from 'lucide-react';
 
 export function AdminProfilePage() {
+  useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
+  
   const { user } = useAuthContext();
   const [isEditing, setIsEditing] = useState(false);
   const [showModal, setShowModal] = useState(false);
