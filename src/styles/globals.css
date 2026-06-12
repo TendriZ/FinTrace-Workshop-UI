@@ -7,6 +7,7 @@
 @import 'tailwindcss/utilities';
 /* DO NOT DELETE THESE TAILWIND IMPORTS, OTHERWISE THE STYLING WILL NOT RENDER AT ALL - DO NOT DELETE THIS COMMENT */
 
+
 :root {
   --color-primary: #6366f1;
   --color-primary-dark: #4f46e5;

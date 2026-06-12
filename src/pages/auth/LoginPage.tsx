@@ -55,7 +55,7 @@ export function LoginPage() {
 
   return (
     <PageTransition type="slide">
-      <div className="min-h-screen flex flex-col lg:flex-row">
+      <div className="min-h-screen w-full flex flex-col lg:flex-row ">
         <div className="w-full lg:w-[52%] bg-cover bg-center bg-no-repeat relative flex flex-col items-center justify-center p-12 text-center overflow-hidden"
              style={{ backgroundImage: 'url(/images/Background-Login-Register-Behind-FinTraceLogo-and-Motto.png)' }}>
           <div className="absolute inset-0 bg-black/30" />
@@ -68,7 +68,7 @@ export function LoginPage() {
         </div>
 
         <div className="w-full lg:w-[48%] bg-gradient-to-br from-blue-50 via-purple-50 to-pink-100 flex flex-col justify-between">
-          <form onSubmit={handleSubmit} className="w-full h-full flex flex-col justify-center py-8">
+          <form onSubmit={handleSubmit} className="w-full h-full flex flex-col justify-center py-8 px-12">
             <h1 className="text-4xl font-bold text-indigo-500 text-center mb-1">Welcome Back</h1>
             <p className="text-slate-400 text-center text-sm mb-8">Enter your email and password to access your account</p>
 

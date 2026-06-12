@@ -303,7 +303,7 @@ export function LandingPage() {
       {/* CTA Section */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 opacity-90"></div>
-        <div className="relative container-1280 px-4 sm:px-6 lg:px-8 py-20 text-center">
+        <div className="relative py-20 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Ready to Take Control of Your Finances?
           </h2>

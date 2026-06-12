@@ -55,7 +55,7 @@ export function RegisterPage() {
         </div>
 
         <div className="w-full lg:w-[48%] bg-gradient-to-br from-blue-50 via-purple-50 to-pink-100 flex flex flex-col justify-between">
-          <form onSubmit={handleSubmit} className="w-full h-full flex flex-col justify-center py-8">
+          <form onSubmit={handleSubmit} className="w-full h-full flex flex-col justify-center py-8 px-12">
             <h1 className="text-4xl font-bold text-indigo-500 text-center mb-1">Register Here</h1>
             <p className="text-slate-400 text-center text-sm mb-8">Create your account to start tracking your finance</p>
 
