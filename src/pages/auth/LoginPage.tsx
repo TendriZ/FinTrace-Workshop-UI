@@ -67,8 +67,8 @@ export function LoginPage() {
           </div>
         </div>
 
-        <div className="w-full lg:w-[48%] bg-gradient-to-br from-blue-50 via-purple-50 to-pink-100 flex flex-col justify-between p-6 sm:p-10 lg:p-12">
-          <form onSubmit={handleSubmit} className="max-w-sm mx-auto w-full pt-8 lg:pt-16">
+        <div className="w-full lg:w-[48%] bg-gradient-to-br from-blue-50 via-purple-50 to-pink-100 flex flex-col justify-between">
+          <form onSubmit={handleSubmit} className="max-w-sm mx-auto w-full h-full flex flex-col justify-center px-4 lg:px-12 py-8 lg:py-16">
             <h1 className="text-4xl font-bold text-indigo-500 text-center mb-1">Welcome Back</h1>
             <p className="text-slate-400 text-center text-sm mb-8">Enter your email and password to access your account</p>
 
@@ -148,7 +148,7 @@ export function LoginPage() {
             </p>
           </form>
 
-          <div className="flex justify-between text-slate-400 text-xs pt-10">
+          <div className="flex justify-between text-slate-400 text-xs pt-10 px-4 lg:px-12">
             <span>Copyright c 2025 FinTrace</span>
             <span>Privacy Policy</span>
           </div>
