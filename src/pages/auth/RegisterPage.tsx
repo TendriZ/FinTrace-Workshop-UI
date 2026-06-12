@@ -54,7 +54,7 @@ export function RegisterPage() {
         </div>
 
         <div className="w-full lg:w-[48%] bg-gradient-to-br from-blue-50 via-purple-50 to-pink-100 flex flex flex-col justify-between">
-          <form onSubmit={handleSubmit} className="max-w-sm mx-auto w-full h-full flex flex-col justify-center px-4 lg:px-12 py-8 lg:py-16">
+          <form onSubmit={handleSubmit} className="max-w-sm mx-auto w-full h-full flex flex-col justify-center px-4 py-8">
             <h1 className="text-4xl font-bold text-indigo-500 text-center mb-1">Register Here</h1>
             <p className="text-slate-400 text-center text-sm mb-8">Create your account to start tracking your finance</p>
 
@@ -124,7 +124,7 @@ export function RegisterPage() {
             </p>
           </form>
 
-          <div className="flex justify-between text-slate-400 text-xs pt-10 px-4 lg:px-12">
+          <div className="flex justify-between text-slate-400 text-xs pt-10 px-4">
             <span>Copyright c 2025 FinTrace</span>
             <span>Privacy Policy</span>
           </div>
