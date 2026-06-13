@@ -40,10 +40,10 @@
               </Link>
             </nav>
 
-            {/* Desktop CTA Button - Right (matches logo width for balance) */}
-            <div className="hidden md:flex md:justify-end md:w-20 md:flex-shrink-0">
+            {/* Desktop CTA Button - Right */}
+            <div className="hidden md:flex md:justify-end md:flex-shrink-0">
               <Link to="/login">
-                <button className="bg-cyan-500 hover:bg-cyan-600 text-white px-6 py-2 rounded-full text-sm font-medium flex items-center gap-2 shadow-lg shadow-cyan-500/30 transform hover:scale-105 transition-all">
+                <button className="bg-cyan-500 hover:bg-cyan-600 text-white px-6 py-2 rounded-full text-sm font-medium flex items-center gap-2 shadow-lg shadow-cyan-500/30 transform hover:scale-105 transition-all whitespace-nowrap">
                   Get Started
                   <svg
                     width="16"
