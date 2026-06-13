@@ -30,7 +30,7 @@ export function UserHeader() {
       <nav className="hidden md:flex items-center gap-6 px-8 py-3 border-2 border-purple-400 rounded-full">
         <NavIcon icon={DollarSign} to="/transactions" title="Financial" />
         <NavIcon icon={ClipboardList} to="/budget" title="Budget" />
-        <NavIcon icon={Target} to="/dashboard" title="Goals" />
+        <NavIcon icon={Target} to="/goal" title="Goals" />
         <NavIcon icon={BarChart2} to="/analytics" title="Analytics" />
         <NavIcon icon={BookOpen} to="/user/articles" title="Articles" />
         <NavIcon icon={Package} to="/user/courses" title="My Courses" />

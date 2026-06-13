@@ -23,6 +23,7 @@ import { DashboardPage } from './pages/user/DashboardPage';
 import { TransactionsPage } from './pages/user/TransactionsPage';
 import { AnalyticsPage } from './pages/user/AnalyticsPage';
 import { BudgetPage } from './pages/user/BudgetPage';
+import { GoalPage } from './pages/user/GoalPage';
 import { MyCoursesPage } from './pages/user/MyCoursesPage';
 import { ProfilePage } from './pages/user/ProfilePage';
 import { FeedbackPage } from './pages/user/FeedbackPage';
@@ -66,8 +67,9 @@ export const router = createBrowserRouter([
       // User Routes
       { path: '/dashboard', element: <DashboardPage /> },
       { path: '/transactions', element: <TransactionsPage /> },
-      { path: '/analytics', element: <AnalyticsPage /> },
       { path: '/budget', element: <BudgetPage /> },
+      { path: '/goal', element: <GoalPage /> },
+      { path: '/analytics', element: <AnalyticsPage /> },
       { path: '/user/articles', element: <UserArticlesPage /> },
       { path: '/user/articles/:slug', element: <UserArticleDetailPage /> },
       { path: '/my-courses', element: <MyCoursesPage /> },
