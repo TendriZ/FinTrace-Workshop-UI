@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
@@ -15,6 +15,10 @@ import {
 'lucide-react';
 import { router } from '../../router';
 export function LandingPage() {
+  useEffect(() => {
+    window.scrollTo(0,0)
+  }, []);
+  
   const stats = [
   {
     imageUrl : 'images/Active-User-Icon.png',

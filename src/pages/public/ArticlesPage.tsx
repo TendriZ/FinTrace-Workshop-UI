@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -6,6 +6,10 @@ import { useArticlesContext } from '../../context/ArticlesContext';
 import { SearchIcon, ClockIcon, UserIcon } from 'lucide-react';
 
 export function ArticlesPage() {
+  useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
+  
   const { articles } = useArticlesContext();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Semua');

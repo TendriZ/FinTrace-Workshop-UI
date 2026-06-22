@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -6,6 +6,10 @@ import { useProductsContext } from '../../context/ProductsContext';
 import { StarIcon, ClockIcon, UsersIcon, VideoIcon } from 'lucide-react';
 
 export function ProductsPage() {
+  useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
+  
   const { products } = useProductsContext();
   const [selectedCategory, setSelectedCategory] = useState('Semua');
   const categories = ['Semua', 'course', 'consultation', 'premium', 'ebook'];
