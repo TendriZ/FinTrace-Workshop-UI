@@ -65,7 +65,7 @@
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg hover:bg-slate-100 transition-colors">
+              className="md:hidden ml-auto p-2 rounded-lg hover:bg-slate-100 transition-colors">
               {mobileMenuOpen ? <X className="w-6 h-6 text-slate-600" /> : <Menu className="w-6 h-6 text-slate-600" />}
             </button>
           </div>
