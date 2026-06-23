@@ -76,7 +76,7 @@ export function ProductDetailPage() {
       <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
         {/* Back Button */}
         <Link to={isAuthenticated ? "/courses" : "/courses"}>
-          <Button variant="outline" size="sm" className="mb-6">
+          <Button variant="outline" size="sm" className="mb-6 whitespace-nowrap">
             <ArrowLeftIcon className="w-4 h-4 mr-2" />
             Kembali ke Katalog
           </Button>
