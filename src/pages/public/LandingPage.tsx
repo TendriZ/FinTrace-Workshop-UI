@@ -124,9 +124,9 @@ export function LandingPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <Link to='/login'>
-                <Button size="lg">Start Tracking Free</Button>
+                <Button size="lg" className="min-w-[200px]">Start Tracking Free</Button>
               </Link>
-              <Button variant="outline" size="lg">
+              <Button variant="outline" size="lg" className="min-w-[200px]">
                 Watch Demo
               </Button>
             </div>
