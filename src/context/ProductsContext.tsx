@@ -40,12 +40,15 @@ export function ProductsProvider({ children }: ProductsProviderProps) {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) {
       try {
-        setProducts(JSON.parse(stored));
+        const parsedProducts = JSON.parse(stored);
+        console.log('Products loaded from localStorage:', parsedProducts);
+        setProducts(parsedProducts);
       } catch (error) {
         console.error('Failed to parse products from localStorage:', error);
         setProducts(mockProducts);
       }
     } else {
+      console.log('No products in localStorage, using mockProducts');
       setProducts(mockProducts);
     }
   }, []);

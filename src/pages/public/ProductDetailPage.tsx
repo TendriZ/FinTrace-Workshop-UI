@@ -26,6 +26,10 @@ export function ProductDetailPage() {
   const { addItem } = useCartContext();
   const product = getProductBySlug(slug || '');
 
+  // Debug: Log product data
+  console.log('Product data:', product);
+  console.log('Curriculum data:', product?.curriculum);
+
   // Scroll to top when component mounts
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -145,26 +149,32 @@ export function ProductDetailPage() {
               <h2 className="text-2xl font-bold text-slate-900 mb-6">
                 Kurikulum Kursus
               </h2>
-              <div className="space-y-4">
-                {(product.curriculum ?? []).map((section, index) => (
-                  <div
-                    key={index}
-                    className="border border-slate-200 rounded-2xl p-4 hover:border-purple-300 transition-colors">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <h3 className="font-semibold text-slate-900 mb-1">
-                          {section.title}
-                        </h3>
-                        <div className="flex items-center gap-4 text-sm text-slate-600">
-                          <span>{section.lessons} pelajaran</span>
-                          <span>•</span>
-                          <span>{section.duration}</span>
+              {product.curriculum && product.curriculum.length > 0 ? (
+                <div className="space-y-4">
+                  {product.curriculum.map((section, index) => (
+                    <div
+                      key={index}
+                      className="border border-slate-200 rounded-2xl p-4 hover:border-purple-300 transition-colors">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h3 className="font-semibold text-slate-900 mb-1">
+                            {section.title}
+                          </h3>
+                          <div className="flex items-center gap-4 text-sm text-slate-600">
+                            <span>{section.lessons} pelajaran</span>
+                            <span>•</span>
+                            <span>{section.duration}</span>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8 text-slate-500">
+                  <p>Belum ada informasi kurikulum untuk produk ini.</p>
+                </div>
+              )}
             </Card>
 
             {/* Instructor */}
