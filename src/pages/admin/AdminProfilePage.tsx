@@ -381,10 +381,10 @@ export function AdminProfilePage() {
 
         {/* Logout Button */}
         <div className="mt-6 text-right">
-          <Button variant="danger" className="rounded-lg">
+          <button className="inline-flex items-center px-6 py-2.5 rounded-lg font-medium bg-rose-500 text-white hover:bg-rose-600 transition-colors">
             <LogOutIcon className="w-4 h-4 mr-2" />
             Logout
-          </Button>
+          </button>
         </div>
       </div>
 

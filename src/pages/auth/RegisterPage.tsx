@@ -132,7 +132,7 @@ export function RegisterPage() {
             </p>
           </form>
 
-          <div className="flex justify-between text-slate-400 text-xs pt-10">
+          <div className="px-6 py-3 flex justify-between text-slate-400 text-xs pt-10">
             <span>Copyright c 2025 FinTrace</span>
             <span>Privacy Policy</span>
           </div>

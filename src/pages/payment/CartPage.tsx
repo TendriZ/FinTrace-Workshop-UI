@@ -44,20 +44,20 @@ export function CartPage() {
                   <div className="flex gap-4">
                     <img
                   src={item.product.featuredImage}
-                  alt={item.product.title}
+                  alt={item.product.name}
                   className="w-24 h-24 rounded-2xl object-cover" />
 
                     <div className="flex-1">
                       <div className="flex items-start justify-between mb-2">
                         <div>
                           <h3 className="text-lg font-semibold text-slate-900 mb-1">
-                            {item.product.title}
+                            {item.product.name}
                           </h3>
                           <p className="text-sm text-slate-600">
                             {item.product.instructor}
                           </p>
                           <span className="inline-block px-2 py-1 bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-700 text-xs font-medium rounded-full mt-2">
-                            {item.product.type}
+                            {item.product.category}
                           </span>
                         </div>
                         <button

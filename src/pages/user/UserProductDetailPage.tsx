@@ -134,7 +134,7 @@ export function UserProductDetailPage() {
                           {section.title}
                         </h3>
                         <div className="flex items-center gap-4 text-sm text-slate-600">
-                          <span>{section.description}</span>
+                          <span>{section.lessons} pelajaran</span>
                           <span>•</span>
                           <span>{section.duration}</span>
                         </div>
