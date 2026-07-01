@@ -122,11 +122,11 @@ export function LandingPage() {
               one place. Get insights, learn financial literacy, and take
               control of your money.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-              <Link to='/login'>
-                <Button size="lg" className="min-w-[200px]">Start Tracking Free</Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8 w-full max-w-md mx-auto sm:max-w-none">
+              <Link to='/login' className="w-full">
+                <Button size="lg" className="w-full">Start Tracking Free</Button>
               </Link>
-              <Button variant="outline" size="lg" className="min-w-[200px]">
+              <Button variant="outline" size="lg" className="w-full">
                 Watch Demo
               </Button>
             </div>
