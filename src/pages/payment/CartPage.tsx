@@ -43,7 +43,7 @@ export function CartPage() {
             <Card key={item.product.id} className="p-6">
                   <div className="flex gap-4">
                     <img
-                  src={item.product.image}
+                  src={item.product.featuredImage}
                   alt={item.product.title}
                   className="w-24 h-24 rounded-2xl object-cover" />
 
