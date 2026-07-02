@@ -76,23 +76,23 @@ export function ManageUsersPage() {
     <div className="min-h-screen">
       <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
+        <div className="mb-6 lg:mb-8">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-1 sm:mb-2">
             Kelola <span className="gradient-text">Pengguna</span>
           </h1>
-          <p className="text-slate-600">Manajemen pengguna dan hak akses</p>
+          <p className="text-sm sm:text-base text-slate-600">Manajemen pengguna dan hak akses</p>
         </div>
 
         {/* Stats */}
-        <div className="grid md:grid-cols-4 gap-6 mb-8">
-          <Card className="p-6">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg">
-                <UserIcon className="w-6 h-6 text-white" />
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6 mb-6 lg:mb-8">
+          <Card className="p-4 lg:p-6">
+            <div className="flex items-center gap-3 lg:gap-4">
+              <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0">
+                <UserIcon className="w-5 h-5 lg:w-6 lg:h-6 text-white" />
               </div>
               <div>
-                <p className="text-sm text-slate-600">Total Users</p>
-                <p className="text-2xl font-bold text-slate-900">2</p>
+                <p className="text-xs lg:text-sm text-slate-600">Total Users</p>
+                <p className="text-xl lg:text-2xl font-bold text-slate-900">2</p>
               </div>
             </div>
           </Card>

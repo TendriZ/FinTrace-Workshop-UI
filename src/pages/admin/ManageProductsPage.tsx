@@ -144,16 +144,16 @@ export function ManageProductsPage() {
     <div className="min-h-screen">
       <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 lg:mb-8 gap-4">
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-1 sm:mb-2">
               Kelola <span className="gradient-text">Produk</span>
             </h1>
-            <p className="text-slate-600">
+            <p className="text-sm sm:text-base text-slate-600">
               Manajemen kursus dan layanan konsultasi ({products.length} produk)
             </p>
           </div>
-          <Button onClick={handleAdd}>
+          <Button onClick={handleAdd} className="w-full sm:w-auto">
             <PlusIcon className="w-5 h-5 mr-2" />
             Tambah Produk
           </Button>

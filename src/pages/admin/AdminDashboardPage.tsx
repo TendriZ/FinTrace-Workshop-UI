@@ -118,23 +118,23 @@ export function AdminDashboardPage() {
     <div className="min-h-screen">
       <div className="p-6">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 lg:mb-8 gap-4">
+          <div className="flex items-center gap-3 sm:gap-4">
             <img
               src={user?.avatar || '/images/cowboy-patrick.png'}
               alt="Profile"
-              className="w-16 h-16 rounded-full object-cover border-2 border-purple-200" />
+              className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover border-2 border-purple-200" />
             <div>
-              <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-1 sm:mb-2">
                 Admin <span className="gradient-text">Dashboard</span>
               </h1>
-              <p className="text-slate-600">Selamat datang kembali, {user?.fullName || 'User'}!</p>
+              <p className="text-sm sm:text-base text-slate-600">Selamat datang kembali, {user?.fullName || 'User'}!</p>
             </div>
           </div>
         </div>
 
         {/* Stats Row */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-6 lg:mb-8">
           <StatCard
             title="Total Users"
             value="1.000.000"
@@ -166,48 +166,49 @@ export function AdminDashboardPage() {
         </div>
 
         {/* Growth Chart & Today's Sales */}
-        <div className="grid lg:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6 mb-4 lg:mb-6">
           <div className="lg:col-span-2">
-            <Card className="p-6 h-full">
+            <Card className="p-4 lg:p-6 h-full">
               <SpendingChart
                 title="Users & Advisors Growth (%)"
                 type="bar"
                 data={growthData}
                 dataKeys={['Users', 'Advisors']}
                 colors={['#A855F7', '#FCA5A5']}
-                height={350}
+                height={250}
+                mobileHeight={200}
               />
             </Card>
           </div>
 
           <div>
-            <Card className="p-6 h-full">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-bold text-slate-900">
+            <Card className="p-4 lg:p-6 h-full">
+              <div className="flex items-center justify-between mb-3 lg:mb-4">
+                <h2 className="text-base lg:text-lg font-bold text-slate-900">
                   Penjualan Hari ini
                 </h2>
                 <Link to="/admin/transactions">
-                  <span className="text-sm text-purple-600 hover:text-purple-700 cursor-pointer">
+                  <span className="text-xs lg:text-sm text-purple-600 hover:text-purple-700 cursor-pointer">
                     Lihat Semua
                   </span>
                 </Link>
               </div>
 
-              <div className="space-y-3">
+              <div className="space-y-2 lg:space-y-3">
                 {todaySales.map((sale) => (
-                  <div key={sale.id} className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl hover:bg-slate-100 transition-colors">
+                  <div key={sale.id} className="flex items-center gap-2 lg:gap-3 p-2 lg:p-3 bg-slate-50 rounded-xl hover:bg-slate-100 transition-colors">
                     <img
                       src={sale.thumbnail}
                       alt={sale.name}
-                      className="w-12 h-12 rounded-lg object-cover"
+                      className="w-10 h-10 lg:w-12 lg:h-12 rounded-lg object-cover flex-shrink-0"
                     />
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium text-slate-900 text-sm truncate">
+                      <p className="font-medium text-slate-900 text-xs lg:text-sm truncate">
                         {sale.name}
                       </p>
                       <p className="text-xs text-slate-600">{sale.type}</p>
                     </div>
-                    <p className="text-pink-500 font-semibold text-sm">
+                    <p className="text-pink-500 font-semibold text-xs lg:text-sm whitespace-nowrap">
                       Rp {sale.price.toLocaleString('id-ID')}
                     </p>
                   </div>
@@ -218,25 +219,25 @@ export function AdminDashboardPage() {
         </div>
 
         {/* Recent Activities & Top Performing Content */}
-        <div className="grid lg:grid-cols-2 gap-6">
-          <Card className="p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-bold text-slate-900">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
+          <Card className="p-4 lg:p-6">
+            <div className="flex items-center justify-between mb-3 lg:mb-4">
+              <h2 className="text-lg lg:text-xl font-bold text-slate-900">
                 Recent Activities
               </h2>
               <ClockIcon className="w-5 h-5 text-slate-400" />
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3 lg:space-y-4">
               {recentActivities.map((activity) => {
                 const Icon = activity.icon;
                 return (
                   <div
                     key={activity.id}
-                    className="flex items-start gap-4 p-4 bg-slate-50 rounded-2xl"
+                    className="flex items-start gap-3 lg:gap-4 p-3 lg:p-4 bg-slate-50 rounded-2xl"
                   >
                     <div
-                      className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
+                      className={`w-8 h-8 lg:w-10 lg:h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
                         activity.color === 'blue'
                           ? 'bg-blue-100 text-blue-600'
                           : activity.color === 'purple'
@@ -246,13 +247,13 @@ export function AdminDashboardPage() {
                           : 'bg-cyan-100 text-cyan-600'
                       }`}
                     >
-                      <Icon className="w-5 h-5" />
+                      <Icon className="w-4 h-4 lg:w-5 lg:h-5" />
                     </div>
-                    <div className="flex-1">
-                      <p className="font-medium text-slate-900">
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-slate-900 text-sm lg:text-base">
                         {activity.title} → {activity.description}
                       </p>
-                      <p className="text-sm text-slate-600">
+                      <p className="text-xs lg:text-sm text-slate-600">
                         {activity.author} · {activity.time}
                       </p>
                     </div>
@@ -262,25 +263,25 @@ export function AdminDashboardPage() {
             </div>
           </Card>
 
-          <Card className="p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-bold text-slate-900">
+          <Card className="p-4 lg:p-6">
+            <div className="flex items-center justify-between mb-3 lg:mb-4">
+              <h2 className="text-base lg:text-lg font-bold text-slate-900">
                 Top Performing Content
               </h2>
               <TrendingUpIcon className="w-5 h-5 text-emerald-500" />
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-2 lg:space-y-3">
               {topContent.map((item) => (
                 <div
                   key={item.rank}
-                  className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl"
+                  className="flex items-center gap-2 lg:gap-3 p-2 lg:p-3 bg-slate-50 rounded-xl"
                 >
-                  <span className="w-6 h-6 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+                  <span className="w-5 h-5 lg:w-6 lg:h-6 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
                     {item.rank}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <p className="font-medium text-slate-900 text-sm truncate">
+                    <p className="font-medium text-slate-900 text-xs lg:text-sm truncate">
                       {item.name}
                     </p>
                     <div className="flex items-center gap-2 text-xs text-slate-600">
@@ -289,14 +290,14 @@ export function AdminDashboardPage() {
                       <span>{item.views} views</span>
                     </div>
                   </div>
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1 flex-shrink-0">
                     {item.direction === 'up' ? (
-                      <TrendingUpIcon className="w-4 h-4 text-emerald-500" />
+                      <TrendingUpIcon className="w-3 h-3 lg:w-4 lg:h-4 text-emerald-500" />
                     ) : (
-                      <TrendingDownIcon className="w-4 h-4 text-rose-500" />
+                      <TrendingDownIcon className="w-3 h-3 lg:w-4 lg:h-4 text-rose-500" />
                     )}
                     <span
-                      className={`text-sm font-medium ${
+                      className={`text-xs lg:text-sm font-medium ${
                         item.direction === 'up'
                           ? 'text-emerald-600'
                           : 'text-rose-600'

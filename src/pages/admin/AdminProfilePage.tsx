@@ -121,18 +121,18 @@ export function AdminProfilePage() {
     <div className="min-h-screen">
       <div className="p-6">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 lg:mb-8 gap-4">
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-1 sm:mb-2">
               Admin <span className="gradient-text">Profile</span>
             </h1>
-            <p className="text-slate-600">
+            <p className="text-sm sm:text-base text-slate-600">
               Kelola profil dan pengaturan admin
             </p>
           </div>
-          <div className="flex gap-2">
-            <Link to="/admin/dashboard">
-              <Button variant="outline" size="sm">
+          <div className="flex gap-2 w-full sm:w-auto">
+            <Link to="/admin/dashboard" className="w-full sm:w-auto">
+              <Button variant="outline" size="sm" className="w-full sm:w-auto">
                 Dashboard
               </Button>
             </Link>
@@ -140,23 +140,23 @@ export function AdminProfilePage() {
         </div>
 
         {/* Profile Hero */}
-        <Card className="p-8 mb-6 bg-gradient-to-r from-purple-600 via-indigo-600 to-pink-600 text-white">
-          <div className="flex items-start gap-6">
-            <div className="w-24 h-24 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
+        <Card className="p-4 lg:p-8 mb-6 bg-gradient-to-r from-purple-600 via-indigo-600 to-pink-600 text-white">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
+            <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0 mx-auto sm:mx-0">
               {user?.avatar ? (
                 <img
                   src={user.avatar}
                   alt="Profile"
-                  className="w-20 h-20 object-cover rounded-full"
+                  className="w-14 h-14 sm:w-20 sm:h-20 object-cover rounded-full"
                 />
               ) : (
-                <span className="text-4xl font-bold">{getInitials(user?.fullName || 'Admin')}</span>
+                <span className="text-2xl sm:text-4xl font-bold">{getInitials(user?.fullName || 'Admin')}</span>
               )}
             </div>
-            <div className="flex-1">
-              <h2 className="text-2xl font-bold mb-1">{user?.fullName || 'Admin'}</h2>
-              <p className="text-white/80 mb-3">Admin | Content Creator</p>
-              <div className="flex flex-wrap gap-2">
+            <div className="flex-1 text-center sm:text-left">
+              <h2 className="text-xl sm:text-2xl font-bold mb-1">{user?.fullName || 'Admin'}</h2>
+              <p className="text-white/80 mb-2 sm:mb-3 text-sm sm:text-base">Admin | Content Creator</p>
+              <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
                 {achievements.slice(0, 3).map((achievement) => (
                   <Badge key={achievement.id} className="bg-white/20 text-white border-0">
                     {achievement.title}
