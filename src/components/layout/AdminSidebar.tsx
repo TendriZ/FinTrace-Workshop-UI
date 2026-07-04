@@ -20,15 +20,15 @@ export function AdminSidebar() {
       {/* Mobile Menu Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="lg:hidden fixed top-20 left-4 z-[60] p-3 bg-white rounded-lg shadow-lg border border-slate-200 hover:bg-slate-50 transition-colors">
+        className="lg:hidden fixed top-24 left-4 z-50 p-3 bg-white rounded-lg shadow-lg border border-slate-200 hover:bg-slate-50 transition-colors">
         {isOpen ? <X className="w-5 h-5 text-slate-600" /> : <Menu className="w-5 h-5 text-slate-600" />}
       </button>
 
       {/* Sidebar */}
       <aside className={`
-        fixed h-full z-50 bg-white border-r border-slate-200/50 transition-transform duration-300
+        fixed h-full z-40 bg-white border-r border-slate-200/50 transition-transform duration-300
         ${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0
-        w-64 top-16 lg:top-0
+        w-64 top-20 lg:top-20
       `}>
         <div className="p-4 space-y-2 mt-4 lg:mt-4">
           {menu.map((item) => {
