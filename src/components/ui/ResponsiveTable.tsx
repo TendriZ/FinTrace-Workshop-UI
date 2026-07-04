@@ -54,7 +54,7 @@ export function ResponsiveTable({ columns, data, emptyMessage = 'Tidak ada data'
 
       {/* Desktop View - Table Layout */}
       <div className="hidden md:block overflow-x-auto">
-        <table className="w-full">
+        <table className="w-full min-w-full">
           <thead className="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200">
             <tr>
               {columns.map((column) => (

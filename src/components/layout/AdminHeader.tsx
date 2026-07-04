@@ -7,20 +7,20 @@ import { useAuthContext } from '../../context/AuthContext';
 export function AdminHeader() {
   const navigate = useNavigate();
   const { user, logout } = useAuthContext();
-  
+
   const handleLogout = () => {
     logout();
     navigate('/login');
   };
-      
+
   return (
-    <header className="flex items-center justify-between px-6 py-3 bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200/50">
+    <header className="flex items-center justify-between px-4 sm:px-6 py-3 bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200/50 w-full">
       <div className="flex items-center gap-4">
         <Link to="/admin/dashboard" className="flex items-center gap-3 group">
           <img
             src="/images/FinTrace-Logo.png"
             alt="FinTrace Logo"
-            className="w-14 h-14 object-contain transform group-hover:scale-105 transition-transform" />
+            className="w-12 h-12 sm:w-14 sm:h-14 object-contain transform group-hover:scale-105 transition-transform" />
         </Link>
       </div>
 

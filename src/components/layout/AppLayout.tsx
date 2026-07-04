@@ -18,15 +18,15 @@ export const AppLayout = () => {
   const isUserPrivate = userPrivateRoutes.some(route => pathname.startsWith(route));
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col overflow-x-hidden">
       {isAuth && <span />}
       {isAdmin && <AdminHeader />}
       {isUserPrivate && <UserHeader />}
       {!isAuth && !isAdmin && !isUserPrivate && <Header />}
 
-      <div className="flex flex-1">
+      <div className="flex flex-1 overflow-x-hidden">
         {isAdmin && <AdminSidebar />}
-        <main className={`flex-1 ${isAdmin || isUserPrivate ? 'p-4 lg:p-6' : ''} ${isAdmin ? 'lg:ml-64 ml-0' : ''}`}>
+        <main className={`flex-1 ${isAdmin || isUserPrivate ? 'p-4 lg:p-6' : ''} ${isAdmin ? 'lg:ml-64 ml-0' : ''} w-full`}>
           <Outlet />
         </main>
       </div>

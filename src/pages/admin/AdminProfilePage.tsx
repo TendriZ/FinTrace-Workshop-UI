@@ -5,6 +5,7 @@ import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
 import { Modal } from '../../components/ui/Modal';
+import { ResponsiveTable } from '../../components/ui/ResponsiveTable';
 import { useAuthContext } from '../../context/AuthContext';
 import {
   EditIcon,
@@ -130,9 +131,9 @@ export function AdminProfilePage() {
               Kelola profil dan pengaturan admin
             </p>
           </div>
-          <div className="flex gap-2 w-full sm:w-auto">
-            <Link to="/admin/dashboard" className="w-full sm:w-auto">
-              <Button variant="outline" size="sm" className="w-full sm:w-auto">
+          <div className="flex gap-2">
+            <Link to="/admin/dashboard">
+              <Button variant="outline" size="sm">
                 Dashboard
               </Button>
             </Link>
@@ -176,7 +177,7 @@ export function AdminProfilePage() {
         </Card>
 
         {/* Stats */}
-        <div className="grid md:grid-cols-4 gap-6 mb-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-6">
           <Card className="p-6 text-center hover:shadow-lg hover:shadow-purple-500/10 transition-shadow">
             <FileTextIcon className="w-8 h-8 text-purple-500 mx-auto mb-2" />
             <p className="text-3xl font-bold text-slate-900">
@@ -302,81 +303,54 @@ export function AdminProfilePage() {
             </Link>
           </div>
 
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-slate-50 border-b border-slate-200">
-                <tr>
-                  <th className="px-4 py-3 text-left text-sm font-semibold text-slate-900">
-                    Title
-                  </th>
-                  <th className="px-4 py-3 text-left text-sm font-semibold text-slate-900">
-                    Type
-                  </th>
-                  <th className="px-4 py-3 text-left text-sm font-semibold text-slate-900">
-                    {''}
-                  </th>
-                  <th className="px-4 py-3 text-left text-sm font-semibold text-slate-900">
-                    Date
-                  </th>
-                  <th className="px-4 py-3 text-left text-sm font-semibold text-slate-900">
-                    Status
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-200">
-                {recentContent.map((content) => (
-                  <tr
-                    key={content.id}
-                    className="hover:bg-slate-50 transition-colors"
-                  >
-                    <td className="px-4 py-3">
-                      <p className="font-medium text-slate-900">
-                        {content.title}
-                      </p>
-                    </td>
-                    <td className="px-4 py-3">
-                      <span
-                        className={`px-2 py-1 text-xs font-medium rounded-full ${
-                          content.type === 'article'
-                            ? 'bg-blue-100 text-blue-700'
-                            : 'bg-purple-100 text-purple-700'
-                        }`}
-                      >
-                        {content.type === 'article' ? 'Article' : 'Course'}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3 text-sm text-slate-600">
-                      {content.type === 'article' ? (
-                        <>
-                          <FileTextIcon className="w-4 h-4 inline mr-1" />
-                          {content.views.toLocaleString('id-ID')} views
-                        </>
-                      ) : (
-                        <>
-                          <UsersIcon className="w-4 h-4 inline mr-1" />
-                          {content.students} students
-                        </>
-                      )}
-                    </td>
-                    <td className="px-4 py-3 text-sm text-slate-600">
-                      {content.date}
-                    </td>
-                    <td className="px-4 py-3">
-                      <span
-                        className={`px-2 py-1 text-xs font-medium rounded-full ${
-                          content.status === 'published'
-                            ? 'bg-emerald-100 text-emerald-700'
-                            : 'bg-amber-100 text-amber-700'
-                        }`}
-                      >
-                        {content.status === 'published' ? 'Published' : 'Draft'}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <ResponsiveTable
+            columns={[
+              { key: 'title', label: 'Title' },
+              {
+                key: 'type',
+                label: 'Type',
+                render: (type) => (
+                  <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                    type === 'article' ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700'
+                  }`}>
+                    {type === 'article' ? 'Article' : 'Course'}
+                  </span>
+                )
+              },
+              {
+                key: 'metrics',
+                label: 'Metrics',
+                render: (_, content) => (
+                  <div className="text-sm text-slate-600">
+                    {content.type === 'article' ? (
+                      <>
+                        <FileTextIcon className="w-4 h-4 inline mr-1" />
+                        {content.views.toLocaleString('id-ID')} views
+                      </>
+                    ) : (
+                      <>
+                        <UsersIcon className="w-4 h-4 inline mr-1" />
+                        {content.students} students
+                      </>
+                    )}
+                  </div>
+                )
+              },
+              { key: 'date', label: 'Date' },
+              {
+                key: 'status',
+                label: 'Status',
+                render: (status) => (
+                  <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                    status === 'published' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'
+                  }`}>
+                    {status === 'published' ? 'Published' : 'Draft'}
+                  </span>
+                )
+              }
+            ]}
+            data={recentContent}
+          />
         </Card>
 
         {/* Logout Button */}

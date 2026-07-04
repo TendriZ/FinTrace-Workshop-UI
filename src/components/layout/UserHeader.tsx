@@ -19,7 +19,7 @@ export function UserHeader() {
   };
 
   return (
-    <header className="flex items-center justify-between px-6 py-3 bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200/50">
+    <header className="flex items-center justify-between px-4 sm:px-6 py-3 bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200/50 w-full">
       <Link to="/dashboard" className="flex items-center gap-3 group">
         <img
           src="/images/FinTrace-Logo.png"
