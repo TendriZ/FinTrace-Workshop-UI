@@ -37,7 +37,7 @@ export function UserHeader() {
       </nav>
 
       <div className="flex items-center gap-3">
-        <Link to="/profile" className="flex items-center gap-3 group bg-slate-100/80 px-4 py-2 rounded-full border border-slate-200 transition-all duration-300 ease-in-out hover:bg-slate-200">
+        <Link to="/profile" className="flex items-center gap-3 group bg-slate-100/80 px-2 sm:px-4 py-2 rounded-full border border-slate-200 transition-all duration-300 ease-in-out hover:bg-slate-200">
           <img
             src={user?.avatar || 'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?w=200&h=200&fit=crop'}
             alt="Profile"

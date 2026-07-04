@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
+import { ResponsiveTable } from '../../components/ui/ResponsiveTable';
 import { PlusIcon, EditIcon, TrashIcon, SearchIcon, StarIcon } from 'lucide-react';
 import { useProductsContext } from '../../context/ProductsContext';
 import type { Product, CurriculumModule } from '../../types';
@@ -174,92 +175,89 @@ export function ManageProductsPage() {
         </Card>
 
         {/* Products Table */}
-        <Card className="overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200">
-                <tr>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">Produk</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">Kategori</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">Instruktur</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">Harga</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">Rating</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">Sales</th>
-                  <th className="px-6 py-4 text-right text-sm font-semibold text-slate-900">Aksi</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-200">
-                {filteredProducts.length === 0 ? (
-                  <tr>
-                    <td colSpan={7} className="px-6 py-12 text-center text-slate-500">
-                      Tidak ada produk yang ditemukan
-                    </td>
-                  </tr>
-                ) : (
-                  filteredProducts.map((product) => (
-                    <tr key={product.id} className="hover:bg-slate-50 transition-colors">
-                      <td className="px-6 py-4">
-                        <div className="flex items-center gap-3">
-                          <img
-                            src={product.featuredImage}
-                            alt={product.name}
-                            className="w-12 h-12 rounded-lg object-cover"
-                          />
-                          <div>
-                            <p className="font-medium text-slate-900">{product.name}</p>
-                            {product.badge && (
-                              <span className="inline-block px-2 py-0.5 bg-emerald-100 text-emerald-700 text-xs font-medium rounded-full">
-                                {product.badge}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span className="inline-block px-3 py-1 bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-700 text-xs font-medium rounded-full">
-                          {categoryLabels[product.category]}
+        <Card className="overflow-hidden p-4">
+          <ResponsiveTable
+            columns={[
+              {
+                key: 'product',
+                label: 'Produk',
+                render: (_, product) => (
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={product.featuredImage}
+                      alt={product.name}
+                      className="w-12 h-12 rounded-lg object-cover"
+                    />
+                    <div>
+                      <p className="font-medium text-slate-900">{product.name}</p>
+                      {product.badge && (
+                        <span className="inline-block px-2 py-0.5 bg-emerald-100 text-emerald-700 text-xs font-medium rounded-full">
+                          {product.badge}
                         </span>
-                      </td>
-                      <td className="px-6 py-4 text-slate-600">{product.instructor || '-'}</td>
-                      <td className="px-6 py-4 text-slate-900 font-medium">
-                        Rp {product.salePrice ? product.salePrice.toLocaleString('id-ID') : product.price.toLocaleString('id-ID')}
-                        {product.salePrice && (
-                          <span className="ml-2 text-sm text-slate-400 line-through">
-                            Rp {product.price.toLocaleString('id-ID')}
-                          </span>
-                        )}
-                      </td>
-                      <td className="px-6 py-4 text-slate-600">
-                        <div className="flex items-center gap-1">
-                          <StarIcon className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                          {product.rating}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 text-slate-600">{product.salesCount}</td>
-                      <td className="px-6 py-4">
-                        <div className="flex items-center justify-end gap-2">
-                          <button
-                            onClick={() => handleEdit(product)}
-                            className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                            title="Edit"
-                          >
-                            <EditIcon className="w-4 h-4" />
-                          </button>
-                          <button
-                            onClick={() => handleDelete(product.id)}
-                            className="p-2 text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"
-                            title="Hapus"
-                          >
-                            <TrashIcon className="w-4 h-4" />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
+                      )}
+                    </div>
+                  </div>
+                )
+              },
+              {
+                key: 'category',
+                label: 'Kategori',
+                render: (_, product) => (
+                  <span className="inline-block px-3 py-1 bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-700 text-xs font-medium rounded-full">
+                    {categoryLabels[product.category]}
+                  </span>
+                )
+              },
+              { key: 'instructor', label: 'Instruktur', render: (_, product) => product.instructor || '-' },
+              {
+                key: 'price',
+                label: 'Harga',
+                render: (_, product) => (
+                  <div>
+                    <span className="text-slate-900 font-medium">
+                      Rp {product.salePrice ? product.salePrice.toLocaleString('id-ID') : product.price.toLocaleString('id-ID')}
+                    </span>
+                    {product.salePrice && (
+                      <span className="ml-2 text-sm text-slate-400 line-through">
+                        Rp {product.price.toLocaleString('id-ID')}
+                      </span>
+                    )}
+                  </div>
+                )
+              },
+              {
+                key: 'rating',
+                label: 'Rating',
+                render: (rating) => (
+                  <div className="flex items-center gap-1">
+                    <StarIcon className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                    {rating}
+                  </div>
+                )
+              },
+              { key: 'salesCount', label: 'Sales' }
+            ]}
+            data={filteredProducts}
+            emptyMessage="Tidak ada produk yang ditemukan"
+            actionButtons={(product) => (
+              <>
+                <button
+                  onClick={() => handleEdit(product)}
+                  className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                  title="Edit"
+                >
+                  <EditIcon className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => handleDelete(product.id)}
+                  className="p-2 text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"
+                  title="Hapus"
+                >
+                  <TrashIcon className="w-4 h-4" />
+                </button>
+              </>
+            )}
+          />
         </Card>
 
         {/* Add/Edit Product Modal */}

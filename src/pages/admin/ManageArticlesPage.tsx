@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
+import { ResponsiveTable } from '../../components/ui/ResponsiveTable';
 import { PlusIcon, EditIcon, TrashIcon, SearchIcon, EyeIcon } from 'lucide-react';
 import { useArticlesContext } from '../../context/ArticlesContext';
 import type { Article } from '../../types';
@@ -170,70 +171,62 @@ export function ManageArticlesPage() {
         </Card>
 
         {/* Articles Table */}
-        <Card className="overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200">
-                <tr>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">Judul</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">Penulis</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">Kategori</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">Views</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">Tanggal</th>
-                  <th className="px-6 py-4 text-right text-sm font-semibold text-slate-900">Aksi</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-200">
-                {filteredArticles.length === 0 ? (
-                  <tr>
-                    <td colSpan={6} className="px-6 py-12 text-center text-slate-500">
-                      Tidak ada artikel yang ditemukan
-                    </td>
-                  </tr>
-                ) : (
-                  filteredArticles.map((article) => (
-                    <tr key={article.id} className="hover:bg-slate-50 transition-colors">
-                      <td className="px-6 py-4">
-                        <p className="font-medium text-slate-900">{article.title}</p>
-                        <p className="text-sm text-slate-500 truncate max-w-xs">{article.excerpt}</p>
-                      </td>
-                      <td className="px-6 py-4 text-slate-600">{article.author.name}</td>
-                      <td className="px-6 py-4">
-                        <span className="inline-block px-3 py-1 bg-gradient-to-r from-purple-100 to-indigo-100 text-purple-700 text-xs font-medium rounded-full">
-                          {article.category}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 text-slate-600">
-                        <div className="flex items-center gap-1">
-                          <EyeIcon className="w-4 h-4" />
-                          {article.views.toLocaleString()}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 text-slate-600">{article.publishedAt}</td>
-                      <td className="px-6 py-4">
-                        <div className="flex items-center justify-end gap-2">
-                          <button
-                            onClick={() => handleEdit(article)}
-                            className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                            title="Edit"
-                          >
-                            <EditIcon className="w-4 h-4" />
-                          </button>
-                          <button
-                            onClick={() => handleDelete(article.id)}
-                            className="p-2 text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"
-                            title="Hapus"
-                          >
-                            <TrashIcon className="w-4 h-4" />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
+        <Card className="overflow-hidden p-4">
+          <ResponsiveTable
+            columns={[
+              {
+                key: 'title',
+                label: 'Judul',
+                render: (_, article) => (
+                  <div>
+                    <p className="font-medium text-slate-900">{article.title}</p>
+                    <p className="text-sm text-slate-500 truncate max-w-xs">{article.excerpt}</p>
+                  </div>
+                )
+              },
+              { key: 'author', label: 'Penulis', render: (_, article) => article.author.name },
+              {
+                key: 'category',
+                label: 'Kategori',
+                render: (category) => (
+                  <span className="inline-block px-3 py-1 bg-gradient-to-r from-purple-100 to-indigo-100 text-purple-700 text-xs font-medium rounded-full">
+                    {category}
+                  </span>
+                )
+              },
+              {
+                key: 'views',
+                label: 'Views',
+                render: (views) => (
+                  <div className="flex items-center gap-1">
+                    <EyeIcon className="w-4 h-4" />
+                    {views.toLocaleString()}
+                  </div>
+                )
+              },
+              { key: 'publishedAt', label: 'Tanggal' }
+            ]}
+            data={filteredArticles}
+            emptyMessage="Tidak ada artikel yang ditemukan"
+            actionButtons={(article) => (
+              <>
+                <button
+                  onClick={() => handleEdit(article)}
+                  className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                  title="Edit"
+                >
+                  <EditIcon className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => handleDelete(article.id)}
+                  className="p-2 text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"
+                  title="Hapus"
+                >
+                  <TrashIcon className="w-4 h-4" />
+                </button>
+              </>
+            )}
+          />
         </Card>
 
         {/* Add/Edit Article Modal */}

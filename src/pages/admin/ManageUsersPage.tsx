@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Card } from '../../components/ui/Card';
+import { ResponsiveTable } from '../../components/ui/ResponsiveTable';
 import {
   SearchIcon,
   MoreVerticalIcon,
   ShieldCheckIcon,
   UserIcon } from
 'lucide-react';
+
 export function ManageUsersPage() {
   useEffect(() => {
         window.scrollTo(0, 0);
       }, []);
-  
+
   const [searchQuery, setSearchQuery] = useState('');
   const [filterRole, setFilterRole] = useState('all');
   const users = [
@@ -142,31 +144,31 @@ export function ManageUsersPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-12 pr-4 py-2.5 border border-slate-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500" />
-              
+
             </div>
             <div className="flex gap-2">
               <button
                 onClick={() => setFilterRole('all')}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${filterRole === 'all' ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/30' : 'bg-white text-slate-600 hover:bg-slate-100'}`}>
-                
+
                 Semua
               </button>
               <button
                 onClick={() => setFilterRole('User')}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${filterRole === 'User' ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/30' : 'bg-white text-slate-600 hover:bg-slate-100'}`}>
-                
+
                 Users
               </button>
               <button
                 onClick={() => setFilterRole('Advisor')}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${filterRole === 'Advisor' ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/30' : 'bg-white text-slate-600 hover:bg-slate-100'}`}>
-                
+
                 Advisors
               </button>
               <button
                 onClick={() => setFilterRole('Admin')}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${filterRole === 'Admin' ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/30' : 'bg-white text-slate-600 hover:bg-slate-100'}`}>
-                
+
                 Admins
               </button>
             </div>
@@ -174,92 +176,66 @@ export function ManageUsersPage() {
         </Card>
 
         {/* Users Table */}
-        <Card className="overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200">
-                <tr>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
-                    Pengguna
-                  </th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
-                    Role
-                  </th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
-                    Status
-                  </th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
-                    Bergabung
-                  </th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
-                    Transaksi
-                  </th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
-                    Total Belanja
-                  </th>
-                  <th className="px-6 py-4 text-right text-sm font-semibold text-slate-900">
-                    Aksi
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-200">
-                {filteredUsers.map((user) =>
-                <tr
-                  key={user.id}
-                  className="hover:bg-slate-50 transition-colors">
-                  
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-slate-200 to-slate-300 rounded-full flex items-center justify-center">
-                          <UserIcon className="w-5 h-5 text-slate-600" />
-                        </div>
-                        <div>
-                          <p className="font-medium text-slate-900">
-                            {user.name}
-                          </p>
-                          <p className="text-sm text-slate-600">{user.email}</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <span
-                      className={`inline-block px-3 py-1 text-xs font-medium rounded-full ${user.role === 'Admin' ? 'bg-gradient-to-r from-rose-100 to-pink-100 text-rose-700' : user.role === 'Advisor' ? 'bg-gradient-to-r from-purple-100 to-indigo-100 text-purple-700' : 'bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-700'}`}>
-                      
-                        {user.role}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4">
-                      <span
-                      className={`inline-block px-3 py-1 text-xs font-medium rounded-full ${user.status === 'Active' ? 'bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-700' : 'bg-slate-100 text-slate-700'}`}>
-                      
-                        {user.status}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 text-slate-600">
-                      {user.joinDate}
-                    </td>
-                    <td className="px-6 py-4 text-slate-600">
-                      {user.transactions}
-                    </td>
-                    <td className="px-6 py-4 text-slate-900 font-medium">
-                      {user.totalSpent > 0 ?
-                    `Rp ${user.totalSpent.toLocaleString('id-ID')}` :
-                    '-'}
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="flex items-center justify-end">
-                        <button className="p-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
-                          <MoreVerticalIcon className="w-4 h-4" />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
+        <Card className="overflow-hidden p-4">
+          <ResponsiveTable
+            columns={[
+              {
+                key: 'user',
+                label: 'Pengguna',
+                render: (_, user) => (
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-gradient-to-br from-slate-200 to-slate-300 rounded-full flex items-center justify-center">
+                      <UserIcon className="w-5 h-5 text-slate-600" />
+                    </div>
+                    <div>
+                      <p className="font-medium text-slate-900">{user.name}</p>
+                      <p className="text-sm text-slate-600">{user.email}</p>
+                    </div>
+                  </div>
+                )
+              },
+              {
+                key: 'role',
+                label: 'Role',
+                render: (role, user) => (
+                  <span className={`inline-block px-3 py-1 text-xs font-medium rounded-full ${
+                    role === 'Admin' ? 'bg-gradient-to-r from-rose-100 to-pink-100 text-rose-700' :
+                    role === 'Advisor' ? 'bg-gradient-to-r from-purple-100 to-indigo-100 text-purple-700' :
+                    'bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-700'
+                  }`}>
+                    {role}
+                  </span>
+                )
+              },
+              {
+                key: 'status',
+                label: 'Status',
+                render: (status) => (
+                  <span className={`inline-block px-3 py-1 text-xs font-medium rounded-full ${
+                    status === 'Active' ? 'bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-700' :
+                    'bg-slate-100 text-slate-700'
+                  }`}>
+                    {status}
+                  </span>
+                )
+              },
+              { key: 'joinDate', label: 'Bergabung' },
+              { key: 'transactions', label: 'Transaksi' },
+              {
+                key: 'totalSpent',
+                label: 'Total Belanja',
+                render: (totalSpent) => totalSpent > 0 ? `Rp ${totalSpent.toLocaleString('id-ID')}` : '-'
+              }
+            ]}
+            data={filteredUsers}
+            emptyMessage="Tidak ada pengguna yang ditemukan"
+            actionButtons={(user) => (
+              <button className="p-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
+                <MoreVerticalIcon className="w-4 h-4" />
+              </button>
+            )}
+          />
         </Card>
       </div>
     </div>);
-
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
+import { ResponsiveTable } from '../../components/ui/ResponsiveTable';
 import {
   SearchIcon,
   DownloadIcon,
@@ -9,6 +10,7 @@ import {
   ShoppingBagIcon,
   UsersIcon } from
 'lucide-react';
+
 export function ManageTransactionsPage() {
   useEffect(() => {
         window.scrollTo(0, 0);
@@ -61,6 +63,7 @@ export function ManageTransactionsPage() {
   const pendingRevenue = transactions.
   filter((tx) => tx.status === 'pending').
   reduce((sum, tx) => sum + tx.total, 0);
+
   return (
     <div className="min-h-screen">
       <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
@@ -99,8 +102,8 @@ export function ManageTransactionsPage() {
                 <TrendingUpIcon className="w-5 h-5 lg:w-6 lg:h-6 text-white" />
               </div>
               <div>
-                <p className="text-sm text-slate-600">Pending</p>
-                <p className="text-xl font-bold text-slate-900">
+                <p className="text-xs lg:text-sm text-slate-600">Pending</p>
+                <p className="text-base lg:text-xl font-bold text-slate-900">
                   Rp {pendingRevenue.toLocaleString('id-ID')}
                 </p>
               </div>
@@ -145,25 +148,25 @@ export function ManageTransactionsPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-12 pr-4 py-2.5 border border-slate-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500" />
-              
+
             </div>
             <div className="flex gap-2">
               <button
                 onClick={() => setFilterStatus('all')}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${filterStatus === 'all' ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/30' : 'bg-white text-slate-600 hover:bg-slate-100'}`}>
-                
+
                 Semua
               </button>
               <button
                 onClick={() => setFilterStatus('completed')}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${filterStatus === 'completed' ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/30' : 'bg-white text-slate-600 hover:bg-slate-100'}`}>
-                
+
                 Selesai
               </button>
               <button
                 onClick={() => setFilterStatus('pending')}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${filterStatus === 'pending' ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/30' : 'bg-white text-slate-600 hover:bg-slate-100'}`}>
-                
+
                 Pending
               </button>
             </div>
@@ -171,87 +174,56 @@ export function ManageTransactionsPage() {
         </Card>
 
         {/* Transactions Table */}
-        <Card className="overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200">
-                <tr>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
-                    ID Transaksi
-                  </th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
-                    Customer
-                  </th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
-                    Produk
-                  </th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
-                    Tanggal
-                  </th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
-                    Metode
-                  </th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
-                    Total
-                  </th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">
-                    Status
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-200">
-                {filteredTransactions.map((transaction) =>
-                <tr
-                  key={transaction.id}
-                  className="hover:bg-slate-50 transition-colors">
-                  
-                    <td className="px-6 py-4">
-                      <p className="font-medium text-slate-900">
-                        {transaction.id}
-                      </p>
-                    </td>
-                    <td className="px-6 py-4">
-                      <div>
-                        <p className="font-medium text-slate-900">
-                          {transaction.user}
-                        </p>
-                        <p className="text-sm text-slate-600">
-                          {transaction.email}
-                        </p>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="text-sm text-slate-600">
-                        {transaction.items.map((item, idx) =>
-                      <div key={idx}>• {item}</div>
-                      )}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 text-slate-600">
-                      {transaction.date}
-                    </td>
-                    <td className="px-6 py-4 text-slate-600">
-                      {transaction.paymentMethod}
-                    </td>
-                    <td className="px-6 py-4 text-slate-900 font-semibold">
-                      Rp {transaction.total.toLocaleString('id-ID')}
-                    </td>
-                    <td className="px-6 py-4">
-                      <span
-                      className={`inline-block px-3 py-1 text-xs font-medium rounded-full ${transaction.status === 'completed' ? 'bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-700' : 'bg-gradient-to-r from-amber-100 to-yellow-100 text-amber-700'}`}>
-                      
-                        {transaction.status === 'completed' ?
-                      'Selesai' :
-                      'Pending'}
-                      </span>
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
+        <Card className="overflow-hidden p-4">
+          <ResponsiveTable
+            columns={[
+              { key: 'id', label: 'ID Transaksi' },
+              {
+                key: 'user',
+                label: 'Customer',
+                render: (_, transaction) => (
+                  <div>
+                    <p className="font-medium text-slate-900">{transaction.user}</p>
+                    <p className="text-sm text-slate-600">{transaction.email}</p>
+                  </div>
+                )
+              },
+              {
+                key: 'items',
+                label: 'Produk',
+                render: (items) => (
+                  <div className="text-sm text-slate-600">
+                    {items.map((item, idx) => <div key={idx}>• {item}</div>)}
+                  </div>
+                )
+              },
+              { key: 'date', label: 'Tanggal' },
+              { key: 'paymentMethod', label: 'Metode' },
+              {
+                key: 'total',
+                label: 'Total',
+                render: (total) => (
+                  <span className="text-slate-900 font-semibold">
+                    Rp {total.toLocaleString('id-ID')}
+                  </span>
+                )
+              },
+              {
+                key: 'status',
+                label: 'Status',
+                render: (status) => (
+                  <span className={`inline-block px-3 py-1 text-xs font-medium rounded-full ${
+                    status === 'completed' ? 'bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-700' :
+                    'bg-gradient-to-r from-amber-100 to-yellow-100 text-amber-700'
+                  }`}>
+                    {status === 'completed' ? 'Selesai' : 'Pending'}
+                  </span>
+                )
+              }
+            ]}
+            data={filteredTransactions}
+          />
         </Card>
       </div>
     </div>);
-
 }
