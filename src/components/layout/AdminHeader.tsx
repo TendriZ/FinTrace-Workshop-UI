@@ -22,9 +22,6 @@ export function AdminHeader() {
             alt="FinTrace Logo"
             className="w-14 h-14 object-contain transform group-hover:scale-105 transition-transform" />
         </Link>
-        <button className="text-slate-500 hover:text-purple-600 transition-colors">
-          <LayoutGrid />
-        </button>
       </div>
 
       <div className="hidden md:flex items-center gap-3 px-4 py-2 bg-white border border-slate-200 rounded-full w-96">

@@ -206,7 +206,7 @@ export function DashboardPage() {
                 <h2 className="text-xl font-bold text-slate-900">
                   Transaksi Terbaru
                 </h2>
-                <Link to="/transaction-history">
+                <Link to="/transactions">
                   <Button variant="outline" size="sm">
                     Lihat Semua
                   </Button>
@@ -329,7 +329,7 @@ export function DashboardPage() {
               </h2>
               <div className="space-y-3">
                 <Link
-                  to="/articles/1"
+                  to="/user/articles/kelola-keuangan-untuk-mahasiswa"
                   className="block p-3 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-2xl hover:from-purple-100 hover:to-indigo-100 transition-colors">
                   
                   <div className="flex items-start gap-3">
@@ -345,7 +345,7 @@ export function DashboardPage() {
                   </div>
                 </Link>
                 <Link
-                  to="/products/2"
+                  to="/user/articles/investasi-pemula"
                   className="block p-3 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl hover:from-blue-100 hover:to-cyan-100 transition-colors">
                   
                   <div className="flex items-start gap-3">
@@ -361,7 +361,7 @@ export function DashboardPage() {
                   </div>
                 </Link>
               </div>
-              <Link to="/articles">
+              <Link to="/user/articles">
                 <Button className="w-full mt-4" variant="outline">
                   Lihat Semua Artikel
                 </Button>
