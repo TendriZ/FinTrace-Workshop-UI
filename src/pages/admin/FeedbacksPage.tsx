@@ -43,7 +43,7 @@ export function FeedbacksPage() {
   const [feedbacks, setFeedbacks] = useState<Feedback[]>([
     {
       id: '1',
-      user: { name: 'John Doe', avatar: 'JD' },
+      user: { name: 'Muhammad Rizki Ibrahim', avatar: '/images/feedback-pfp1.jpg' },
       product: 'Personal Finance Mastery',
       rating: 5,
       comment: 'Kursus ini sangat membantu saya memahami keuangan pribadi dengan lebih baik!',
@@ -52,7 +52,7 @@ export function FeedbacksPage() {
     },
     {
       id: '2',
-      user: { name: 'Sarah Wijaya', avatar: 'SW' },
+      user: { name: 'Nabila Risha Juliana', avatar: '/images/feedback-pfp2.jpg' },
       product: 'Investasi Saham untuk Pemula',
       rating: 4,
       comment: 'Materinya bagus, tapi mungkin bisa ditambahkan lebih banyak contoh praktis.',
@@ -62,7 +62,7 @@ export function FeedbacksPage() {
     },
     {
       id: '3',
-      user: { name: 'Budi Santoso', avatar: 'BS' },
+      user: { name: 'Habib Anwash', avatar: '/images/feedback-pfp3.jpg' },
       product: 'Financial Planning Workbook',
       rating: 5,
       comment: 'Workbook yang sangat lengkap dan mudah diikuti. Sangat recommended!',
@@ -71,7 +71,7 @@ export function FeedbacksPage() {
     },
     {
       id: '4',
-      user: { name: 'Rina Kusuma', avatar: 'RK' },
+      user: { name: 'Sukma Dewi', avatar: '/images/feedback-pfp4.jpg' },
       product: 'Debt Management Course',
       rating: 4,
       comment: 'Kursus ini membantu saya keluar dari hutang. Terima kasih banyak!',
@@ -81,7 +81,7 @@ export function FeedbacksPage() {
     },
     {
       id: '5',
-      user: { name: 'Ahmad Rizki', avatar: 'AR' },
+      user: { name: 'Muhammad Raka Razzani', avatar: '/images/feedback-pfp5.jpg' },
       product: 'Crypto Investment Guide',
       rating: 3,
       comment: 'Kurang mendalam untuk crypto, tapi bagus untuk pemula.',
@@ -223,9 +223,11 @@ export function FeedbacksPage() {
             >
               <div className="flex items-start gap-4">
                 {/* User Avatar */}
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-white font-semibold flex-shrink-0">
-                  {feedback.user.avatar}
-                </div>
+                <img
+                  src={feedback.user.avatar}
+                  alt={feedback.user.name}
+                  className="w-12 h-12 rounded-full object-cover flex-shrink-0"
+                />
 
                 {/* Content */}
                 <div className="flex-1">
