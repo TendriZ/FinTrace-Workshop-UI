@@ -120,7 +120,7 @@ export function ProfilePage() {
 
   return (
     <div className="min-h-screen">
-      <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
+      <div className="container-1280 px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
@@ -139,34 +139,41 @@ export function ProfilePage() {
         </div>
 
         {/* Profile Hero */}
-        <Card className="p-8 mb-6 bg-gradient-to-r from-teal-500 via-cyan-500 to-indigo-600 text-white">
-          <div className="flex items-start gap-6">
-            <div className="w-24 h-24 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
-              {user?.avatar ? (
-                <img
-                    src={user.avatar}
-                    alt="Profile"
-                    className="w-20 h-20 object-cover rounded-full" />
-              ) : (
-                <span className="text-4xl font-bold">{getInitials(user?.fullName || 'User')}</span>
-              )}
-            </div>
-            <div className="flex-1">
-              <h2 className="text-2xl font-bold mb-1">{user?.fullName || 'User'}</h2>
-              <p className="text-white/80 mb-3">@{user?.email?.split('@')[0] || 'user'}</p>
-              <div className="flex flex-wrap gap-2 mb-3">
-                <Badge className="bg-white/20 text-white border-0">Royal Buyer</Badge>
-                <Badge className="bg-white/20 text-white border-0">Verified</Badge>
-                <Badge className="bg-white/20 text-white border-0">Pro Member</Badge>
+        <Card className="p-4 sm:p-8 mb-6 bg-gradient-to-r from-teal-500 via-cyan-500 to-indigo-600 text-white">
+          <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
+            <div className="w-full space-y-3 sm:space-y-4">
+              <div className="flex items-start gap-4 sm:gap-6">
+                <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
+                  {user?.avatar ? (
+                    <img
+                        src={user.avatar}
+                        alt="Profile"
+                        className="w-12 h-12 sm:w-20 sm:h-20 object-cover rounded-full" />
+                  ) : (
+                    <span className="text-2xl sm:text-4xl font-bold">{getInitials(user?.fullName || 'User')}</span>
+                  )}
+                </div>
+                <div className="min-w-0 mt-1 sm:mt-0">
+                  <h2 className="text-lg sm:text-2xl font-bold mb-1 truncate">{user?.fullName || 'User'}</h2>
+                  <p className="text-sm sm:text-base text-white/80 truncate">@{user?.email?.split('@')[0] || 'user'}</p>
+                </div>
               </div>
-              <div className="flex items-center gap-6 text-sm text-white/80">
-                <span>📅 Joined January 2023</span>
-                <span>🏢 FinTrace Platform</span>
+              <div className="space-y-2">
+                <div className="flex justify-between sm:justify-start sm:gap-3">
+                  <Badge className="bg-white/20 text-white border-0 text-xs sm:text-sm">Royal Buyer</Badge>
+                  <Badge className="bg-white/20 text-white border-0 text-xs sm:text-sm">Verified</Badge>
+                  <Badge className="bg-white/20 text-white border-0 text-xs sm:text-sm">Pro Member</Badge>
+                </div>
+                <div className="flex items-center justify-between text-xs sm:text-sm text-white/80">
+                  <span>📅 Joined January 2023</span>
+                  <span>🏢 FinTrace Platform</span>
+                </div>
               </div>
             </div>
             <Button
               variant="outline"
-              className="bg-white text-purple-600 border-white hover:bg-white/90"
+              size="sm"
+              className="bg-white text-purple-600 border-white hover:bg-white/90 w-full sm:w-auto"
               onClick={() => setIsEditing(!isEditing)}
             >
               <EditIcon className="w-4 h-4 mr-2" />
@@ -341,13 +348,13 @@ export function ProfilePage() {
                   </div>
                   <button
                     onClick={() => setNotifications(!notifications)}
-                    className={`relative w-12 h-6 rounded-full transition-colors ${
+                    className={`relative w-12 h-6 rounded-full transition-colors flex-shrink-0 ${
                       notifications ? 'bg-purple-600' : 'bg-slate-300'
                     }`}
                   >
                     <div
-                      className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform ${
-                        notifications ? 'translate-x-7' : 'translate-x-1'
+                      className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${
+                        notifications ? 'left-[26px]' : 'left-1'
                       }`}
                     />
                   </button>
@@ -369,13 +376,13 @@ export function ProfilePage() {
                   </div>
                   <button
                     onClick={() => setTwoFactor(!twoFactor)}
-                    className={`relative w-12 h-6 rounded-full transition-colors ${
+                    className={`relative w-12 h-6 rounded-full transition-colors flex-shrink-0 ${
                       twoFactor ? 'bg-purple-600' : 'bg-slate-300'
                     }`}
                   >
                     <div
-                      className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform ${
-                        twoFactor ? 'translate-x-7' : 'translate-x-1'
+                      className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${
+                        twoFactor ? 'left-[26px]' : 'left-1'
                       }`}
                     />
                   </button>

@@ -139,24 +139,24 @@ export function DashboardPage() {
 
   return (
     <div className="min-h-screen">
-      <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
+      <div className="container-1280 px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
+        <div className="flex items-center justify-between mb-6 sm:mb-8 gap-3">
+          <div className="flex items-center gap-3 sm:gap-4 min-w-0">
             <img
               src={user?.avatar || '/images/default-avatar.png'}
               alt="Profile"
-              className="w-16 h-16 rounded-full object-cover border-2 border-purple-200" />
-            <div>
-              <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
+              className="w-10 h-10 sm:w-16 sm:h-16 rounded-full object-cover border-2 border-purple-200 flex-shrink-0" />
+            <div className="min-w-0">
+              <h1 className="text-lg sm:text-3xl md:text-4xl font-bold text-slate-900 sm:mb-2 leading-tight">
                 Financial <span className="gradient-text">Dashboard</span>
               </h1>
-              <p className="text-slate-600">Selamat datang kembali, {user?.fullName || 'User'}!</p>
+              <p className="text-xs sm:text-base text-slate-600 truncate">Selamat datang kembali, {user?.fullName || 'User'}!</p>
             </div>
           </div>
-          <Button variant="outline" size="sm">
-            <SettingsIcon className="w-5 h-5 mr-2" />
-            Settings
+          <Button variant="outline" size="sm" className="flex-shrink-0">
+            <SettingsIcon className="w-5 h-5 sm:mr-2" />
+            <span className="hidden sm:inline">Settings</span>
           </Button>
         </div>
 
