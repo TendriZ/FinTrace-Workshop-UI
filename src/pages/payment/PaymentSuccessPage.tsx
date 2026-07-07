@@ -184,12 +184,12 @@ export function PaymentSuccessPage() {
 
           {/* Back to Home */}
           <div className="text-center mt-8">
-            <a href="https://cautious-encounter-857447.framer.app/">
+            <Link to="/">
               <Button variant="outline" size="sm">
                 <HomeIcon className="w-4 h-4 mr-2" />
                 Kembali ke Beranda
               </Button>
-            </a>
+            </Link>
           </div>
         </div>
       </div>
