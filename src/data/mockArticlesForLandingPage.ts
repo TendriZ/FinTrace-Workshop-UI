@@ -3,7 +3,7 @@ import type { Article } from '../types';
 export const mockArticlesForLP: Article[] = [
   {
     id: 'article-1',
-    slug: '5-cara-hemat-bulanan',
+    slug: 'kelola-keuangan-untuk-mahasiswa',
     title: '5 Cara Hemat Bulanan yang Realistis',
     excerpt: 'Strategi sederhana yang bisa diterapkan tanpa mengubah gaya hidup secara ekstrem.',
     content: 'Panduan lengkap untuk menghemat uang setiap bulan secara konsisten dan realistis.',
