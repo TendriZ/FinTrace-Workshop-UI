@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -6,6 +6,9 @@ import { useArticlesContext } from '../../context/ArticlesContext';
 import { SearchIcon, ClockIcon, UserIcon } from 'lucide-react';
 
 export function UserArticlesPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const { articles } = useArticlesContext();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Semua');
@@ -29,7 +32,7 @@ export function UserArticlesPage() {
   });
   return (
     <div className="min-h-screen">
-      <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
+      <div className="container-1280 px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-12 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">

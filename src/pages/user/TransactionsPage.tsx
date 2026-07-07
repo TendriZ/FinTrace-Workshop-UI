@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import {
@@ -8,6 +8,9 @@ import {
   XCircleIcon } from
 'lucide-react';
 export function TransactionsPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [filter, setFilter] = useState('all');
   const transactions = [
   {
@@ -93,7 +96,7 @@ export function TransactionsPage() {
   };
   return (
     <div className="min-h-screen">
-      <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
+      <div className="container-1280 px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
             Transaction <span className="gradient-text">History</span>

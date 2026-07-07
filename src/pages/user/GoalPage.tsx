@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { StatCard } from '../../components/ui/StatCard';
@@ -40,6 +40,9 @@ const categoryColors: Record<Goal['category'], string> = {
 };
 
 export function GoalPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [goals, setGoals] = useState<Goal[]>([
     {
       id: '1',
@@ -171,19 +174,28 @@ export function GoalPage() {
 
   return (
     <div className="min-h-screen">
-      <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
+      <div className="container-1280 px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="sm:flex sm:items-center sm:justify-between sm:mb-8 mb-6">
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
+            <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-1 sm:mb-2">
               Financial <span className="gradient-text">Goals</span>
             </h1>
-            <p className="text-slate-600">
+            <p className="hidden sm:block text-slate-600">
               Atur dan capai tujuan finansial Anda
             </p>
           </div>
-          <Button onClick={() => setShowModal(true)}>
+          <Button onClick={() => setShowModal(true)} className="hidden sm:flex flex-shrink-0">
             <Plus className="w-5 h-5 mr-2" />
+            Tambah Goal
+          </Button>
+        </div>
+        <div className="flex items-end justify-between gap-2 sm:hidden mb-6">
+          <p className="text-slate-600">
+            Atur dan capai tujuan finansial Anda
+          </p>
+          <Button onClick={() => setShowModal(true)} size="sm" className="flex-shrink-0">
+            <Plus className="w-4 h-4 mr-1.5" />
             Tambah Goal
           </Button>
         </div>
@@ -279,7 +291,9 @@ export function GoalPage() {
                 </div>
 
                 <div className="flex items-center gap-2 text-sm text-slate-600">
-                  <Calendar className="w-4 h-4" />
+                  <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center">
+                    <Calendar className="w-3.5 h-3.5 text-white" />
+                  </div>
                   <span>Deadline: {formatDate(goal.deadline)}</span>
                   <span className={`font-semibold ${daysRemaining < 30 ? 'text-rose-600' : daysRemaining < 90 ? 'text-amber-600' : 'text-emerald-600'}`}>
                     ({daysRemaining > 0 ? `${daysRemaining} hari left` : 'Expired'})
@@ -292,7 +306,9 @@ export function GoalPage() {
 
         {goals.length === 0 && (
           <Card className="p-12 text-center">
-            <Target className="w-16 h-16 text-slate-300 mx-auto mb-4" />
+            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center mx-auto mb-4 shadow-lg">
+              <Target className="w-10 h-10 text-white" />
+            </div>
             <h3 className="text-xl font-semibold text-slate-900 mb-2">
               Belum Ada Goal
             </h3>

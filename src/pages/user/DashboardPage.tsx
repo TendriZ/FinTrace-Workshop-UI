@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -14,6 +14,9 @@ import {
   SettingsIcon } from
 'lucide-react';
 export function DashboardPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const { user } = useAuthContext(); 
   const stats = [
   {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { StarIcon, SendIcon, ClockIcon, CheckIcon } from 'lucide-react';
@@ -14,6 +14,9 @@ interface Feedback {
 }
 
 export function FeedbackPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [rating, setRating] = useState(0);
   const [category, setCategory] = useState('general');
   const [comment, setComment] = useState('');
@@ -100,7 +103,7 @@ export function FeedbackPage() {
 
   return (
     <div className="min-h-screen">
-      <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
+      <div className="container-1280 px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">

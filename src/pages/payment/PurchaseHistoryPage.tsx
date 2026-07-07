@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -18,6 +18,9 @@ interface Purchase {
 }
 
 export function PurchaseHistoryPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [activeFilter, setActiveFilter] = useState<string>('all');
 
   const purchases: Purchase[] = [
@@ -136,7 +139,7 @@ export function PurchaseHistoryPage() {
 
   return (
     <div className="min-h-screen">
-      <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
+      <div className="container-1280 px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
@@ -250,7 +253,9 @@ export function PurchaseHistoryPage() {
 
         {filteredPurchases.length === 0 && (
           <Card className="p-12 text-center">
-            <CreditCardIcon className="w-16 h-16 text-slate-300 mx-auto mb-4" />
+            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center mx-auto mb-4 shadow-lg">
+              <CreditCardIcon className="w-10 h-10 text-white" />
+            </div>
             <h3 className="text-xl font-bold text-slate-900 mb-2">
               Tidak ada transaksi
             </h3>

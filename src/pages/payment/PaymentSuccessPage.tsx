@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -6,6 +6,9 @@ import { useCartContext } from '../../context/CartContext';
 import { CheckCircleIcon, ShoppingBagIcon, HomeIcon, DownloadIcon } from 'lucide-react';
 
 export function PaymentSuccessPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const { clearCart } = useCartContext();
   const [orderDetails] = React.useState({
     orderId: `ORD-${Date.now()}`,
@@ -31,12 +34,12 @@ export function PaymentSuccessPage() {
 
   return (
     <div className="min-h-screen">
-      <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
+      <div className="container-1280 px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto">
           {/* Success Animation */}
           <div className="text-center mb-8">
-            <div className="w-24 h-24 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce">
-              <CheckCircleIcon className="w-12 h-12 text-emerald-600" />
+            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center mx-auto mb-6 animate-bounce shadow-lg shadow-emerald-500/30">
+              <CheckCircleIcon className="w-12 h-12 text-white" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
               Pembayaran <span className="gradient-text">Berhasil!</span>

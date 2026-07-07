@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
@@ -13,6 +13,9 @@ import { useCartContext } from '../../context/CartContext';
 import { useAuthContext } from '../../context/AuthContext';
 
 export function CheckoutPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const navigate = useNavigate();
   const { isAuthenticated } = useAuthContext();
   const { items, totalPrice, clearCart } = useCartContext();
@@ -30,9 +33,11 @@ export function CheckoutPage() {
   if (items.length === 0) {
     return (
       <div className="min-h-screen">
-        <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
+        <div className="container-1280 px-4 sm:px-6 lg:px-8">
           <Card className="p-12 text-center">
-            <CheckCircleIcon className="w-16 h-16 text-slate-300 mx-auto mb-4" />
+            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center mx-auto mb-4 shadow-lg">
+              <CheckCircleIcon className="w-10 h-10 text-white" />
+            </div>
             <h3 className="text-xl font-semibold text-slate-900 mb-2">
               Keranjang Kosong
             </h3>
@@ -60,7 +65,7 @@ export function CheckoutPage() {
   };
   return (
     <div className="min-h-screen">
-      <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
+      <div className="container-1280 px-4 sm:px-6 lg:px-8">
         <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8">
           <span className="gradient-text">Payment</span> Checkout
         </h1>
@@ -79,7 +84,9 @@ export function CheckoutPage() {
                   onClick={() => setPaymentMethod('credit-card')}
                   className={`w-full p-4 rounded-2xl border-2 transition-all flex items-center gap-4 ${paymentMethod === 'credit-card' ? 'border-purple-500 bg-purple-50' : 'border-slate-200 hover:border-slate-300'}`}>
                   
-                  <CreditCardIcon className="w-6 h-6 text-slate-600" />
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center">
+                    <CreditCardIcon className="w-6 h-6 text-white" />
+                  </div>
                   <div className="text-left">
                     <div className="font-semibold text-slate-900">
                       Kartu Kredit/Debit
@@ -94,7 +101,9 @@ export function CheckoutPage() {
                   onClick={() => setPaymentMethod('e-wallet')}
                   className={`w-full p-4 rounded-2xl border-2 transition-all flex items-center gap-4 ${paymentMethod === 'e-wallet' ? 'border-purple-500 bg-purple-50' : 'border-slate-200 hover:border-slate-300'}`}>
                   
-                  <WalletIcon className="w-6 h-6 text-slate-600" />
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
+                    <WalletIcon className="w-6 h-6 text-white" />
+                  </div>
                   <div className="text-left">
                     <div className="font-semibold text-slate-900">E-Wallet</div>
                     <div className="text-sm text-slate-600">
@@ -107,7 +116,9 @@ export function CheckoutPage() {
                   onClick={() => setPaymentMethod('bank-transfer')}
                   className={`w-full p-4 rounded-2xl border-2 transition-all flex items-center gap-4 ${paymentMethod === 'bank-transfer' ? 'border-purple-500 bg-purple-50' : 'border-slate-200 hover:border-slate-300'}`}>
                   
-                  <BuildingIcon className="w-6 h-6 text-slate-600" />
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center">
+                    <BuildingIcon className="w-6 h-6 text-white" />
+                  </div>
                   <div className="text-left">
                     <div className="font-semibold text-slate-900">
                       Transfer Bank

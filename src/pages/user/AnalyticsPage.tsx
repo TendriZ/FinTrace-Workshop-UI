@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { StatCard } from '../../components/ui/StatCard';
@@ -12,6 +12,9 @@ import {
 } from 'lucide-react';
 
 export function AnalyticsPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [timeFilter, setTimeFilter] = useState<'week' | 'month' | 'year'>('month');
 
   const spendingData = [
@@ -59,23 +62,23 @@ export function AnalyticsPage() {
 
   return (
     <div className="min-h-screen">
-      <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
+      <div className="container-1280 px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 sm:mb-8 gap-3 sm:gap-0">
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
+            <h1 className="text-xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-1 sm:mb-2">
               Financial <span className="gradient-text">Analytics</span>
             </h1>
-            <p className="text-slate-600">
+            <p className="text-xs sm:text-base text-slate-600">
               Analisis lengkap keuangan Anda
             </p>
           </div>
-          <div className="flex items-center gap-2 bg-white rounded-full border border-slate-200 p-1">
+          <div className="flex items-center bg-white rounded-full border border-slate-200 p-1 w-full sm:w-auto">
             {(['week', 'month', 'year'] as const).map((filter) => (
               <button
                 key={filter}
                 onClick={() => setTimeFilter(filter)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                className={`flex-1 sm:flex-none px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all whitespace-nowrap ${
                   timeFilter === filter
                     ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white'
                     : 'text-slate-600 hover:bg-slate-100'

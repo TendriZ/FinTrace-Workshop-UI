@@ -26,7 +26,7 @@ export const AppLayout = () => {
 
       <div className="flex flex-1 overflow-x-hidden">
         {isAdmin && <AdminSidebar />}
-        <main className={`flex-1 ${isAdmin || isUserPrivate ? 'p-4 lg:p-6' : ''} ${isAdmin ? 'lg:ml-64 ml-0' : ''} w-full`}>
+        <main className={`flex-1 ${isAdmin || isUserPrivate ? 'p-4 lg:p-8' : ''} ${isAdmin ? 'lg:ml-64 ml-0' : ''} w-full`}>
           <Outlet />
         </main>
       </div>

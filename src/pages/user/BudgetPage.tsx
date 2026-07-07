@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { StatCard } from '../../components/ui/StatCard';
@@ -21,6 +21,9 @@ interface Budget {
 }
 
 export function BudgetPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [budgets, setBudgets] = useState<Budget[]>([
     {
       id: '1',
@@ -118,7 +121,7 @@ export function BudgetPage() {
 
   return (
     <div className="min-h-screen">
-      <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
+      <div className="container-1280 px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
@@ -207,7 +210,9 @@ export function BudgetPage() {
 
           {budgets.length === 0 && (
             <div className="text-center py-12">
-              <PiggyBankIcon className="w-16 h-16 text-slate-300 mx-auto mb-4" />
+              <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <PiggyBankIcon className="w-10 h-10 text-white" />
+              </div>
               <p className="text-slate-600 mb-4">
                 Belum ada kategori budget
               </p>

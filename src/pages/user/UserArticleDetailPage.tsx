@@ -35,7 +35,7 @@ export function UserArticleDetailPage() {
     if (!article) {
       return (
         <div className="min-h-screen">
-          <div className="container-1280 px-4 sm:px-6 lg:px-8 py-12">
+          <div className="container-1280 px-4 sm:px-6 lg:px-8">
             <Card className="p-12 text-center">
               <h1 className="text-2xl font-bold text-slate-900 mb-4">Artikel Tidak Ditemukan</h1>
               <p className="text-slate-600 mb-6">Artikel yang Anda cari tidak tersedia.</p>
