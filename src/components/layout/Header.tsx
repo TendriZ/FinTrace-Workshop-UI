@@ -13,21 +13,21 @@
           <div className="flex items-center h-16">
             {/* Logo - Left */}
             <div className="w-20 flex-shrink-0">
-              <Link to="/" className="flex items-center gap-3 group">
+              <a href="https://cautious-encounter-857447.framer.app/" className="flex items-center gap-3 group">
                 <img
                   src="/images/FinTrace-Logo.png"
                   alt="FinTrace Logo"
                   className="w-12 h-12 sm:w-16 sm:h-16 object-contain transform group-hover:scale-105 transition-transform" />
-              </Link>
+              </a>
             </div>
 
             {/* Desktop Navigation - Centered */}
             <nav className="hidden md:flex-1 md:flex md:justify-center md:items-center md:gap-8">
-              <Link
-                to="/"
-                className={`text-sm font-medium transition-colors ${isActive('/') ? 'text-indigo-600' : 'text-slate-600 hover:text-slate-900'}`}>
+              <a
+                href="https://cautious-encounter-857447.framer.app/"
+                className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">
                 Home
-              </Link>
+              </a>
               <Link
                 to="/articles"
                 className={`text-sm font-medium transition-colors ${isActive('/articles') ? 'text-indigo-600' : 'text-slate-600 hover:text-slate-900'}`}>
@@ -73,12 +73,12 @@
           {/* Mobile Menu */}
           {mobileMenuOpen && (
             <nav className="md:hidden py-4 space-y-2 border-t border-slate-200 mt-4">
-              <Link
-                to="/"
+              <a
+                href="https://cautious-encounter-857447.framer.app/"
                 onClick={() => setMobileMenuOpen(false)}
-                className={`block px-4 py-2 rounded-lg text-sm font-medium transition-colors ${isActive('/') ? 'text-indigo-600 bg-indigo-50' : 'text-slate-600 hover:bg-slate-100'}`}>
+                className="block px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-100 transition-colors">
                 Home
-              </Link>
+              </a>
               <Link
                 to="/articles"
                 onClick={() => setMobileMenuOpen(false)}
@@ -97,8 +97,8 @@
                   onClick={() => setMobileMenuOpen(false)}
                   className="block px-4 py-2 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg text-sm font-medium text-center shadow-lg shadow-cyan-500/30">
                   Get Started
-                </Link>
-              </div>
+              </Link>
+            </div>
             </nav>
           )}
         </div>

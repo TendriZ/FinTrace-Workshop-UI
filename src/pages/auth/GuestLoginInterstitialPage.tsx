@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
 import { User } from 'lucide-react';
 import { useAuthContext } from '../../context/AuthContext';
@@ -87,9 +87,9 @@ export function GuestLoginInterstitialPage() {
           </div>
 
           <p className="text-center text-sm text-slate-500 mt-4">
-            <Link to="/" className="hover:text-purple-600">
+            <a href="https://cautious-encounter-857447.framer.app/" className="hover:text-purple-600">
               Back to Home
-            </Link>
+            </a>
           </p>
         </div>
       </div>
