@@ -206,23 +206,27 @@ export function GoalPage() {
             title="Total Target"
             value={`Rp ${totalTarget.toLocaleString('id-ID')}`}
             icon={Target}
+            iconColor="purple"
           />
           <StatCard
             title="Total Tercapai"
             value={`Rp ${totalSaved.toLocaleString('id-ID')}`}
             change={`${overallProgress.toFixed(1)}%`}
             icon={DollarSign}
+            iconColor="emerald"
           />
           <StatCard
             title="Sisa Dibutuhkan"
             value={`Rp ${remainingNeeded.toLocaleString('id-ID')}`}
             change={`${(100 - overallProgress).toFixed(1)}%`}
             icon={TrendingUp}
+            iconColor="blue"
           />
           <StatCard
             title="Active Goals"
             value={goals.length.toString()}
             icon={Award}
+            iconColor="cyan"
           />
         </div>
 

@@ -144,18 +144,21 @@ export function BudgetPage() {
             title="Total Budget"
             value={`Rp ${totalBudget.toLocaleString('id-ID')}`}
             icon={PiggyBankIcon}
+            iconColor="emerald"
           />
           <StatCard
             title="Total Terpakai"
             value={`Rp ${totalSpent.toLocaleString('id-ID')}`}
             change={`${((totalSpent / totalBudget) * 100).toFixed(1)}%`}
             icon={TrendingUpIcon}
+            iconColor="red"
           />
           <StatCard
             title="Sisa Budget"
             value={`Rp ${remainingBudget.toLocaleString('id-ID')}`}
             change={`${((remainingBudget / totalBudget) * 100).toFixed(1)}%`}
             icon={TrendingUpIcon}
+            iconColor="blue"
           />
         </div>
 

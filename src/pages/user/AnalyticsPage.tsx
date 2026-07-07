@@ -39,24 +39,28 @@ export function AnalyticsPage() {
       title: 'Total Pemasukan',
       value: 'Rp 51.300.000',
       change: '+15.3%',
-      icon: WalletIcon
+      icon: WalletIcon,
+      color: 'emerald' as const
     },
     {
       title: 'Total Pengeluaran',
       value: 'Rp 24.000.000',
       change: '-8.2%',
-      icon: TrendingDownIcon
+      icon: TrendingDownIcon,
+      color: 'red' as const
     },
     {
       title: 'Rasio Tabungan',
       value: '53.2%',
       change: '+5.1%',
-      icon: TrendingUpIcon
+      icon: TrendingUpIcon,
+      color: 'blue' as const
     },
     {
       title: 'Kategori Terbesar',
       value: 'Makanan',
-      icon: PieChartIcon
+      icon: PieChartIcon,
+      color: 'purple' as const
     }
   ];
 
@@ -101,6 +105,7 @@ export function AnalyticsPage() {
                 value={stat.value}
                 change={stat.change}
                 icon={Icon}
+                iconColor={stat.color}
               />
             );
           })}
