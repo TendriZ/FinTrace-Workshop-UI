@@ -26,9 +26,9 @@ export function AdminSidebar() {
 
       {/* Sidebar */}
       <aside className={`
-        fixed h-full z-40 bg-white border-r border-slate-200/50 transition-transform duration-300
+        fixed z-40 bg-white border-r border-slate-200/50 transition-transform duration-300
         ${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0
-        w-64 top-20 lg:top-20
+        w-64 top-20 lg:top-20 h-[calc(100vh-80px)] overflow-y-auto
       `}>
         <div className="p-4 space-y-2 mt-4 lg:mt-4">
           {menu.map((item) => {
