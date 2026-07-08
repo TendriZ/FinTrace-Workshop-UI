@@ -18,15 +18,23 @@ export const AppLayout = () => {
   const isUserPrivate = userPrivateRoutes.some(route => pathname.startsWith(route));
 
   return (
-    <div className="min-h-screen flex flex-col overflow-x-hidden">
+    // ✅ Hapus overflow-x-hidden dari sini
+    <div className="min-h-screen flex flex-col">
       {isAuth && <span />}
       {isAdmin && <AdminHeader />}
       {isUserPrivate && <UserHeader />}
       {!isAuth && !isAdmin && !isUserPrivate && <Header />}
 
-      <div className="flex flex-1 overflow-x-hidden">
+      {/* ✅ Hapus overflow-x-hidden dari sini juga */}
+      <div className="flex flex-1">
         {isAdmin && <AdminSidebar />}
-        <main className={`flex-1 ${isAdmin || isUserPrivate ? 'p-4 lg:p-8' : ''} ${isAdmin ? 'lg:ml-64 ml-0' : ''} w-full`}>
+
+        {/* ✅ overflow-x-hidden dipindah ke sini — tempat yang tepat */}
+        <main className={`
+          flex-1 overflow-x-hidden w-full
+          ${isAdmin || isUserPrivate ? 'p-4 lg:p-8' : ''}
+          ${isAdmin ? 'lg:ml-64 ml-0' : ''}
+        `}>
           <Outlet />
         </main>
       </div>
